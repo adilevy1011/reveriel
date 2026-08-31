@@ -1,433 +1,142 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>
-        Reveriel's Commission Form
-        </title>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width,initial-scale=1" name="viewport"/>
-        <meta content="light only" name="color-scheme"/>
-        <meta content="I’m Sarah Ducheneaut, I go by Reveriel online. I’m a visual artist from Sunnyvale, California, currently studying Studio Art and Psychology at UC Davis..." name="description"/>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico">
-        <meta content="website" property="og:type"/>
-        <meta content="Reveriel" property="og:site_name"/>
-        <meta content="Reveriel" property="og:title"/>
-        <meta content="Open for commission! Fill out the form to get your custom art." property="og:description"/>
-        <meta content="https://reveriel.adlv1011.tech" property="og:url"/>
-        <meta content="https://reveriel.adlv1011.tech/logo.png" property="og:image"/>
-        <meta content="image/png" property="og:image:type"/>
-        <meta content="300" property="og:image:width"/>
-        <meta content="300" property="og:image:height"/>
-        <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="Reveriel">
-        <meta name="twitter:description" content="Open for commission! Fill out the form to get your custom art.">
-        <meta name="twitter:image" content="https://reveriel.adlv1011.tech">
-
-        <link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Big+Shoulders:ital,wght@0,700;0,900;1,700;1,900&amp;family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,100;1,400;1,700;1,900&amp;family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400" rel="stylesheet" type="text/css"/>
-        <style>
-            /* Embedded styling to match website form theme */
-            .form-group {
-                text-align: left;
-                margin-bottom: 1.75rem;
-            }
-
-            .form-label {
-                display: block;
-                font-family: 'Roboto', sans-serif;
-                font-size: 0.85em;
-                font-weight: 700;
-                letter-spacing: 0.15rem;
-                text-transform: uppercase;
-                color: #5E5E5E;
-                margin-bottom: 0.5rem;
-            }
-
-            .form-label .required {
-                color: #FF7070;
-            }
-
-            .form-hint {
-                font-family: 'Open Sans', sans-serif;
-                font-size: 0.8em;
-                color: #888888;
-                margin-bottom: 0.5rem;
-                font-style: italic;
-            }
-
-            .form-input, .form-select, .form-textarea {
-                width: 100%;
-                padding: 0.75rem 1rem;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 0.9em;
-                color: #5E5E5E;
-                background-color: #FFFFFF;
-                border: 1px solid #DBDBDB;
-                border-radius: 0.375rem;
-                outline: none;
-                transition: border-color 0.25s ease;
-            }
-
-            .form-input:focus, .form-select:focus, .form-textarea:focus {
-                border-color: #54D6FF;
-            }
-
-            .options-grid {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                margin-top: 0.5rem;
-            }
-
-            .option-item {
-                display: flex;
-                align-items: center;
-                gap: 0.6rem;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 0.875em;
-                color: #5E5E5E;
-                cursor: pointer;
-            }
-
-            .option-item input[type="checkbox"],
-            .option-item input[type="radio"] {
-                accent-color: #FF7070;
-                width: 1rem;
-                height: 1rem;
-                cursor: pointer;
-            }
-
-            .text-inline-input {
-                width: auto;
-                flex-grow: 1;
-                padding: 0.3rem 0.5rem;
-                border: none;
-                border-bottom: 1px solid #DBDBDB;
-                border-radius: 0;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 0.875em;
-                outline: none;
-                color: #5E5E5E;
-            }
-
-            .text-inline-input:focus {
-                border-bottom-color: #54D6FF;
-            }
-
-            .submit-btn {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 3.25rem;
-                font-family: 'Roboto', sans-serif;
-                letter-spacing: 0.2rem;
-                font-size: 0.85em;
-                font-weight: 700;
-                border-radius: 0.625rem;
-                color: #FF7070;
-                background: transparent;
-                border: solid 1px #DBDBDB;
-                cursor: pointer;
-                transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-                text-transform: uppercase;
-            }
-
-            .submit-btn:hover {
-                border-color: #54D6FF;
-                color: #54D6FF;
-            }
-
-            .submit-btn:disabled {
-                opacity: 0.5;
-                cursor: not-allowed;
-                border-color: #DBDBDB !important;
-                color: #888888 !important;
-            }
-
-            #form-status {
-                margin-top: 1.5rem;
-                font-family: 'Open Sans', sans-serif;
-                font-size: 0.9em;
-                text-align: center;
-            }
-
-            .status-success {
-                color: #2e7d32;
-            }
-
-            .status-error {
-                color: #d32f2f;
-            }
-
-            .back-link {
-                display: inline-block;
-                margin-bottom: 2rem;
-                font-family: 'Roboto', sans-serif;
-                font-size: 0.8em;
-                letter-spacing: 0.15rem;
-                text-transform: uppercase;
-                color: #FF7070;
-                text-decoration: none;
-            }
-
-            .back-link:hover {
-                color: #54D6FF;
-            }
-        </style>
-    </head>
-    <body class="is-ready">
-        <div class="site-wrapper">
-            <div class="site-main">
-                <div class="inner">
-                    <div class="container-component instance-4 default" id="container04">
-                        <div class="wrapper">
-                            <div class="inner">
-                                <a href="/" class="back-link">&larr; Back to Home</a>
-                                
-                                <h1 class="text-component instance-3" style="text-align: center; margin-bottom: 0.5rem;">
-                                    Reveriel
-                                </h1>
-                                <h2 class="text-component instance-9" style="text-align: center; margin-bottom: 1.5rem;">
-                                    <strong>Commission Request</strong>
-                                </h2>
-                                
-                                <p class="text-component instance-10" style="margin-bottom: 2.5rem;">
-                                    <span class="p">Please fill out the form below to request a custom piece. I'll review your details and get back to you via email with availability and pricing!</span>
-                                </p>
-
-                                <form id="commission-form" action="javascript:void(0);" method="POST">
-                                    <!-- Email -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Email <span class="required">*</span></label>
-                                        <input type="email" id="email" class="form-input" required placeholder="your.email@example.com">
-                                    </div>
-
-                                    <!-- Phone Number -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="phone">Phone Number <span style="font-weight: normal; font-size: 0.85em; color: #888;">(Optional)</span></label>
-                                        <input type="tel" id="phone" class="form-input" placeholder="(123) 456-7890">
-                                    </div>
-
-                                    <!-- Artwork Type -->
-                                    <div class="form-group">
-                                        <label class="form-label">Artwork Type <span class="required">*</span></label>
-                                        <div class="options-grid">
-                                            <label class="option-item">
-                                                <input type="radio" name="artwork_type" value="Digital" required> Digital
-                                            </label>
-                                            <label class="option-item">
-                                                <input type="radio" name="artwork_type" value="Traditional" required> Traditional
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Medium (Checkboxes) -->
-                                    <div class="form-group">
-                                        <label class="form-label">Medium <span class="required">*</span></label>
-                                        <div class="form-hint">Here are the traditional mediums I can use.</div>
-                                        <div class="options-grid">
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Oil paint"> Oil paint</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Acrylic paint"> Acrylic paint</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Watercolor paint"> Watercolor paint</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Oil pastel"> Oil pastel</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Pencil / Graphite"> Pencil / Graphite</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Pen"> Pen</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="Mixed Media"> Mixed Media</label>
-                                            <label class="option-item"><input type="checkbox" name="medium" value="No preference / Up to artist"> No preference / Up to artist</label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Size / Dimensions (Radio) -->
-                                    <div class="form-group">
-                                        <label class="form-label">Size / Dimensions <span class="required">*</span></label>
-                                        <div class="options-grid">
-                                            <label class="option-item"><input type="radio" name="size" value="5x7 inches" required> 5x7 inches</label>
-                                            <label class="option-item"><input type="radio" name="size" value="8x10 inches"> 8x10 inches</label>
-                                            <label class="option-item"><input type="radio" name="size" value="11x14 inches"> 11x14 inches</label>
-                                            <label class="option-item"><input type="radio" name="size" value="16x20 inches"> 16x20 inches</label>
-                                            <label class="option-item"><input type="radio" name="size" value="24x36 inches"> 24x36 inches</label>
-                                            <label class="option-item"><input type="radio" name="size" value="No preference / Up to artist"> No preference / Up to artist</label>
-                                            <label class="option-item">
-                                                <input type="radio" name="size" value="Other" id="size-other-radio"> Other: 
-                                                <input type="text" id="size-other-text" class="text-inline-input" placeholder="Specify size...">
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Description -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="description">Description <span class="required">*</span></label>
-                                        <textarea id="description" class="form-textarea" rows="4" required placeholder="Describe your vision, subject matter, mood, or concepts..."></textarea>
-                                    </div>
-
-                                    <!-- Style Preference -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="style_preference">Style Preference</label>
-                                        <input type="text" id="style_preference" class="form-input" placeholder="e.g., Expressive, painterly, line art, detailed...">
-                                    </div>
-
-                                    <!-- Reference Images -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="reference_images">Reference Images</label>
-                                        <div class="form-hint">Upload photos, sketches, or visual inspiration (max 5MB per file).</div>
-                                        <input type="file" id="reference_images" class="form-input" multiple accept="image/*">
-                                    </div>
-
-                                    <!-- Deadline & Flexibility -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="deadline">Target Deadline</label>
-                                        <input type="date" id="deadline" class="form-input">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="form-label">Deadline Flexibility <span class="required">*</span></label>
-                                        <div class="options-grid">
-                                            <label class="option-item"><input type="radio" name="deadline_flexibility" value="Flexible" required> Flexible</label>
-                                            <label class="option-item"><input type="radio" name="deadline_flexibility" value="Strict / Hard Deadline"> Strict / Hard Deadline</label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Payment Method -->
-                                    <div class="form-group">
-                                        <label class="form-label">Payment Method <span class="required">*</span></label>
-                                        <div class="options-grid">
-                                            <label class="option-item"><input type="radio" name="payment_method" value="PayPal" required> PayPal</label>
-                                            <label class="option-item"><input type="radio" name="payment_method" value="Venmo"> Venmo</label>
-                                            <label class="option-item"><input type="radio" name="payment_method" value="Zelle"> Zelle</label>
-                                        </div>
-                                    </div>
-
-                                    <!-- Additional Comment -->
-                                    <div class="form-group">
-                                        <label class="form-label" for="additional_comment">Additional Comments</label>
-                                        <textarea id="additional_comment" class="form-textarea" rows="3" placeholder="Anything else I should know?"></textarea>
-                                    </div>
-
-                                    <button type="submit" id="submit-btn" class="submit-btn">Submit Request</button>
-                                </form>
-
-                                <div id="form-status"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script>
-            // 1. Initialize Supabase Client
-            const SUPABASE_URL = 'https://gvooqilvlqztifzpwaew.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2b29xaWx2bHF6dGlmenB3YWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjc2NzIsImV4cCI6MjEwMzcwMzY3Mn0.GWoRsQPa1B0sQIGf-6trhf9WwdxvQREgz25puLbA9_o';
-            const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-            const form = document.getElementById('commission-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const formStatus = document.getElementById('form-status');
-
-            // Enable 'Other' size selection when text input is focused
-            document.getElementById('size-other-text').addEventListener('focus', () => {
-                document.getElementById('size-other-radio').checked = true;
-            });
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // UI Loading state
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Submitting...';
-                formStatus.className = '';
-                formStatus.textContent = '';
-
-                try {
-                    // 2. Gather form fields
-                    const email = document.getElementById('email').value.trim();
-                    const phone = document.getElementById('phone').value.trim() || null;
-                    const artworkType = document.querySelector('input[name="artwork_type"]:checked')?.value;
-                    
-                    // Collect checked mediums into a comma-separated string
-                    const checkedMediums = Array.from(document.querySelectorAll('input[name="medium"]:checked')).map(cb => cb.value);
-                    const medium = checkedMediums.length > 0 ? checkedMediums.join(', ') : 'Not specified';
-
-                    // Resolve size choice
-                    let size = document.querySelector('input[name="size"]:checked')?.value;
-                    if (size === 'Other') {
-                        const otherVal = document.getElementById('size-other-text').value.trim();
-                        size = otherVal ? `Other: ${otherVal}` : 'Custom Size';
-                    }
-
-                    const description = document.getElementById('description').value.trim();
-                    const stylePreference = document.getElementById('style_preference').value.trim() || null;
-                    const deadline = document.getElementById('deadline').value || null;
-                    const deadlineFlexibility = document.querySelector('input[name="deadline_flexibility"]:checked')?.value;
-                    const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
-                    const additionalComment = document.getElementById('additional_comment').value.trim() || null;
-
-                    // 3. Upload reference image files to Supabase Storage
-                    const fileInput = document.getElementById('reference_images');
-                    const uploadedImageUrls = [];
-
-                    if (fileInput.files.length > 0) {
-                        submitBtn.textContent = 'Uploading files...';
-                        for (const file of fileInput.files) {
-                            const fileExt = file.name.split('.').pop();
-                            const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
-
-                            const { data: uploadData, error: uploadError } = await supabaseClient
-                                .storage
-                                .from('reference-images')
-                                .upload(fileName, file);
-
-                            if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
-
-                            // Get Public URL for the uploaded file
-                            const { data: urlData } = supabaseClient
-                                .storage
-                                .from('reference-images')
-                                .getPublicUrl(fileName);
-
-                            if (urlData?.publicUrl) {
-                                uploadedImageUrls.push(urlData.publicUrl);
-                            }
-                        }
-                    }
-
-                    // 4. Insert row into Supabase Database
-                    submitBtn.textContent = 'Saving request...';
-                    const { error: insertError } = await supabaseClient
-                        .from('commissions')
-                        .insert([
-                            {
-                                email: email,
-                                phone_number: phone,
-                                artwork_type: artworkType,
-                                medium: medium,
-                                size: size,
-                                description: description,
-                                style_preference: stylePreference,
-                                reference_images: uploadedImageUrls,
-                                deadline: deadline,
-                                deadline_flexibility: deadlineFlexibility,
-                                payment_method: paymentMethod,
-                                additional_comment: additionalComment
-                            }
-                        ]);
-
-                    if (insertError) throw insertError;
-
-                    // Success feedback
-                    formStatus.className = 'status-success';
-                    formStatus.textContent = 'Thank you! Your commission request has been successfully submitted.';
-                    form.reset();
-
-                } catch (err) {
-                    console.error('Submission error:', err);
-                    formStatus.className = 'status-error';
-                    formStatus.textContent = `Error: ${err.message || 'Something went wrong. Please try again.'}`;
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Submit Request';
-                }
-            });
-        </script>
-        </body>
+<html lang="en">
+<head>
+    <title>Commission Request — Reveriel</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Request a custom artwork from Reveriel.">
+    <meta name="color-scheme" content="light only">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@700;900&family=Open+Sans:wght@400;600&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --ink:#3d3b4b; --muted:#777382; --coral:#ff7070; --sky:#54d6ff; --paper:#fffdf9; --line:#e8e3e2; --navy:#143f80; }
+        body { background:#f8f5f1; color:var(--ink); }
+        .commission-page { width:100%; padding:clamp(1rem,3vw,2.5rem); }
+        .commission-shell { width:min(68rem,100%); margin:0 auto; }
+        .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+        .back-link,.brand-link { font:700 .75rem/1 Roboto,sans-serif; letter-spacing:.14rem; text-transform:uppercase; text-decoration:none; color:var(--ink); }
+        .back-link:hover,.brand-link:hover { color:var(--coral); }
+        .hero-art { position:relative; min-height:clamp(19rem,48vw,32rem); border-radius:1.5rem; overflow:hidden; display:flex; align-items:flex-end; background:#172c69 url('gallery/portals.jpg') center 47%/cover no-repeat; box-shadow:0 1.5rem 4rem rgba(38,30,47,.17); }
+        .hero-art::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,16,40,.03) 30%,rgba(13,18,47,.82)); }
+        .hero-copy { position:relative; z-index:1; max-width:43rem; padding:clamp(1.5rem,5vw,4rem); color:white; text-align:left; }
+        .eyebrow { margin:0 0 .6rem; font:700 .72rem/1 Roboto,sans-serif; letter-spacing:.2rem; text-transform:uppercase; }
+        .hero-copy h1 { margin:0; font:900 clamp(3.2rem,9vw,7rem)/.84 'Big Shoulders',sans-serif; letter-spacing:-.03em; text-transform:uppercase; }
+        .hero-copy p { max-width:34rem; margin:1rem 0 0; font:400 clamp(.95rem,2vw,1.08rem)/1.7 'Open Sans',sans-serif; }
+        .form-layout { display:grid; grid-template-columns:minmax(0,1fr) 15rem; gap:2rem; align-items:start; margin:2rem 0; }
+        .form-card { background:var(--paper); border:1px solid rgba(61,59,75,.11); border-radius:1.5rem; padding:clamp(1.35rem,4vw,3.25rem); box-shadow:0 1rem 3rem rgba(45,35,55,.08); }
+        .progress-card { position:sticky; top:1rem; padding:1.4rem; border-radius:1rem; background:#fff; border:1px solid var(--line); text-align:left; }
+        .progress-card h2 { margin:0 0 1rem; font:900 1.2rem/1 'Big Shoulders',sans-serif; text-transform:uppercase; letter-spacing:.05em; }
+        .progress-list { list-style:none; padding:0; margin:0; }
+        .progress-list li { display:flex; align-items:center; gap:.65rem; padding:.55rem 0; color:var(--muted); font:600 .73rem/1.35 Roboto,sans-serif; text-transform:uppercase; letter-spacing:.08rem; }
+        .progress-list span { width:1.6rem; height:1.6rem; flex:0 0 auto; display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--coral); }
+        .progress-list li.is-active { color:var(--ink); }
+        .progress-list li.is-active span { background:var(--coral); border-color:var(--coral); color:#fff; }
+        .form-intro { margin-bottom:2.5rem; text-align:left; }
+        .form-intro h2 { margin:0 0 .5rem; font:900 clamp(2.3rem,5vw,3.6rem)/1 'Big Shoulders',sans-serif; text-transform:uppercase; color:var(--ink); }
+        .form-intro p { margin:0; color:var(--muted); font:400 .95rem/1.7 'Open Sans',sans-serif; }
+        .form-section { margin:0; padding:0; border:0; min-width:0; }
+        .form-section + .form-section { margin-top:2.75rem; padding-top:2.75rem; border-top:1px solid var(--line); }
+        .section-heading { display:flex; gap:1rem; align-items:flex-start; margin-bottom:1.8rem; }
+        .section-number { width:2.6rem; height:2.6rem; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:#fff0ed; color:var(--coral); font:900 1rem/1 Roboto,sans-serif; }
+        .section-heading h3 { margin:0; padding:0; font:900 1.65rem/1 'Big Shoulders',sans-serif; text-transform:uppercase; color:var(--ink); }
+        .section-heading p { margin:.35rem 0 0; color:var(--muted); font:400 .82rem/1.5 'Open Sans',sans-serif; }
+        .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-group { margin-bottom:1.4rem; text-align:left; }
+        .form-label { display:block; margin-bottom:.5rem; font:700 .72rem/1 Roboto,sans-serif; letter-spacing:.11rem; text-transform:uppercase; color:var(--ink); }
+        .required { color:var(--coral); }
+        .optional { color:var(--muted); font-weight:500; letter-spacing:0; text-transform:none; }
+        .form-hint { margin:-.1rem 0 .6rem; font:400 .78rem/1.5 'Open Sans',sans-serif; color:var(--muted); }
+        .form-input,.form-textarea { width:100%; padding:.85rem 1rem; border:1px solid var(--line); border-radius:.7rem; outline:0; background:#fff; color:var(--ink); font:400 .9rem/1.5 'Open Sans',sans-serif; transition:.2s ease; }
+        .form-input:focus,.form-textarea:focus { border-color:var(--sky); box-shadow:0 0 0 4px rgba(84,214,255,.16); }
+        .form-textarea { resize:vertical; min-height:8rem; }
+        .options-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+        .option-item { display:flex; align-items:center; gap:.65rem; min-height:3.1rem; padding:.75rem .85rem; border:1px solid var(--line); border-radius:.75rem; background:#fff; color:var(--ink); cursor:pointer; font:600 .82rem/1.3 'Open Sans',sans-serif; transition:.2s ease; }
+        .option-item:hover { transform:translateY(-1px); border-color:#ffc0bb; }
+        .option-item:has(input:checked) { border-color:var(--coral); background:#fff4f1; box-shadow:0 0 0 2px rgba(255,112,112,.08); }
+        .option-item input { accent-color:var(--coral); width:1.05rem; height:1.05rem; flex:0 0 auto; }
+        .option-item.full { grid-column:1/-1; }
+        .text-inline-input { min-width:0; flex:1; padding:.25rem .15rem; border:0; border-bottom:1px solid #ccc; background:transparent; outline:0; font:400 .82rem 'Open Sans',sans-serif; }
+        .file-drop { display:block; padding:1.4rem; border:1px dashed #b9b3bd; border-radius:.85rem; background:#fff; text-align:center; cursor:pointer; }
+        .file-drop:hover { border-color:var(--sky); background:#f5fcff; }
+        .file-drop input { width:100%; font:400 .82rem 'Open Sans',sans-serif; }
+        #file-summary { display:block; margin:.5rem 0 0; font:400 .78rem 'Open Sans',sans-serif; color:var(--muted); }
+        .submit-wrap { margin-top:2rem; }
+        .submit-btn { width:100%; min-height:3.8rem; border:0; border-radius:.85rem; background:linear-gradient(100deg,var(--coral),#ff9079); color:#fff; cursor:pointer; font:900 .82rem/1 Roboto,sans-serif; letter-spacing:.17rem; text-transform:uppercase; box-shadow:0 .65rem 1.4rem rgba(255,112,112,.25); transition:.2s ease; }
+        .submit-btn:hover { transform:translateY(-2px); box-shadow:0 .85rem 1.7rem rgba(255,112,112,.32); }
+        .submit-btn:disabled { opacity:.55; cursor:wait; transform:none; }
+        .submit-note { margin:.85rem 0 0; text-align:center; color:var(--muted); font:400 .76rem/1.5 'Open Sans',sans-serif; }
+        .status-error { margin-top:1rem; padding:1rem; border-radius:.7rem; background:#fff0f0; color:#a93030; font:600 .85rem/1.5 'Open Sans',sans-serif; }
+        .success-panel { display:none; padding:clamp(2rem,6vw,4rem); border-radius:1.5rem; background:var(--navy); color:#fff; text-align:center; box-shadow:0 1rem 3rem rgba(20,63,128,.2); }
+        .success-panel.is-visible { display:block; animation:rise .45s ease both; }
+        .success-mark { width:4.5rem; height:4.5rem; display:grid; place-items:center; margin:0 auto 1.5rem; border-radius:50%; background:var(--sky); color:var(--navy); font:900 2rem Roboto,sans-serif; }
+        .success-panel h2 { margin:0; font:900 clamp(2.5rem,6vw,4.5rem)/.95 'Big Shoulders',sans-serif; text-transform:uppercase; }
+        .success-panel p { max-width:34rem; margin:1rem auto 0; font:400 .95rem/1.7 'Open Sans',sans-serif; }
+        .success-reference { display:inline-block; margin:1.4rem 0; padding:.65rem 1rem; border:1px solid rgba(255,255,255,.3); border-radius:2rem; font:700 .72rem Roboto,sans-serif; letter-spacing:.08rem; }
+        .success-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:.7rem; margin-top:1.2rem; }
+        .success-actions a,.success-actions button { padding:.8rem 1.1rem; border:1px solid rgba(255,255,255,.5); border-radius:.6rem; background:transparent; color:#fff; cursor:pointer; text-decoration:none; font:700 .72rem Roboto,sans-serif; text-transform:uppercase; letter-spacing:.1rem; }
+        .success-actions a:hover,.success-actions button:hover { background:#fff; color:var(--navy); }
+        .closing-art { position:relative; min-height:clamp(15rem,35vw,25rem); overflow:hidden; border-radius:1.5rem; background:#fff url('gallery/what_gives_me_wings.jpg') center/cover no-repeat; border:1px solid var(--line); }
+        .closing-art figcaption { position:absolute; right:1rem; bottom:1rem; padding:.45rem .7rem; border-radius:2rem; background:rgba(255,255,255,.9); color:var(--ink); font:700 .67rem Roboto,sans-serif; letter-spacing:.08rem; text-transform:uppercase; }
+        @keyframes rise { from{opacity:0;transform:translateY(1rem)} to{opacity:1;transform:none} }
+        @media(max-width:800px){ .form-layout{grid-template-columns:1fr}.progress-card{position:static;order:-1}.progress-list{display:grid;grid-template-columns:repeat(3,1fr)}.progress-list li{flex-direction:column;text-align:center}.field-row{grid-template-columns:1fr} }
+        @media(max-width:520px){ .commission-page{padding:.75rem}.hero-art,.form-card,.success-panel,.closing-art{border-radius:1rem}.options-grid{grid-template-columns:1fr}.option-item.full{grid-column:auto}.progress-card{padding:1rem}.progress-list li{font-size:.6rem;letter-spacing:.04rem}.hero-copy{padding:1.4rem} }
+    </style>
+</head>
+<body class="is-ready">
+<main class="commission-page"><div class="commission-shell">
+    <nav class="top-nav" aria-label="Commission page navigation"><a class="back-link" href="/">← Portfolio</a><a class="brand-link" href="/">Reveriel</a></nav>
+    <header class="hero-art"><div class="hero-copy"><p class="eyebrow">Custom art, made collaboratively</p><h1>Bring your idea to life.</h1><p>Tell me what you’re imagining. This form gives me everything I need to understand the piece, check availability, and prepare a thoughtful quote.</p></div></header>
+    <div class="form-layout"><div>
+        <section class="form-card" id="form-card"><div class="form-intro"><h2>Commission request</h2><p>Share as much or as little as you know right now. Required fields are marked with <span class="required">*</span>.</p></div>
+        <form id="commission-form" method="post">
+            <section class="form-section" data-step="1"><div class="section-heading"><span class="section-number">01</span><div><h3>Personal information</h3><p>Where I can reach you about your request.</p></div></div><div class="field-row">
+                <div class="form-group"><label class="form-label" for="email">Email <span class="required">*</span></label><input type="email" id="email" class="form-input" autocomplete="email" required placeholder="your.email@example.com"></div>
+                <div class="form-group"><label class="form-label" for="phone">Phone <span class="optional">(optional)</span></label><input type="tel" id="phone" class="form-input" autocomplete="tel" placeholder="(123) 456-7890"></div>
+            </div></section>
+            <section class="form-section" data-step="2"><div class="section-heading"><span class="section-number">02</span><div><h3>Dimensions &amp; medium</h3><p>Choose the format that feels closest. We can refine it together.</p></div></div>
+                <div class="form-group"><span class="form-label">Artwork type <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="artwork_type" value="Digital" required>Digital artwork</label><label class="option-item"><input type="radio" name="artwork_type" value="Traditional">Traditional artwork</label></div></div>
+                <div class="form-group"><span class="form-label">Medium <span class="required">*</span></span><p class="form-hint">Select every medium you’re open to.</p><div class="options-grid"><label class="option-item"><input type="checkbox" name="medium" value="Oil paint">Oil paint</label><label class="option-item"><input type="checkbox" name="medium" value="Acrylic paint">Acrylic paint</label><label class="option-item"><input type="checkbox" name="medium" value="Watercolor paint">Watercolor</label><label class="option-item"><input type="checkbox" name="medium" value="Oil pastel">Oil pastel</label><label class="option-item"><input type="checkbox" name="medium" value="Pencil / Graphite">Pencil / graphite</label><label class="option-item"><input type="checkbox" name="medium" value="Pen">Pen</label><label class="option-item"><input type="checkbox" name="medium" value="Mixed Media">Mixed media</label><label class="option-item"><input type="checkbox" name="medium" value="No preference / Up to artist">Artist’s choice</label></div></div>
+                <div class="form-group"><span class="form-label">Size / dimensions <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="size" value="5x7 inches" required>5 × 7 in</label><label class="option-item"><input type="radio" name="size" value="8x10 inches">8 × 10 in</label><label class="option-item"><input type="radio" name="size" value="11x14 inches">11 × 14 in</label><label class="option-item"><input type="radio" name="size" value="16x20 inches">16 × 20 in</label><label class="option-item"><input type="radio" name="size" value="24x36 inches">24 × 36 in</label><label class="option-item"><input type="radio" name="size" value="No preference / Up to artist">Artist’s choice</label><label class="option-item full"><input type="radio" name="size" value="Other" id="size-other-radio">Other <input type="text" id="size-other-text" class="text-inline-input" aria-label="Custom dimensions" placeholder="Specify dimensions"></label></div></div>
+            </section>
+            <section class="form-section" data-step="3"><div class="section-heading"><span class="section-number">03</span><div><h3>Creative details</h3><p>The story, mood, references, and practical details.</p></div></div>
+                <div class="form-group"><label class="form-label" for="description">Your vision <span class="required">*</span></label><textarea id="description" class="form-textarea" rows="5" required placeholder="Describe the subject, story, colors, mood, or feeling you want the piece to hold..."></textarea></div>
+                <div class="form-group"><label class="form-label" for="style_preference">Style preference <span class="optional">(optional)</span></label><input type="text" id="style_preference" class="form-input" placeholder="Expressive, painterly, line art, detailed..."></div>
+                <div class="form-group"><label class="form-label" for="reference_images">Reference images <span class="optional">(optional)</span></label><p class="form-hint">Upload up to 5 photos, sketches, or inspiration images. Maximum 5MB each.</p><label class="file-drop"><input type="file" id="reference_images" multiple accept="image/*"><span id="file-summary">No files chosen</span></label></div>
+                <div class="field-row"><div class="form-group"><label class="form-label" for="deadline">Target deadline <span class="optional">(optional)</span></label><input type="date" id="deadline" class="form-input"></div><div class="form-group"><span class="form-label">Deadline flexibility <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="deadline_flexibility" value="Flexible" required>Flexible</label><label class="option-item"><input type="radio" name="deadline_flexibility" value="Strict / Hard Deadline">Hard deadline</label></div></div></div>
+                <div class="form-group"><span class="form-label">Payment method <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="payment_method" value="PayPal" required>PayPal</label><label class="option-item"><input type="radio" name="payment_method" value="Venmo">Venmo</label><label class="option-item"><input type="radio" name="payment_method" value="Zelle">Zelle</label></div></div>
+                <div class="form-group"><label class="form-label" for="additional_comment">Anything else? <span class="optional">(optional)</span></label><textarea id="additional_comment" class="form-textarea" rows="3" placeholder="Questions, shipping notes, gift details, or anything else I should know..."></textarea></div>
+            </section>
+            <div id="form-status" role="alert" aria-live="polite"></div><div class="submit-wrap"><button type="submit" id="submit-btn" class="submit-btn">Send commission request →</button><p class="submit-note">Submitting this form is a request, not a purchase. I’ll follow up with availability and pricing.</p></div>
+        </form></section>
+        <section class="success-panel" id="success-panel" role="status" aria-live="polite" tabindex="-1"><div class="success-mark">✓</div><p class="eyebrow">Request received</p><h2>Your idea is on its way!</h2><p>Thank you for trusting me with your vision. I’ll review the details and reply to <strong id="success-email"></strong> with availability, questions, and a quote.</p><div class="success-reference" id="success-reference"></div><div class="success-actions"><a href="/">Return to portfolio</a><button type="button" id="another-request">Send another request</button></div></section>
+    </div><aside class="progress-card" aria-label="Form sections"><h2>Your request</h2><ol class="progress-list"><li class="is-active" data-progress="1"><span>1</span>Personal info</li><li data-progress="2"><span>2</span>Format</li><li data-progress="3"><span>3</span>Details</li></ol></aside></div>
+    <figure class="closing-art"><figcaption>What Gives Me Wings</figcaption></figure>
+</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+    const SUPABASE_URL='https://gvooqilvlqztifzpwaew.supabase.co';
+    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2b29xaWx2bHF6dGlmenB3YWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjc2NzIsImV4cCI6MjEwMzcwMzY3Mn0.GWoRsQPa1B0sQIGf-6trhf9WwdxvQREgz25puLbA9_o';
+    const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+    const form=document.getElementById('commission-form'),formCard=document.getElementById('form-card'),successPanel=document.getElementById('success-panel'),submitBtn=document.getElementById('submit-btn'),formStatus=document.getElementById('form-status'),fileInput=document.getElementById('reference_images');
+    document.getElementById('size-other-text').addEventListener('focus',()=>document.getElementById('size-other-radio').checked=true);
+    fileInput.addEventListener('change',()=>{const n=fileInput.files.length;document.getElementById('file-summary').textContent=n?`${n} file${n===1?'':'s'} selected`:'No files chosen';});
+    const sections=document.querySelectorAll('[data-step]'),progressItems=document.querySelectorAll('[data-progress]');
+    const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)progressItems.forEach(item=>item.classList.toggle('is-active',item.dataset.progress===visible.target.dataset.step));},{rootMargin:'-25% 0px -55%',threshold:[0,.25,.5]});sections.forEach(section=>observer.observe(section));
+    function setError(message){formStatus.className='status-error';formStatus.textContent=message;formStatus.scrollIntoView({behavior:'smooth',block:'center'});}
+    form.addEventListener('submit',async event=>{
+        event.preventDefault();const mediums=Array.from(document.querySelectorAll('input[name="medium"]:checked')),files=Array.from(fileInput.files);
+        if(!mediums.length){setError('Please choose at least one medium, or select “Artist’s choice.”');return;}
+        if(files.length>5||files.some(file=>file.size>5*1024*1024)){setError('Please upload no more than 5 images, each under 5MB.');return;}
+        submitBtn.disabled=true;submitBtn.textContent='Preparing your request…';formStatus.className='';formStatus.textContent='';
+        try{const uploadedImageUrls=[];for(const file of files){submitBtn.textContent=`Uploading ${uploadedImageUrls.length+1} of ${files.length}…`;const ext=(file.name.split('.').pop()||'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase(),name=`${Date.now()}_${crypto.randomUUID().slice(0,8)}.${ext}`;const{error}=await supabaseClient.storage.from('reference-images').upload(name,file);if(error)throw new Error(`File upload failed: ${error.message}`);const{data}=supabaseClient.storage.from('reference-images').getPublicUrl(name);if(data?.publicUrl)uploadedImageUrls.push(data.publicUrl);}
+            let size=document.querySelector('input[name="size"]:checked')?.value;if(size==='Other')size=`Other: ${document.getElementById('size-other-text').value.trim()||'Custom size'}`;const email=document.getElementById('email').value.trim();submitBtn.textContent='Sending your request…';
+            const{error}=await supabaseClient.from('commissions').insert([{email,phone_number:document.getElementById('phone').value.trim()||null,artwork_type:document.querySelector('input[name="artwork_type"]:checked')?.value,medium:mediums.map(item=>item.value).join(', '),size,description:document.getElementById('description').value.trim(),style_preference:document.getElementById('style_preference').value.trim()||null,reference_images:uploadedImageUrls,deadline:document.getElementById('deadline').value||null,deadline_flexibility:document.querySelector('input[name="deadline_flexibility"]:checked')?.value,payment_method:document.querySelector('input[name="payment_method"]:checked')?.value,additional_comment:document.getElementById('additional_comment').value.trim()||null}]);if(error)throw error;
+            const reference=`REV-${new Date().getFullYear()}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;document.getElementById('success-email').textContent=email;document.getElementById('success-reference').textContent=`Confirmation ${reference}`;form.reset();document.getElementById('file-summary').textContent='No files chosen';formCard.hidden=true;successPanel.classList.add('is-visible');successPanel.focus();successPanel.scrollIntoView({behavior:'smooth',block:'center'});
+        }catch(error){console.error('Submission error:',error);setError(error.message||'Something went wrong. Please try again.');}finally{submitBtn.disabled=false;submitBtn.textContent='Send commission request →';}
+    });
+    document.getElementById('another-request').addEventListener('click',()=>{successPanel.classList.remove('is-visible');formCard.hidden=false;formCard.scrollIntoView({behavior:'smooth',block:'start'});});
+</script>
+</body>
 </html>
