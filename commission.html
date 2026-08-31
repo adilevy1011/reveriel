@@ -195,7 +195,7 @@
                                     <span class="p">Please fill out the form below to request a custom piece. I'll review your details and get back to you via email with availability and pricing!</span>
                                 </p>
 
-                                <form id="commission-form">
+                                <form id="commission-form" action="javascript:void(0);" method="POST">
                                     <!-- Email -->
                                     <div class="form-group">
                                         <label class="form-label" for="email">Email <span class="required">*</span></label>
@@ -313,7 +313,7 @@
                 </div>
             </div>
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
             // 1. Initialize Supabase Client
             const SUPABASE_URL = 'https://gvooqilvlqztifzpwaew.supabase.co';
