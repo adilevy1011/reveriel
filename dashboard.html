@@ -255,13 +255,19 @@
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         authError.textContent = '';
-        const email = document.getElementById('login-email').value;
+        
+        const email = document.getElementById('login-email').value.trim();
         const password = document.getElementById('login-password').value;
 
-        const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        console.log("Attempting sign in for:", email);
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        
         if (error) {
+            console.error("Supabase Auth Error:", error);
             authError.textContent = error.message;
         } else {
+            console.log("Login successful:", data);
             showDashboard();
         }
     });
