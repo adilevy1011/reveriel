@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+        Reveriel's Commission Form
+        </title>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width,initial-scale=1" name="viewport"/>
+        <meta content="light only" name="color-scheme"/>
+        <meta content="I’m Sarah Ducheneaut, I go by Reveriel online. I’m a visual artist from Sunnyvale, California, currently studying Studio Art and Psychology at UC Davis..." name="description"/>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        <meta content="website" property="og:type"/>
+        <meta content="Reveriel" property="og:site_name"/>
+        <meta content="Reveriel" property="og:title"/>
+        <meta content="Open for commission! Fill out the form to get your custom art." property="og:description"/>
+        <meta content="https://reveriel.adlv1011.tech" property="og:url"/>
+        <meta content="https://reveriel.adlv1011.tech/logo.png" property="og:image"/>
+        <meta content="image/png" property="og:image:type"/>
+        <meta content="300" property="og:image:width"/>
+        <meta content="300" property="og:image:height"/>
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Reveriel">
+        <meta name="twitter:description" content="Open for commission! Fill out the form to get your custom art.">
+        <meta name="twitter:image" content="https://reveriel.adlv1011.tech">
+
+        <link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Big+Shoulders:ital,wght@0,700;0,900;1,700;1,900&amp;family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,100;1,400;1,700;1,900&amp;family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400" rel="stylesheet" type="text/css"/>
+        <style>
+            /* Embedded styling to match website form theme */
+            .form-group {
+                text-align: left;
+                margin-bottom: 1.75rem;
+            }
+
+            .form-label {
+                display: block;
+                font-family: 'Roboto', sans-serif;
+                font-size: 0.85em;
+                font-weight: 700;
+                letter-spacing: 0.15rem;
+                text-transform: uppercase;
+                color: #5E5E5E;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-label .required {
+                color: #FF7070;
+            }
+
+            .form-hint {
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.8em;
+                color: #888888;
+                margin-bottom: 0.5rem;
+                font-style: italic;
+            }
+
+            .form-input, .form-select, .form-textarea {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.9em;
+                color: #5E5E5E;
+                background-color: #FFFFFF;
+                border: 1px solid #DBDBDB;
+                border-radius: 0.375rem;
+                outline: none;
+                transition: border-color 0.25s ease;
+            }
+
+            .form-input:focus, .form-select:focus, .form-textarea:focus {
+                border-color: #54D6FF;
+            }
+
+            .options-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .option-item {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.875em;
+                color: #5E5E5E;
+                cursor: pointer;
+            }
+
+            .option-item input[type="checkbox"],
+            .option-item input[type="radio"] {
+                accent-color: #FF7070;
+                width: 1rem;
+                height: 1rem;
+                cursor: pointer;
+            }
+
+            .text-inline-input {
+                width: auto;
+                flex-grow: 1;
+                padding: 0.3rem 0.5rem;
+                border: none;
+                border-bottom: 1px solid #DBDBDB;
+                border-radius: 0;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.875em;
+                outline: none;
+                color: #5E5E5E;
+            }
+
+            .text-inline-input:focus {
+                border-bottom-color: #54D6FF;
+            }
+
+            .submit-btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 3.25rem;
+                font-family: 'Roboto', sans-serif;
+                letter-spacing: 0.2rem;
+                font-size: 0.85em;
+                font-weight: 700;
+                border-radius: 0.625rem;
+                color: #FF7070;
+                background: transparent;
+                border: solid 1px #DBDBDB;
+                cursor: pointer;
+                transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
+                text-transform: uppercase;
+            }
+
+            .submit-btn:hover {
+                border-color: #54D6FF;
+                color: #54D6FF;
+            }
+
+            .submit-btn:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                border-color: #DBDBDB !important;
+                color: #888888 !important;
+            }
+
+            #form-status {
+                margin-top: 1.5rem;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 0.9em;
+                text-align: center;
+            }
+
+            .status-success {
+                color: #2e7d32;
+            }
+
+            .status-error {
+                color: #d32f2f;
+            }
+
+            .back-link {
+                display: inline-block;
+                margin-bottom: 2rem;
+                font-family: 'Roboto', sans-serif;
+                font-size: 0.8em;
+                letter-spacing: 0.15rem;
+                text-transform: uppercase;
+                color: #FF7070;
+                text-decoration: none;
+            }
+
+            .back-link:hover {
+                color: #54D6FF;
+            }
+        </style>
+    </head>
+    <body class="is-ready">
+        <div class="site-wrapper">
+            <div class="site-main">
+                <div class="inner">
+                    <div class="container-component instance-4 default" id="container04">
+                        <div class="wrapper">
+                            <div class="inner">
+                                <a href="index.html" class="back-link">&larr; Back to Home</a>
+                                
+                                <h1 class="text-component instance-3" style="text-align: center; margin-bottom: 0.5rem;">
+                                    Reveriel
+                                </h1>
+                                <h2 class="text-component instance-9" style="text-align: center; margin-bottom: 1.5rem;">
+                                    <strong>Commission Request</strong>
+                                </h2>
+                                
+                                <p class="text-component instance-10" style="margin-bottom: 2.5rem;">
+                                    <span class="p">Please fill out the form below to request a custom piece. I'll review your details and get back to you via email with availability and pricing!</span>
+                                </p>
+
+                                <form id="commission-form">
+                                    <!-- Email -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="email">Email <span class="required">*</span></label>
+                                        <input type="email" id="email" class="form-input" required placeholder="your.email@example.com">
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone">Phone Number <span style="font-weight: normal; font-size: 0.85em; color: #888;">(Optional)</span></label>
+                                        <input type="tel" id="phone" class="form-input" placeholder="(123) 456-7890">
+                                    </div>
+
+                                    <!-- Artwork Type -->
+                                    <div class="form-group">
+                                        <label class="form-label">Artwork Type <span class="required">*</span></label>
+                                        <div class="options-grid">
+                                            <label class="option-item">
+                                                <input type="radio" name="artwork_type" value="Digital" required> Digital
+                                            </label>
+                                            <label class="option-item">
+                                                <input type="radio" name="artwork_type" value="Traditional" required> Traditional
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Medium (Checkboxes) -->
+                                    <div class="form-group">
+                                        <label class="form-label">Medium <span class="required">*</span></label>
+                                        <div class="form-hint">Here are the traditional mediums I can use.</div>
+                                        <div class="options-grid">
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Oil paint"> Oil paint</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Acrylic paint"> Acrylic paint</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Watercolor paint"> Watercolor paint</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Oil pastel"> Oil pastel</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Pencil / Graphite"> Pencil / Graphite</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Pen"> Pen</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="Mixed Media"> Mixed Media</label>
+                                            <label class="option-item"><input type="checkbox" name="medium" value="No preference / Up to artist"> No preference / Up to artist</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Size / Dimensions (Radio) -->
+                                    <div class="form-group">
+                                        <label class="form-label">Size / Dimensions <span class="required">*</span></label>
+                                        <div class="options-grid">
+                                            <label class="option-item"><input type="radio" name="size" value="5x7 inches" required> 5x7 inches</label>
+                                            <label class="option-item"><input type="radio" name="size" value="8x10 inches"> 8x10 inches</label>
+                                            <label class="option-item"><input type="radio" name="size" value="11x14 inches"> 11x14 inches</label>
+                                            <label class="option-item"><input type="radio" name="size" value="16x20 inches"> 16x20 inches</label>
+                                            <label class="option-item"><input type="radio" name="size" value="24x36 inches"> 24x36 inches</label>
+                                            <label class="option-item"><input type="radio" name="size" value="No preference / Up to artist"> No preference / Up to artist</label>
+                                            <label class="option-item">
+                                                <input type="radio" name="size" value="Other" id="size-other-radio"> Other: 
+                                                <input type="text" id="size-other-text" class="text-inline-input" placeholder="Specify size...">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="description">Description <span class="required">*</span></label>
+                                        <textarea id="description" class="form-textarea" rows="4" required placeholder="Describe your vision, subject matter, mood, or concepts..."></textarea>
+                                    </div>
+
+                                    <!-- Style Preference -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="style_preference">Style Preference</label>
+                                        <input type="text" id="style_preference" class="form-input" placeholder="e.g., Expressive, painterly, line art, detailed...">
+                                    </div>
+
+                                    <!-- Reference Images -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="reference_images">Reference Images</label>
+                                        <div class="form-hint">Upload photos, sketches, or visual inspiration (max 5MB per file).</div>
+                                        <input type="file" id="reference_images" class="form-input" multiple accept="image/*">
+                                    </div>
+
+                                    <!-- Deadline & Flexibility -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="deadline">Target Deadline</label>
+                                        <input type="date" id="deadline" class="form-input">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Deadline Flexibility <span class="required">*</span></label>
+                                        <div class="options-grid">
+                                            <label class="option-item"><input type="radio" name="deadline_flexibility" value="Flexible" required> Flexible</label>
+                                            <label class="option-item"><input type="radio" name="deadline_flexibility" value="Strict / Hard Deadline"> Strict / Hard Deadline</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Payment Method -->
+                                    <div class="form-group">
+                                        <label class="form-label">Payment Method <span class="required">*</span></label>
+                                        <div class="options-grid">
+                                            <label class="option-item"><input type="radio" name="payment_method" value="PayPal" required> PayPal</label>
+                                            <label class="option-item"><input type="radio" name="payment_method" value="Venmo"> Venmo</label>
+                                            <label class="option-item"><input type="radio" name="payment_method" value="Zelle"> Zelle</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Additional Comment -->
+                                    <div class="form-group">
+                                        <label class="form-label" for="additional_comment">Additional Comments</label>
+                                        <textarea id="additional_comment" class="form-textarea" rows="3" placeholder="Anything else I should know?"></textarea>
+                                    </div>
+
+                                    <button type="submit" id="submit-btn" class="submit-btn">Submit Request</button>
+                                </form>
+
+                                <div id="form-status"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // 1. Initialize Supabase Client
+            const SUPABASE_URL = 'https://gvooqilvlqztifzpwaew.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2b29xaWx2bHF6dGlmenB3YWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjc2NzIsImV4cCI6MjEwMzcwMzY3Mn0.GWoRsQPa1B0sQIGf-6trhf9WwdxvQREgz25puLbA9_o';
+            const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+            const form = document.getElementById('commission-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+
+            // Enable 'Other' size selection when text input is focused
+            document.getElementById('size-other-text').addEventListener('focus', () => {
+                document.getElementById('size-other-radio').checked = true;
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                // UI Loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Submitting...';
+                formStatus.className = '';
+                formStatus.textContent = '';
+
+                try {
+                    // 2. Gather form fields
+                    const email = document.getElementById('email').value.trim();
+                    const phone = document.getElementById('phone').value.trim() || null;
+                    const artworkType = document.querySelector('input[name="artwork_type"]:checked')?.value;
+                    
+                    // Collect checked mediums into a comma-separated string
+                    const checkedMediums = Array.from(document.querySelectorAll('input[name="medium"]:checked')).map(cb => cb.value);
+                    const medium = checkedMediums.length > 0 ? checkedMediums.join(', ') : 'Not specified';
+
+                    // Resolve size choice
+                    let size = document.querySelector('input[name="size"]:checked')?.value;
+                    if (size === 'Other') {
+                        const otherVal = document.getElementById('size-other-text').value.trim();
+                        size = otherVal ? `Other: ${otherVal}` : 'Custom Size';
+                    }
+
+                    const description = document.getElementById('description').value.trim();
+                    const stylePreference = document.getElementById('style_preference').value.trim() || null;
+                    const deadline = document.getElementById('deadline').value || null;
+                    const deadlineFlexibility = document.querySelector('input[name="deadline_flexibility"]:checked')?.value;
+                    const paymentMethod = document.querySelector('input[name="payment_method"]:checked')?.value;
+                    const additionalComment = document.getElementById('additional_comment').value.trim() || null;
+
+                    // 3. Upload reference image files to Supabase Storage
+                    const fileInput = document.getElementById('reference_images');
+                    const uploadedImageUrls = [];
+
+                    if (fileInput.files.length > 0) {
+                        submitBtn.textContent = 'Uploading files...';
+                        for (const file of fileInput.files) {
+                            const fileExt = file.name.split('.').pop();
+                            const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+
+                            const { data: uploadData, error: uploadError } = await supabaseClient
+                                .storage
+                                .from('reference-images')
+                                .upload(fileName, file);
+
+                            if (uploadError) throw new Error(`File upload failed: ${uploadError.message}`);
+
+                            // Get Public URL for the uploaded file
+                            const { data: urlData } = supabaseClient
+                                .storage
+                                .from('reference-images')
+                                .getPublicUrl(fileName);
+
+                            if (urlData?.publicUrl) {
+                                uploadedImageUrls.push(urlData.publicUrl);
+                            }
+                        }
+                    }
+
+                    // 4. Insert row into Supabase Database
+                    submitBtn.textContent = 'Saving request...';
+                    const { error: insertError } = await supabaseClient
+                        .from('commissions')
+                        .insert([
+                            {
+                                email: email,
+                                phone_number: phone,
+                                artwork_type: artworkType,
+                                medium: medium,
+                                size: size,
+                                description: description,
+                                style_preference: stylePreference,
+                                reference_images: uploadedImageUrls,
+                                deadline: deadline,
+                                deadline_flexibility: deadlineFlexibility,
+                                payment_method: paymentMethod,
+                                additional_comment: additionalComment
+                            }
+                        ]);
+
+                    if (insertError) throw insertError;
+
+                    // Success feedback
+                    formStatus.className = 'status-success';
+                    formStatus.textContent = 'Thank you! Your commission request has been successfully submitted.';
+                    form.reset();
+
+                } catch (err) {
+                    console.error('Submission error:', err);
+                    formStatus.className = 'status-error';
+                    formStatus.textContent = `Error: ${err.message || 'Something went wrong. Please try again.'}`;
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Request';
+                }
+            });
+        </script>
+        </body>
+</html>
