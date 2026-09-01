@@ -151,6 +151,8 @@ function applyFilters() {
       item.artwork_type,
       item.medium,
       item.size,
+      item.aspect_ratio,
+      item.prefered_file_type,
       item.description,
       item.style_preference,
       item.additional_comment,
@@ -185,8 +187,15 @@ function renderRequests(items) {
         images = Array.isArray(item.reference_images)
           ? item.reference_images
           : [],
-        balance = getBalanceState(item);
-      return `<article class="request-card" data-id="${id}"><button class="request-summary" type="button" aria-expanded="false"><div><div class="request-title">${escapeHTML(item.artwork_type || "Artwork")} commission</div><div class="request-meta">${escapeHTML(item.email)} · Submitted ${formatDate(item.created_at)}</div></div><span class="summary-size">${escapeHTML(item.size || "Size open")}</span><span class="summary-balance ${balance.className}" aria-label="${escapeHTML(balance.ariaLabel)}">${escapeHTML(balance.shortLabel)}</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="request-body"><div class="detail-grid"><div class="detail-item"><strong>Status</strong><select class="status-select" data-status="${status}" aria-label="Update commission status"><option ${status === "New" ? "selected" : ""}>New</option><option ${status === "Accepted" ? "selected" : ""}>Accepted</option><option ${status === "In Progress" ? "selected" : ""}>In Progress</option><option ${status === "Completed" ? "selected" : ""}>Completed</option><option ${status === "Declined" ? "selected" : ""}>Declined</option></select></div><div class="detail-item"><strong>Contact</strong><a href="mailto:${escapeHTML(item.email)}">${escapeHTML(item.email)}</a>${item.phone_number ? `<br>${escapeHTML(item.phone_number)}` : ""}</div><div class="detail-item"><strong>Medium</strong>${escapeHTML(item.medium || "Not specified")}</div><div class="detail-item"><strong>Dimensions</strong>${escapeHTML(item.size || "Not specified")}</div><div class="detail-item"><strong>Deadline</strong>${formatDate(item.deadline)} · ${escapeHTML(item.deadline_flexibility || "Not specified")}</div><div class="detail-item"><strong>Payment method</strong>${escapeHTML(item.payment_method || "Not specified")}</div><div class="detail-item"><strong>Client billing</strong>${escapeHTML(balance.detailLabel)}</div></div><div class="description-block detail-item"><strong>Creative brief</strong>${escapeHTML(item.description || "No description provided")}</div>${item.style_preference ? `<div class="description-block detail-item"><strong>Style preference</strong>${escapeHTML(item.style_preference)}</div>` : ""}${item.additional_comment ? `<div class="description-block detail-item"><strong>Client comments</strong>${escapeHTML(item.additional_comment)}</div>` : ""}${
+        balance = getBalanceState(item),
+        isDigital = item.artwork_type === "Digital",
+        summaryFormat = isDigital
+          ? item.aspect_ratio || "Ratio open"
+          : item.size || "Size open",
+        formatDetails = isDigital
+          ? `<div class="detail-item"><strong>Aspect ratio</strong>${escapeHTML(item.aspect_ratio || "Not specified")}</div><div class="detail-item"><strong>Preferred file type</strong>${escapeHTML(item.prefered_file_type || "Not specified")}</div>`
+          : `<div class="detail-item"><strong>Medium</strong>${escapeHTML(item.medium || "Not specified")}</div><div class="detail-item"><strong>Dimensions</strong>${escapeHTML(item.size || "Not specified")}</div>`;
+      return `<article class="request-card" data-id="${id}"><button class="request-summary" type="button" aria-expanded="false"><div><div class="request-title">${escapeHTML(item.artwork_type || "Artwork")} commission</div><div class="request-meta">${escapeHTML(item.email)} · Submitted ${formatDate(item.created_at)}</div></div><span class="summary-size">${escapeHTML(summaryFormat)}</span><span class="summary-balance ${balance.className}" aria-label="${escapeHTML(balance.ariaLabel)}">${escapeHTML(balance.shortLabel)}</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="request-body"><div class="detail-grid"><div class="detail-item"><strong>Status</strong><select class="status-select" data-status="${status}" aria-label="Update commission status"><option ${status === "New" ? "selected" : ""}>New</option><option ${status === "Accepted" ? "selected" : ""}>Accepted</option><option ${status === "In Progress" ? "selected" : ""}>In Progress</option><option ${status === "Completed" ? "selected" : ""}>Completed</option><option ${status === "Declined" ? "selected" : ""}>Declined</option></select></div><div class="detail-item"><strong>Contact</strong><a href="mailto:${escapeHTML(item.email)}">${escapeHTML(item.email)}</a>${item.phone_number ? `<br>${escapeHTML(item.phone_number)}` : ""}</div>${formatDetails}<div class="detail-item"><strong>Deadline</strong>${formatDate(item.deadline)} · ${escapeHTML(item.deadline_flexibility || "Not specified")}</div><div class="detail-item"><strong>Payment method</strong>${escapeHTML(item.payment_method || "Not specified")}</div><div class="detail-item"><strong>Client billing</strong>${escapeHTML(balance.detailLabel)}</div></div><div class="description-block detail-item"><strong>Creative brief</strong>${escapeHTML(item.description || "No description provided")}</div>${item.style_preference ? `<div class="description-block detail-item"><strong>Style preference</strong>${escapeHTML(item.style_preference)}</div>` : ""}${item.additional_comment ? `<div class="description-block detail-item"><strong>Client comments</strong>${escapeHTML(item.additional_comment)}</div>` : ""}${
         images.length
           ? `<div class="detail-item" style="margin-top:1rem"><strong>Reference images</strong><div class="image-gallery">${images
               .map((url, index) => {
@@ -540,6 +549,16 @@ requestsList.addEventListener("change", async (event) => {
 function setEditorValue(id, value) {
   document.getElementById(id).value = value ?? "";
 }
+function syncEditorFormat() {
+  const selectedFormat = document.getElementById("edit-type").value.toLowerCase();
+  document.querySelectorAll("[data-format]").forEach((group) => {
+    const isActive = group.dataset.format === selectedFormat;
+    group.hidden = !isActive;
+    group.querySelectorAll("input, select, textarea").forEach((field) => {
+      field.disabled = !isActive;
+    });
+  });
+}
 function openEditor(item = null) {
   editorForm.reset();
   editorForm.dataset.editingId = item?.id ?? "";
@@ -558,6 +577,8 @@ function openEditor(item = null) {
   setEditorValue("edit-status", item?.status || "New");
   setEditorValue("edit-medium", item?.medium);
   setEditorValue("edit-size", item?.size);
+  setEditorValue("edit-aspect-ratio", item?.aspect_ratio);
+  setEditorValue("edit-file-type", item?.prefered_file_type);
   setEditorValue("edit-description", item?.description);
   setEditorValue("edit-style", item?.style_preference);
   setEditorValue("edit-deadline", item?.deadline);
@@ -565,6 +586,7 @@ function openEditor(item = null) {
   setEditorValue("edit-payment", item?.payment_method);
   setEditorValue("edit-comments", item?.additional_comment);
   setEditorValue("edit-notes", item?.internal_notes);
+  syncEditorFormat();
   editorDialog.showModal();
   setTimeout(() => document.getElementById("edit-email").focus(), 0);
 }
@@ -595,6 +617,7 @@ async function downloadImage(url, name, button) {
 document
   .getElementById("add-request-btn")
   .addEventListener("click", () => openEditor());
+document.getElementById("edit-type").addEventListener("change", syncEditorFormat);
 document
   .getElementById("editor-close")
   .addEventListener("click", () => editorDialog.close());
@@ -825,14 +848,18 @@ editorForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const id = editorForm.dataset.editingId,
     saveButton = document.getElementById("editor-save"),
-    value = (fieldId) => document.getElementById(fieldId).value.trim();
+    value = (fieldId) => document.getElementById(fieldId).value.trim(),
+    artworkType = value("edit-type"),
+    isDigital = artworkType === "Digital";
   const payload = {
     email: value("edit-email"),
     phone_number: value("edit-phone") || null,
-    artwork_type: value("edit-type"),
+    artwork_type: artworkType,
     status: value("edit-status"),
-    medium: value("edit-medium"),
-    size: value("edit-size"),
+    medium: isDigital ? null : value("edit-medium"),
+    size: isDigital ? null : value("edit-size"),
+    aspect_ratio: isDigital ? value("edit-aspect-ratio") : null,
+    prefered_file_type: isDigital ? value("edit-file-type") : null,
     description: value("edit-description"),
     style_preference: value("edit-style") || null,
     deadline: value("edit-deadline") || null,

@@ -17,6 +17,7 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="commission.css" />
+    <link rel="stylesheet" href="mobile.css" />
   </head>
   <body class="is-ready">
     <main class="commission-page">
@@ -81,15 +82,12 @@
                     </div>
                   </div>
                 </section>
-                <section class="form-section" data-step="2">
+                <section class="form-section" data-step="2" hidden>
                   <div class="section-heading">
                     <span class="section-number">02</span>
                     <div>
-                      <h3>Dimensions &amp; medium</h3>
-                      <p>
-                        Choose the format that feels closest. We can refine it
-                        together.
-                      </p>
+                      <h3>Artwork type</h3>
+                      <p>Choose how you would like your artwork created.</p>
                     </div>
                   </div>
                   <div class="form-group">
@@ -111,6 +109,20 @@
                           value="Traditional"
                         />Traditional artwork</label
                       >
+                    </div>
+                  </div>
+                </section>
+                <section
+                  class="form-section"
+                  data-step="3"
+                  data-branch="traditional"
+                  hidden
+                >
+                  <div class="section-heading">
+                    <span class="section-number">03</span>
+                    <div>
+                      <h3>Traditional format</h3>
+                      <p>Choose the medium and physical size that feel closest.</p>
                     </div>
                   </div>
                   <div class="form-group">
@@ -225,9 +237,46 @@
                     </div>
                   </div>
                 </section>
-                <section class="form-section" data-step="3">
+                <section
+                  class="form-section"
+                  data-step="3"
+                  data-branch="digital"
+                  hidden
+                >
                   <div class="section-heading">
                     <span class="section-number">03</span>
+                    <div>
+                      <h3>Digital format</h3>
+                      <p>Choose the canvas shape and file you would prefer to receive.</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label">Aspect ratio (size) <span class="required">*</span></span>
+                    <div class="options-grid options-grid-single">
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="1:1 (Square)" required /><span><strong>1:1 (Square)</strong> — Ideal for profile pictures, avatars, logos, and Instagram posts.</span></label>
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="16:9 (Widescreen)" /><span><strong>16:9 (Widescreen)</strong> — Standard for video, YouTube thumbnails, cinematic visuals, and desktop wallpapers.</span></label>
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="9:16 (Vertical/Portrait)" /><span><strong>9:16 (Vertical/Portrait)</strong> — Perfect for mobile stories, character portraits, and vertical video.</span></label>
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="4:3 (Standard)" /><span><strong>4:3 (Standard)</strong> — A classic ratio for general compositions or older screens.</span></label>
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="4:5 (Portrait)" /><span><strong>4:5 (Portrait)</strong> — A balanced vertical format popular for Instagram posts.</span></label>
+                      <label class="option-item"><input type="radio" name="aspect_ratio" value="21:9 (Ultra-Wide)" /><span><strong>21:9 (Ultra-Wide)</strong> — For cinematic, panoramic, or sweeping landscape art.</span></label>
+                      <label class="option-item with-text"><input type="radio" name="aspect_ratio" value="Other" id="aspect-other-radio" />Other:<input type="text" id="aspect-other-text" class="text-inline-input" aria-label="Other aspect ratio" placeholder="Specify ratio" /></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label">Preferred file type <span class="required">*</span></span>
+                    <div class="options-grid">
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="PNG" required />PNG</label>
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="JPG" />JPG</label>
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="PDF" />PDF</label>
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="PSD / TIFF" />PSD / TIFF</label>
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="Transparent background (PNG)" />Transparent background (PNG)</label>
+                      <label class="option-item"><input type="radio" name="prefered_file_type" value="No preference" />No preference</label>
+                    </div>
+                  </div>
+                </section>
+                <section class="form-section" data-step="4" hidden>
+                  <div class="section-heading">
+                    <span class="section-number">04</span>
                     <div>
                       <h3>Creative details</h3>
                       <p>The story, mood, references, and practical details.</p>
@@ -364,10 +413,14 @@
                   </div>
                 </section>
                 <div id="form-status" role="alert" aria-live="polite"></div>
-                <div class="submit-wrap">
-                  <button type="submit" id="submit-btn" class="submit-btn">
+                <div class="form-navigation">
+                  <button type="button" id="back-btn" class="secondary-btn" hidden>← Back</button>
+                  <button type="button" id="next-btn" class="submit-btn">Continue →</button>
+                  <button type="submit" id="submit-btn" class="submit-btn" hidden>
                     Send commission request →
                   </button>
+                </div>
+                <div class="submit-wrap" id="submit-note" hidden>
                   <p class="submit-note">
                     Submitting this form is a request, not a purchase. I’ll
                     follow up with availability and pricing.
@@ -405,8 +458,9 @@
               <li class="is-active" data-progress="1">
                 <span>1</span>Personal info
               </li>
-              <li data-progress="2"><span>2</span>Format</li>
-              <li data-progress="3"><span>3</span>Details</li>
+              <li data-progress="2"><span>2</span>Artwork type</li>
+              <li data-progress="3"><span>3</span>Format</li>
+              <li data-progress="4"><span>4</span>Details</li>
             </ol>
           </aside>
         </div>

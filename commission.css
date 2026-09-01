@@ -157,6 +157,10 @@ body {
   border-color: var(--coral);
   color: #fff;
 }
+.progress-list li.is-complete span {
+  border-color: var(--coral);
+  color: var(--coral);
+}
 .form-intro {
   margin-bottom: 2.5rem;
   text-align: left;
@@ -181,6 +185,9 @@ body {
   padding: 0;
   border: 0;
   min-width: 0;
+}
+.form-section[hidden] {
+  display: none;
 }
 .form-section + .form-section {
   margin-top: 2.75rem;
@@ -284,6 +291,13 @@ body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.65rem;
+}
+.options-grid-single {
+  grid-template-columns: 1fr;
+}
+.options-grid-single .option-item {
+  align-items: flex-start;
+  line-height: 1.55;
 }
 .option-item {
   display: flex;
@@ -490,6 +504,30 @@ body {
 .submit-wrap {
   margin-top: 2rem;
 }
+.form-navigation {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.form-navigation .submit-btn {
+  flex: 1;
+}
+.secondary-btn {
+  min-height: 3.8rem;
+  padding: 0 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  font: 900 0.82rem/1 Roboto, sans-serif;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+.secondary-btn:hover {
+  border-color: var(--coral);
+  background: #fff4f1;
+}
 .submit-btn {
   width: 100%;
   min-height: 3.8rem;
@@ -653,7 +691,7 @@ body {
   }
   .progress-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
   .progress-list li {
     flex-direction: column;

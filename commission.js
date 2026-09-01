@@ -6,6 +6,9 @@ const form = document.getElementById("commission-form"),
   formCard = document.getElementById("form-card"),
   successPanel = document.getElementById("success-panel"),
   submitBtn = document.getElementById("submit-btn"),
+  nextBtn = document.getElementById("next-btn"),
+  backBtn = document.getElementById("back-btn"),
+  submitNote = document.getElementById("submit-note"),
   formStatus = document.getElementById("form-status"),
   fileInput = document.getElementById("reference_images"),
   fileList = document.getElementById("file-list");
@@ -22,6 +25,12 @@ document
   .addEventListener(
     "focus",
     () => (document.getElementById("payment-other-radio").checked = true),
+  );
+document
+  .getElementById("aspect-other-text")
+  .addEventListener(
+    "focus",
+    () => (document.getElementById("aspect-other-radio").checked = true),
   );
 function formatFileSize(bytes) {
   return bytes < 1024
@@ -80,24 +89,86 @@ fileInput.addEventListener("change", () => {
   selectedFiles = Array.from(fileInput.files);
   renderSelectedFiles();
 });
-const sections = document.querySelectorAll("[data-step]"),
+const sections = Array.from(document.querySelectorAll("[data-step]")),
   progressItems = document.querySelectorAll("[data-progress]");
-const observer = new IntersectionObserver(
-  (entries) => {
-    const visible = entries
-      .filter((e) => e.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible)
-      progressItems.forEach((item) =>
-        item.classList.toggle(
-          "is-active",
-          item.dataset.progress === visible.target.dataset.step,
-        ),
-      );
-  },
-  { rootMargin: "-25% 0px -55%", threshold: [0, 0.25, 0.5] },
+let currentStep = 1;
+
+function getArtworkType() {
+  return document.querySelector('input[name="artwork_type"]:checked')?.value;
+}
+
+function getStepSection(step) {
+  if (step !== 3) return sections.find((section) => Number(section.dataset.step) === step);
+  const branch = getArtworkType()?.toLowerCase();
+  return sections.find(
+    (section) => Number(section.dataset.step) === 3 && section.dataset.branch === branch,
+  );
+}
+
+function syncBranchFields() {
+  const branch = getArtworkType()?.toLowerCase();
+  document.querySelectorAll("[data-branch]").forEach((section) => {
+    const isSelected = section.dataset.branch === branch;
+    section.querySelectorAll("input, textarea, select").forEach((field) => {
+      field.disabled = !isSelected;
+    });
+  });
+}
+
+function showStep(step, shouldFocus = true) {
+  currentStep = step;
+  syncBranchFields();
+  const activeSection = getStepSection(step);
+  sections.forEach((section) => {
+    section.hidden = section !== activeSection;
+  });
+  progressItems.forEach((item) => {
+    const itemStep = Number(item.dataset.progress);
+    item.classList.toggle("is-active", itemStep === step);
+    item.classList.toggle("is-complete", itemStep < step);
+  });
+  backBtn.hidden = step === 1;
+  nextBtn.hidden = step === 4;
+  submitBtn.hidden = step !== 4;
+  submitNote.hidden = step !== 4;
+  formStatus.className = "";
+  formStatus.textContent = "";
+  if (shouldFocus) {
+    activeSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+    activeSection?.querySelector("input, textarea")?.focus({ preventScroll: true });
+  }
+}
+
+function validateCurrentStep() {
+  const section = getStepSection(currentStep);
+  if (!section) return false;
+  const fields = Array.from(section.querySelectorAll("input, textarea, select"));
+  const invalidField = fields.find((field) => !field.disabled && !field.checkValidity());
+  if (invalidField) {
+    invalidField.reportValidity();
+    invalidField.focus();
+    return false;
+  }
+  if (
+    currentStep === 3 &&
+    getArtworkType() === "Traditional" &&
+    !section.querySelector('input[name="medium"]:checked')
+  ) {
+    setError("Please choose at least one medium, or select Artist’s choice.");
+    return false;
+  }
+  return true;
+}
+
+nextBtn.addEventListener("click", () => {
+  if (!validateCurrentStep()) return;
+  showStep(currentStep + 1);
+});
+backBtn.addEventListener("click", () => showStep(currentStep - 1));
+document.querySelectorAll('input[name="artwork_type"]').forEach((input) =>
+  input.addEventListener("change", syncBranchFields),
 );
-sections.forEach((section) => observer.observe(section));
+showStep(1, false);
 function setError(message) {
   formStatus.className = "status-error";
   formStatus.textContent = message;
@@ -105,11 +176,13 @@ function setError(message) {
 }
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const mediums = Array.from(
+  if (!validateCurrentStep()) return;
+  const artworkType = getArtworkType(),
+    mediums = Array.from(
       document.querySelectorAll('input[name="medium"]:checked'),
     ),
     files = Array.from(fileInput.files);
-  if (!mediums.length) {
+  if (artworkType === "Traditional" && !mediums.length) {
     setError("Please choose at least one medium, or select “Artist’s choice.”");
     return;
   }
@@ -138,7 +211,10 @@ form.addEventListener("submit", async (event) => {
         .getPublicUrl(name);
       if (data?.publicUrl) uploadedImageUrls.push(data.publicUrl);
     }
-    let size = document.querySelector('input[name="size"]:checked')?.value;
+    let size =
+      artworkType === "Traditional"
+        ? document.querySelector('input[name="size"]:checked')?.value
+        : null;
     if (size === "Other")
       size = `Other: ${document.getElementById("size-other-text").value.trim() || "Custom size"}`;
     let paymentMethod = document.querySelector(
@@ -146,17 +222,29 @@ form.addEventListener("submit", async (event) => {
     )?.value;
     if (paymentMethod === "Other")
       paymentMethod = `Other: ${document.getElementById("payment-other-text").value.trim() || "To discuss"}`;
+    let aspectRatio =
+      artworkType === "Digital"
+        ? document.querySelector('input[name="aspect_ratio"]:checked')?.value
+        : null;
+    if (aspectRatio === "Other")
+      aspectRatio = `Other: ${document.getElementById("aspect-other-text").value.trim() || "Custom ratio"}`;
     const email = document.getElementById("email").value.trim();
     submitBtn.textContent = "Sending your request…";
     const { error } = await supabaseClient.from("commissions").insert([
       {
         email,
         phone_number: document.getElementById("phone").value.trim() || null,
-        artwork_type: document.querySelector(
-          'input[name="artwork_type"]:checked',
-        )?.value,
-        medium: mediums.map((item) => item.value).join(", "),
+        artwork_type: artworkType,
+        medium:
+          artworkType === "Traditional"
+            ? mediums.map((item) => item.value).join(", ")
+            : null,
         size,
+        aspect_ratio: aspectRatio,
+        prefered_file_type:
+          artworkType === "Digital"
+            ? document.querySelector('input[name="prefered_file_type"]:checked')?.value
+            : null,
         description: document.getElementById("description").value.trim(),
         style_preference:
           document.getElementById("style_preference").value.trim() || null,
@@ -176,6 +264,7 @@ form.addEventListener("submit", async (event) => {
     document.getElementById("success-reference").textContent =
       `Confirmation ${reference}`;
     form.reset();
+    showStep(1, false);
     selectedFiles = [];
     renderSelectedFiles();
     formCard.hidden = true;
@@ -193,5 +282,6 @@ form.addEventListener("submit", async (event) => {
 document.getElementById("another-request").addEventListener("click", () => {
   successPanel.classList.remove("is-visible");
   formCard.hidden = false;
+  showStep(1, false);
   formCard.scrollIntoView({ behavior: "smooth", block: "start" });
 });

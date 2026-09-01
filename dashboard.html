@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="dashboard.css" />
+    <link rel="stylesheet" href="mobile.css" />
   </head>
   <body class="is-ready">
     <main class="dashboard-page">
@@ -189,16 +190,16 @@
                 <option>Declined</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="form-group format-fields" data-format="traditional">
               <label class="form-label" for="edit-medium">Medium</label
               ><input
                 class="form-input"
                 id="edit-medium"
                 required
-                placeholder="Acrylic, digital, mixed media…"
+                placeholder="Acrylic, watercolor, mixed media…"
               />
             </div>
-            <div class="form-group">
+            <div class="form-group format-fields" data-format="traditional">
               <label class="form-label" for="edit-size">Size / dimensions</label
               ><input
                 class="form-input"
@@ -206,6 +207,36 @@
                 required
                 placeholder="8 × 10 inches"
               />
+            </div>
+            <div class="form-group format-fields" data-format="digital" hidden>
+              <label class="form-label" for="edit-aspect-ratio">Aspect ratio</label
+              ><input
+                class="form-input"
+                id="edit-aspect-ratio"
+                list="aspect-ratio-options"
+                required
+                placeholder="1:1 (Square)"
+              />
+              <datalist id="aspect-ratio-options">
+                <option value="1:1 (Square)"></option>
+                <option value="16:9 (Widescreen)"></option>
+                <option value="9:16 (Vertical/Portrait)"></option>
+                <option value="4:3 (Standard)"></option>
+                <option value="4:5 (Portrait)"></option>
+                <option value="21:9 (Ultra-Wide)"></option>
+              </datalist>
+            </div>
+            <div class="form-group format-fields" data-format="digital" hidden>
+              <label class="form-label" for="edit-file-type">Preferred file type</label
+              ><select class="control-select" id="edit-file-type" required>
+                <option value="">Choose a file type</option>
+                <option>PNG</option>
+                <option>JPG</option>
+                <option>PDF</option>
+                <option>PSD / TIFF</option>
+                <option>Transparent background (PNG)</option>
+                <option>No preference</option>
+              </select>
             </div>
             <div class="form-group full">
               <label class="form-label" for="edit-description"

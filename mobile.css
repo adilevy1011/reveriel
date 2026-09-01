@@ -1,0 +1,102 @@
+/* Shared mobile safeguards for the portfolio, commission form, and dashboard. */
+@media (max-width: 736px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-width: 0;
+    overflow-x: hidden;
+  }
+
+  img,
+  video,
+  canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  button,
+  [role="button"],
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  button,
+  [role="button"],
+  a.btn {
+    min-height: 44px;
+  }
+
+  .top-nav,
+  .dashboard-header,
+  .header-actions,
+  .form-navigation,
+  .editor-actions,
+  .success-actions {
+    flex-wrap: wrap;
+  }
+
+  .form-navigation > *,
+  .editor-actions > *,
+  .success-actions > * {
+    flex: 1 1 10rem;
+  }
+
+  .editor-dialog,
+  .timesheet-dialog {
+    width: calc(100% - 1rem);
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .editor-shell {
+    max-height: calc(100dvh - 1rem);
+  }
+
+  .editor-header,
+  .editor-form {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .commission-page,
+  .dashboard-page {
+    padding: 0.65rem;
+  }
+
+  .progress-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0.5rem;
+  }
+
+  .header-actions,
+  .header-actions .btn,
+  .form-navigation,
+  .form-navigation .submit-btn,
+  .form-navigation .secondary-btn {
+    width: 100%;
+  }
+
+  .request-summary {
+    gap: 0.65rem;
+    padding: 1rem;
+  }
+
+  .editor-actions {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

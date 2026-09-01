@@ -667,6 +667,9 @@ select {
 .editor-grid .full {
   grid-column: 1/-1;
 }
+.format-fields[hidden] {
+  display: none;
+}
 .editor-form textarea.form-input {
   min-height: 6rem;
   resize: vertical;
