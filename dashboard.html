@@ -276,7 +276,7 @@
             <p class="eyebrow">Studio ledger</p>
             <h2 id="timesheet-title">Time &amp; pay</h2>
             <p id="timesheet-description" class="dialog-description">
-              Track project hours and calculate artist pay.
+              Track hours, calculate the total price, and manage payments.
             </p>
           </div>
           <button
@@ -293,8 +293,8 @@
           <section class="pay-panel" aria-labelledby="pay-settings-title">
             <div class="section-heading-row">
               <div>
-                <p class="eyebrow">Compensation</p>
-                <h3 id="pay-settings-title">Pay settings</h3>
+                <p class="eyebrow">Pricing</p>
+                <h3 id="pay-settings-title">Price settings</h3>
               </div>
               <span
                 id="pay-settings-status"
@@ -334,14 +334,64 @@
               </button>
             </form>
 
-            <dl class="pay-summary" aria-label="Time and pay totals">
+            <dl class="pay-summary" aria-label="Time and price totals">
               <div>
                 <dt>Total hours</dt>
                 <dd id="total-hours-display">0.00</dd>
               </div>
               <div class="pay-total">
-                <dt>Calculated pay</dt>
+                <dt>Total price</dt>
                 <dd id="total-pay-display">$0.00</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="billing-panel" aria-labelledby="billing-title">
+            <div class="section-heading-row">
+              <div>
+                <p class="eyebrow">Client billing</p>
+                <h3 id="billing-title">Payment balance</h3>
+              </div>
+              <span
+                id="billing-settings-status"
+                class="save-status"
+                aria-live="polite"
+              ></span>
+            </div>
+
+            <form id="billing-settings-form" class="billing-settings-form">
+              <div class="form-group">
+                <label class="form-label" for="amount-paid-input">
+                  Amount paid ($)
+                </label>
+                <input
+                  type="number"
+                  id="amount-paid-input"
+                  class="form-input"
+                  min="0"
+                  step="0.01"
+                  inputmode="decimal"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                id="save-billing-settings"
+                class="btn compact"
+              >
+                Save payment
+              </button>
+            </form>
+
+            <dl class="billing-summary" aria-label="Client payment summary">
+              <div>
+                <dt>Paid</dt>
+                <dd id="billing-paid-display">$0.00</dd>
+              </div>
+              <div class="balance-total" id="balance-summary-card">
+                <dt>Left to pay</dt>
+                <dd id="outstanding-balance-display">$0.00</dd>
+                <span id="balance-note" class="balance-note">Paid in full</span>
               </div>
             </dl>
           </section>

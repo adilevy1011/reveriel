@@ -14,11 +14,13 @@ const loginView = document.getElementById("login-view"),
   editorForm = document.getElementById("editor-form"),
   timesheetDialog = document.getElementById("timesheet-dialog"),
   paySettingsForm = document.getElementById("pay-settings-form"),
+  billingSettingsForm = document.getElementById("billing-settings-form"),
   logTimeForm = document.getElementById("log-time-form"),
   timesheetBody = document.getElementById("timesheet-body");
 let allCommissions = [],
   currentLogs = [],
   currentTimesheetId = null,
+  timesheetLogsLoaded = false,
   timesheetLoadToken = 0,
   toastTimer;
 const escapeHTML = (value) =>
@@ -182,8 +184,9 @@ function renderRequests(items) {
         id = escapeHTML(item.id),
         images = Array.isArray(item.reference_images)
           ? item.reference_images
-          : [];
-      return `<article class="request-card" data-id="${id}"><button class="request-summary" type="button" aria-expanded="false"><div><div class="request-title">${escapeHTML(item.artwork_type || "Artwork")} commission</div><div class="request-meta">${escapeHTML(item.email)} · Submitted ${formatDate(item.created_at)}</div></div><span class="summary-size">${escapeHTML(item.size || "Size open")}</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="request-body"><div class="detail-grid"><div class="detail-item"><strong>Status</strong><select class="status-select" data-status="${status}" aria-label="Update commission status"><option ${status === "New" ? "selected" : ""}>New</option><option ${status === "Accepted" ? "selected" : ""}>Accepted</option><option ${status === "In Progress" ? "selected" : ""}>In Progress</option><option ${status === "Completed" ? "selected" : ""}>Completed</option><option ${status === "Declined" ? "selected" : ""}>Declined</option></select></div><div class="detail-item"><strong>Contact</strong><a href="mailto:${escapeHTML(item.email)}">${escapeHTML(item.email)}</a>${item.phone_number ? `<br>${escapeHTML(item.phone_number)}` : ""}</div><div class="detail-item"><strong>Medium</strong>${escapeHTML(item.medium || "Not specified")}</div><div class="detail-item"><strong>Dimensions</strong>${escapeHTML(item.size || "Not specified")}</div><div class="detail-item"><strong>Deadline</strong>${formatDate(item.deadline)} · ${escapeHTML(item.deadline_flexibility || "Not specified")}</div><div class="detail-item"><strong>Payment</strong>${escapeHTML(item.payment_method || "Not specified")}</div></div><div class="description-block detail-item"><strong>Creative brief</strong>${escapeHTML(item.description || "No description provided")}</div>${item.style_preference ? `<div class="description-block detail-item"><strong>Style preference</strong>${escapeHTML(item.style_preference)}</div>` : ""}${item.additional_comment ? `<div class="description-block detail-item"><strong>Client comments</strong>${escapeHTML(item.additional_comment)}</div>` : ""}${
+          : [],
+        balance = getBalanceState(item);
+      return `<article class="request-card" data-id="${id}"><button class="request-summary" type="button" aria-expanded="false"><div><div class="request-title">${escapeHTML(item.artwork_type || "Artwork")} commission</div><div class="request-meta">${escapeHTML(item.email)} · Submitted ${formatDate(item.created_at)}</div></div><span class="summary-size">${escapeHTML(item.size || "Size open")}</span><span class="summary-balance ${balance.className}" aria-label="${escapeHTML(balance.ariaLabel)}">${escapeHTML(balance.shortLabel)}</span><span class="chevron" aria-hidden="true">⌄</span></button><div class="request-body"><div class="detail-grid"><div class="detail-item"><strong>Status</strong><select class="status-select" data-status="${status}" aria-label="Update commission status"><option ${status === "New" ? "selected" : ""}>New</option><option ${status === "Accepted" ? "selected" : ""}>Accepted</option><option ${status === "In Progress" ? "selected" : ""}>In Progress</option><option ${status === "Completed" ? "selected" : ""}>Completed</option><option ${status === "Declined" ? "selected" : ""}>Declined</option></select></div><div class="detail-item"><strong>Contact</strong><a href="mailto:${escapeHTML(item.email)}">${escapeHTML(item.email)}</a>${item.phone_number ? `<br>${escapeHTML(item.phone_number)}` : ""}</div><div class="detail-item"><strong>Medium</strong>${escapeHTML(item.medium || "Not specified")}</div><div class="detail-item"><strong>Dimensions</strong>${escapeHTML(item.size || "Not specified")}</div><div class="detail-item"><strong>Deadline</strong>${formatDate(item.deadline)} · ${escapeHTML(item.deadline_flexibility || "Not specified")}</div><div class="detail-item"><strong>Payment method</strong>${escapeHTML(item.payment_method || "Not specified")}</div><div class="detail-item"><strong>Client billing</strong>${escapeHTML(balance.detailLabel)}</div></div><div class="description-block detail-item"><strong>Creative brief</strong>${escapeHTML(item.description || "No description provided")}</div>${item.style_preference ? `<div class="description-block detail-item"><strong>Style preference</strong>${escapeHTML(item.style_preference)}</div>` : ""}${item.additional_comment ? `<div class="description-block detail-item"><strong>Client comments</strong>${escapeHTML(item.additional_comment)}</div>` : ""}${
         images.length
           ? `<div class="detail-item" style="margin-top:1rem"><strong>Reference images</strong><div class="image-gallery">${images
               .map((url, index) => {
@@ -203,6 +206,49 @@ const currencyFormatter = new Intl.NumberFormat(undefined, {
   currency: "USD",
 });
 
+function numericMoney(value) {
+  const amount = Number(value);
+  return Number.isFinite(amount) && amount >= 0 ? amount : 0;
+}
+
+function getBalanceState(item) {
+  const total = numericMoney(item.total_price);
+  const paid = numericMoney(item.amount_paid);
+  const difference = total - paid;
+
+  if (total === 0) {
+    return {
+      className: "is-unset",
+      shortLabel: "Price not set",
+      ariaLabel: "Commission price has not been set",
+      detailLabel: `Price not set · ${currencyFormatter.format(paid)} paid`,
+    };
+  }
+  if (difference > 0.005) {
+    return {
+      className: "is-due",
+      shortLabel: `${currencyFormatter.format(difference)} due`,
+      ariaLabel: `${currencyFormatter.format(difference)} left to pay`,
+      detailLabel: `${currencyFormatter.format(total)} total · ${currencyFormatter.format(paid)} paid · ${currencyFormatter.format(difference)} due`,
+    };
+  }
+  if (difference < -0.005) {
+    const credit = Math.abs(difference);
+    return {
+      className: "is-credit",
+      shortLabel: `${currencyFormatter.format(credit)} credit`,
+      ariaLabel: `Paid in full with a ${currencyFormatter.format(credit)} credit`,
+      detailLabel: `${currencyFormatter.format(total)} total · ${currencyFormatter.format(paid)} paid · ${currencyFormatter.format(credit)} credit`,
+    };
+  }
+  return {
+    className: "is-paid",
+    shortLabel: "Paid in full",
+    ariaLabel: "Commission is paid in full",
+    detailLabel: `${currencyFormatter.format(total)} total · paid in full`,
+  };
+}
+
 function todayISO() {
   const now = new Date();
   const offset = now.getTimezoneOffset() * 60 * 1000;
@@ -218,19 +264,28 @@ function numericHours(value) {
   return Number.isFinite(hours) ? hours : 0;
 }
 
-function updatePaySummary() {
+function calculateTotalPrice() {
   const mode = document.getElementById("pay-mode-select").value;
   const rate = Number(document.getElementById("pay-rate-input").value) || 0;
   const totalHours = currentLogs.reduce(
     (total, log) => total + numericHours(log.hours),
     0,
   );
-  const totalPay = mode === "flat" ? rate : totalHours * rate;
+  return mode === "flat" ? rate : totalHours * rate;
+}
+
+function updatePaySummary() {
+  const totalHours = currentLogs.reduce(
+    (total, log) => total + numericHours(log.hours),
+    0,
+  );
+  const totalPrice = calculateTotalPrice();
 
   document.getElementById("total-hours-display").textContent =
     totalHours.toFixed(2);
   document.getElementById("total-pay-display").textContent =
-    currencyFormatter.format(totalPay);
+    currencyFormatter.format(totalPrice);
+  updateBillingSummary();
 }
 
 function updatePayLabel() {
@@ -240,6 +295,59 @@ function updatePayLabel() {
     ? "Hourly rate ($)"
     : "Flat project fee ($)";
   updatePaySummary();
+}
+
+function updateBillingSummary() {
+  const total = calculateTotalPrice();
+  const paid = numericMoney(document.getElementById("amount-paid-input").value);
+  const difference = total - paid;
+  const balance = Math.max(difference, 0);
+  const summaryCard = document.getElementById("balance-summary-card");
+  const balanceNote = document.getElementById("balance-note");
+
+  document.getElementById("billing-paid-display").textContent =
+    currencyFormatter.format(paid);
+  document.getElementById("outstanding-balance-display").textContent =
+    currencyFormatter.format(balance);
+
+  summaryCard.className = "balance-total";
+  if (difference > 0.005) {
+    summaryCard.classList.add("is-due");
+    balanceNote.textContent = "Payment outstanding";
+  } else if (difference < -0.005) {
+    summaryCard.classList.add("is-credit");
+    balanceNote.textContent = `${currencyFormatter.format(Math.abs(difference))} credit`;
+  } else {
+    summaryCard.classList.add("is-paid");
+    balanceNote.textContent =
+      total > 0 ? "Paid in full" : "Set a price to begin";
+  }
+}
+
+async function syncCalculatedTotalPrice(commissionId) {
+  const totalPrice = calculateTotalPrice();
+  const record = allCommissions.find(
+    (item) => String(item.id) === commissionId,
+  );
+  if (
+    record &&
+    Math.abs(numericMoney(record.total_price) - totalPrice) <= 0.005
+  ) {
+    return true;
+  }
+
+  const { error } = await supabaseClient
+    .from("commissions")
+    .update({ total_price: totalPrice })
+    .eq("id", commissionId);
+  if (error) {
+    showToast(`Couldn’t sync the total price: ${error.message}`, true);
+    return false;
+  }
+
+  if (record) record.total_price = totalPrice;
+  applyFilters();
+  return true;
 }
 
 function setTimesheetStatus(message, isError = false) {
@@ -282,6 +390,7 @@ async function loadTimesheet(commissionId) {
   timesheetBody.removeAttribute("aria-busy");
   if (error) {
     currentLogs = [];
+    timesheetLogsLoaded = false;
     timesheetBody.innerHTML = `<tr><td colspan="4" class="ledger-message is-error">Couldn’t load time entries: ${escapeHTML(error.message)}</td></tr>`;
     updatePaySummary();
     setTimesheetStatus("Time entries could not be loaded.", true);
@@ -289,9 +398,15 @@ async function loadTimesheet(commissionId) {
   }
 
   currentLogs = data || [];
+  timesheetLogsLoaded = true;
+  document.getElementById("add-time-log").disabled = false;
   renderLogs();
+  const totalSynced = await syncCalculatedTotalPrice(commissionId);
   setTimesheetStatus(
-    `${currentLogs.length} time ${currentLogs.length === 1 ? "entry" : "entries"} loaded.`,
+    totalSynced
+      ? `${currentLogs.length} time ${currentLogs.length === 1 ? "entry" : "entries"} loaded.`
+      : "Time entries loaded, but the total price could not be synced.",
+    !totalSynced,
   );
 }
 
@@ -303,15 +418,20 @@ function openTimesheet(item) {
 
   currentTimesheetId = String(item.id);
   currentLogs = [];
+  timesheetLogsLoaded = false;
   paySettingsForm.reset();
+  billingSettingsForm.reset();
   logTimeForm.reset();
   document.getElementById("pay-mode-select").value =
     item.pay_mode === "flat" ? "flat" : "hourly";
   document.getElementById("pay-rate-input").value = item.pay_rate ?? 0;
+  document.getElementById("amount-paid-input").value = item.amount_paid ?? 0;
+  document.getElementById("add-time-log").disabled = true;
   document.getElementById("log-date").value = todayISO();
   document.getElementById("timesheet-description").textContent =
-    `Track project hours and calculate pay for ${item.email || "this commission"}.`;
+    `Track hours, calculate the total price, and manage payments for ${item.email || "this commission"}.`;
   document.getElementById("pay-settings-status").textContent = "";
+  document.getElementById("billing-settings-status").textContent = "";
   setTimesheetStatus("Loading time entries.");
   updatePayLabel();
   timesheetDialog.showModal();
@@ -493,6 +613,7 @@ timesheetDialog.addEventListener("click", (event) => {
 timesheetDialog.addEventListener("close", () => {
   currentTimesheetId = null;
   currentLogs = [];
+  timesheetLogsLoaded = false;
   timesheetLoadToken += 1;
 });
 document
@@ -501,6 +622,9 @@ document
 document
   .getElementById("pay-rate-input")
   .addEventListener("input", updatePaySummary);
+document
+  .getElementById("amount-paid-input")
+  .addEventListener("input", updateBillingSummary);
 
 paySettingsForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -515,14 +639,19 @@ paySettingsForm.addEventListener("submit", async (event) => {
     document.getElementById("pay-rate-input").focus();
     return;
   }
+  if (mode === "hourly" && !timesheetLogsLoaded) {
+    status.textContent = "Wait for time entries to finish loading.";
+    return;
+  }
 
   button.disabled = true;
   button.textContent = "Saving…";
   status.textContent = "Saving settings…";
   const commissionId = currentTimesheetId;
+  const totalPrice = calculateTotalPrice();
   const { error } = await supabaseClient
     .from("commissions")
-    .update({ pay_mode: mode, pay_rate: rate })
+    .update({ pay_mode: mode, pay_rate: rate, total_price: totalPrice })
     .eq("id", commissionId);
   button.disabled = false;
   button.textContent = "Save settings";
@@ -539,10 +668,53 @@ paySettingsForm.addEventListener("submit", async (event) => {
   if (record) {
     record.pay_mode = mode;
     record.pay_rate = rate;
+    record.total_price = totalPrice;
   }
   status.textContent = "Settings saved.";
   updatePaySummary();
+  applyFilters();
   showToast("Pay settings saved");
+});
+
+billingSettingsForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!currentTimesheetId) return;
+
+  const amountPaid = Number(document.getElementById("amount-paid-input").value);
+  const button = document.getElementById("save-billing-settings");
+  const status = document.getElementById("billing-settings-status");
+  if (!Number.isFinite(amountPaid) || amountPaid < 0) {
+    status.textContent = "Enter a valid non-negative amount.";
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = "Saving…";
+  status.textContent = "Saving payment…";
+  const commissionId = currentTimesheetId;
+  const { error } = await supabaseClient
+    .from("commissions")
+    .update({ amount_paid: amountPaid })
+    .eq("id", commissionId);
+  button.disabled = false;
+  button.textContent = "Save payment";
+
+  if (error) {
+    status.textContent = "Payment wasn’t saved.";
+    showToast(`Couldn’t save payment details: ${error.message}`, true);
+    return;
+  }
+
+  const record = allCommissions.find(
+    (item) => String(item.id) === commissionId,
+  );
+  if (record) {
+    record.amount_paid = amountPaid;
+  }
+  status.textContent = "Payment saved.";
+  updateBillingSummary();
+  applyFilters();
+  showToast("Payment balance updated");
 });
 
 logTimeForm.addEventListener("submit", async (event) => {
@@ -592,7 +764,13 @@ logTimeForm.addEventListener("submit", async (event) => {
   document.getElementById("log-hours").value = "";
   document.getElementById("log-notes").value = "";
   renderLogs();
-  setTimesheetStatus("Time entry added.");
+  const totalSynced = await syncCalculatedTotalPrice(commissionId);
+  setTimesheetStatus(
+    totalSynced
+      ? "Time entry added and total price updated."
+      : "Time entry added, but the total price could not be synced.",
+    !totalSynced,
+  );
   document.getElementById("log-hours").focus();
 });
 
@@ -634,7 +812,13 @@ timesheetBody.addEventListener("click", async (event) => {
 
   currentLogs = currentLogs.filter((entry) => entry.id !== log.id);
   renderLogs();
-  setTimesheetStatus("Time entry deleted.");
+  const totalSynced = await syncCalculatedTotalPrice(commissionId);
+  setTimesheetStatus(
+    totalSynced
+      ? "Time entry deleted and total price updated."
+      : "Time entry deleted, but the total price could not be synced.",
+    !totalSynced,
+  );
 });
 
 editorForm.addEventListener("submit", async (event) => {

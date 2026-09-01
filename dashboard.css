@@ -342,7 +342,7 @@ select {
 .request-summary {
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
   gap: 1rem;
   align-items: center;
   padding: 1.25rem;
@@ -370,6 +370,33 @@ select {
 .summary-size {
   color: var(--muted);
   font-size: 0.8rem;
+}
+.summary-balance {
+  padding: 0.42rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 2rem;
+  background: #f7f4f1;
+  color: var(--muted);
+  font:
+    700 0.62rem Roboto,
+    sans-serif;
+  letter-spacing: 0.04rem;
+  white-space: nowrap;
+}
+.summary-balance.is-due {
+  border-color: #efc8c8;
+  background: #fff1f1;
+  color: #9b3030;
+}
+.summary-balance.is-paid {
+  border-color: #a9dec3;
+  background: #effaf4;
+  color: #26744b;
+}
+.summary-balance.is-credit {
+  border-color: #9ee8ff;
+  background: #eefbff;
+  color: var(--navy);
 }
 .chevron {
   width: 2rem;
@@ -681,6 +708,7 @@ select {
   gap: 1rem;
 }
 .pay-panel,
+.billing-panel,
 .ledger-panel {
   padding: 1.2rem;
   border: 1px solid var(--line);
@@ -710,17 +738,25 @@ select {
   color: var(--muted);
   font-size: 0.72rem;
 }
-.pay-settings-form {
+.pay-settings-form,
+.billing-settings-form {
   display: grid;
-  grid-template-columns: minmax(10rem, 1fr) minmax(10rem, 1fr) auto;
   gap: 0.75rem;
   align-items: end;
 }
+.pay-settings-form {
+  grid-template-columns: minmax(10rem, 1fr) minmax(10rem, 1fr) auto;
+}
+.billing-settings-form {
+  grid-template-columns: minmax(12rem, 1fr) auto;
+}
 .pay-settings-form .form-group,
+.billing-settings-form .form-group,
 .log-time-form .form-group {
   margin: 0;
 }
 .pay-settings-form .btn,
+.billing-settings-form .btn,
 .log-time-form .btn {
   min-height: 3.35rem;
 }
@@ -758,6 +794,59 @@ select {
 }
 .pay-summary .pay-total dd {
   color: var(--navy);
+}
+.billing-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0 0;
+}
+.billing-summary > div {
+  padding: 0.9rem 1rem;
+  border-radius: 0.7rem;
+  background: #f7f4f1;
+}
+.billing-summary dt {
+  color: var(--muted);
+  font:
+    700 0.62rem Roboto,
+    sans-serif;
+  letter-spacing: 0.08rem;
+  text-transform: uppercase;
+}
+.billing-summary dd {
+  margin: 0.25rem 0 0;
+  color: var(--ink);
+  font:
+    900 1.8rem/1 "Big Shoulders",
+    sans-serif;
+}
+.billing-summary .balance-total {
+  border: 1px solid transparent;
+  background: #eefaff;
+}
+.billing-summary .balance-total dd {
+  color: var(--navy);
+}
+.billing-summary .balance-total.is-due {
+  border-color: #efc8c8;
+  background: #fff1f1;
+}
+.billing-summary .balance-total.is-due dd {
+  color: #9b3030;
+}
+.billing-summary .balance-total.is-paid {
+  border-color: #a9dec3;
+  background: #effaf4;
+}
+.billing-summary .balance-total.is-paid dd {
+  color: #26744b;
+}
+.balance-note {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.68rem;
 }
 .log-time-form {
   display: grid;
@@ -923,7 +1012,7 @@ select {
     grid-column: auto;
   }
   .request-summary {
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto auto;
   }
   .summary-size {
     display: none;
@@ -942,20 +1031,25 @@ select {
     border-radius: 1rem;
   }
   .pay-panel,
+  .billing-panel,
   .ledger-panel {
     padding: 1rem;
   }
   .pay-settings-form,
+  .billing-settings-form,
   .log-time-form,
-  .pay-summary {
+  .pay-summary,
+  .billing-summary {
     grid-template-columns: 1fr;
   }
   .pay-settings-form .btn,
+  .billing-settings-form .btn,
   .log-time-form .btn,
   .log-description-field {
     grid-column: auto;
   }
   .pay-settings-form .btn,
+  .billing-settings-form .btn,
   .log-time-form .btn.primary {
     width: 100%;
   }
