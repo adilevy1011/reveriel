@@ -1,166 +1,421 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <title>Commission Form — Reveriel</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Request a custom artwork from Reveriel.">
-    <meta name="color-scheme" content="light only">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@700;900&family=Open+Sans:wght@400;600&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        :root { --ink:#3d3b4b; --muted:#777382; --coral:#ff7070; --sky:#54d6ff; --paper:#fffdf9; --line:#e8e3e2; --navy:#143f80; }
-        body { background:#f8f5f1; color:var(--ink); }
-        .commission-page { width:100%; padding:clamp(1rem,3vw,2.5rem); }
-        .commission-shell { width:min(68rem,100%); margin:0 auto; }
-        .top-nav { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
-        .back-link,.brand-link { font:700 .75rem/1 Roboto,sans-serif; letter-spacing:.14rem; text-transform:uppercase; text-decoration:none; color:var(--ink); }
-        .back-link:hover,.brand-link:hover { color:var(--coral); }
-        .hero-art { position:relative; min-height:clamp(19rem,48vw,32rem); border-radius:1.5rem; overflow:hidden; display:flex; align-items:flex-end; background:#172c69 url('gallery/portals.jpg') center 47%/cover no-repeat; box-shadow:0 1.5rem 4rem rgba(38,30,47,.17); }
-        .hero-art::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(8,16,40,.03) 30%,rgba(13,18,47,.82)); }
-        .hero-copy { position:relative; z-index:1; max-width:43rem; padding:clamp(1.5rem,5vw,4rem); color:white; text-align:left; }
-        .eyebrow { margin:0 0 .6rem; font:700 .72rem/1 Roboto,sans-serif; letter-spacing:.2rem; text-transform:uppercase; }
-        .hero-copy h1 { margin:0; font:900 clamp(3.2rem,9vw,7rem)/.84 'Big Shoulders',sans-serif; letter-spacing:-.03em; text-transform:uppercase; }
-        .hero-copy p { max-width:34rem; margin:1rem 0 0; font:400 clamp(.95rem,2vw,1.08rem)/1.7 'Open Sans',sans-serif; }
-        .form-layout { display:grid; grid-template-columns:minmax(0,1fr) 15rem; gap:2rem; align-items:start; margin:2rem 0; }
-        .form-card { background:var(--paper); border:1px solid rgba(61,59,75,.11); border-radius:1.5rem; padding:clamp(1.35rem,4vw,3.25rem); box-shadow:0 1rem 3rem rgba(45,35,55,.08); }
-        .progress-card { position:sticky; top:1rem; padding:1.4rem; border-radius:1rem; background:#fff; border:1px solid var(--line); text-align:left; }
-        .progress-card h2 { margin:0 0 1rem; font:900 1.2rem/1 'Big Shoulders',sans-serif; text-transform:uppercase; letter-spacing:.05em; }
-        .progress-list { list-style:none; padding:0; margin:0; }
-        .progress-list li { display:flex; align-items:center; gap:.65rem; padding:.55rem 0; color:var(--muted); font:600 .73rem/1.35 Roboto,sans-serif; text-transform:uppercase; letter-spacing:.08rem; }
-        .progress-list span { width:1.6rem; height:1.6rem; flex:0 0 auto; display:grid; place-items:center; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--coral); }
-        .progress-list li.is-active { color:var(--ink); }
-        .progress-list li.is-active span { background:var(--coral); border-color:var(--coral); color:#fff; }
-        .form-intro { margin-bottom:2.5rem; text-align:left; }
-        .form-intro h2 { margin:0 0 .5rem; font:900 clamp(2.3rem,5vw,3.6rem)/1 'Big Shoulders',sans-serif; text-transform:uppercase; color:var(--ink); }
-        .form-intro p { margin:0; color:var(--muted); font:400 .95rem/1.7 'Open Sans',sans-serif; }
-        .form-section { margin:0; padding:0; border:0; min-width:0; }
-        .form-section + .form-section { margin-top:2.75rem; padding-top:2.75rem; border-top:1px solid var(--line); }
-        .section-heading { display:flex; gap:1rem; align-items:flex-start; margin-bottom:1.8rem; }
-        .section-number { width:2.6rem; height:2.6rem; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:#fff0ed; color:var(--coral); font:900 1rem/1 Roboto,sans-serif; }
-        .section-heading h3 { margin:0; padding:0; font:900 1.65rem/1 'Big Shoulders',sans-serif; text-transform:uppercase; color:var(--ink); }
-        .section-heading p { margin:.35rem 0 0; color:var(--muted); font:400 .82rem/1.5 'Open Sans',sans-serif; }
-        .field-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-        .form-group { margin-bottom:1.4rem; text-align:left; }
-        .form-label { display:block; margin-bottom:.5rem; font:700 .72rem/1 Roboto,sans-serif; letter-spacing:.11rem; text-transform:uppercase; color:var(--ink); }
-        .required { color:var(--coral); }
-        .optional { color:var(--muted); font-weight:500; letter-spacing:0; text-transform:none; }
-        .form-hint { margin:-.1rem 0 .6rem; font:400 .78rem/1.5 'Open Sans',sans-serif; color:var(--muted); }
-        .form-input,.form-textarea { width:100%; padding:.85rem 1rem; border:1px solid var(--line); border-radius:.7rem; outline:0; background:#fff; color:var(--ink); font:400 .9rem/1.5 'Open Sans',sans-serif; transition:.2s ease; }
-        .form-input:focus,.form-textarea:focus { border-color:var(--sky); box-shadow:0 0 0 4px rgba(84,214,255,.16); }
-        .form-textarea { resize:vertical; min-height:8rem; }
-        .options-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
-        .option-item { display:flex; align-items:center; gap:.65rem; min-height:3.1rem; padding:.75rem .85rem; border:1px solid var(--line); border-radius:.75rem; background:#fff; color:var(--ink); cursor:pointer; font:600 .82rem/1.3 'Open Sans',sans-serif; transition:.2s ease; }
-        .option-item:hover { transform:translateY(-1px); border-color:#ffc0bb; }
-        .option-item:has(input:checked) { border-color:var(--coral); background:#fff4f1; box-shadow:0 0 0 2px rgba(255,112,112,.08); }
-        .option-item input { accent-color:var(--coral); width:1.05rem; height:1.05rem; flex:0 0 auto; }
-        .option-item.full { grid-column:1/-1; }
-        .option-item.with-text { flex-wrap:wrap; }
-        .text-inline-input { min-width:10rem; flex:1 1 10rem; max-width:100%; padding:.3rem .15rem; border:0; border-bottom:1px solid #ccc; background:transparent; outline:0; font:400 .82rem/1.3 'Open Sans',sans-serif; }
-        .text-inline-input:focus { border-bottom-color:var(--sky); }
-        .file-drop { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:10.5rem; padding:1.5rem; overflow:hidden; border:1.5px dashed #c9c1c7; border-radius:1rem; background:linear-gradient(145deg,#fff 15%,#fff8f5); text-align:center; cursor:pointer; transition:.2s ease; }
-        .file-drop:hover,.file-drop:focus-within { border-color:var(--sky); background:#f3fbff; box-shadow:0 0 0 4px rgba(84,214,255,.13); transform:translateY(-1px); }
-        .file-drop input { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-        .upload-icon { width:3rem; height:3rem; display:grid; place-items:center; margin-bottom:.75rem; border-radius:50%; background:#fff0ed; color:var(--coral); font:700 1.5rem/1 Roboto,sans-serif; transition:.2s ease; }
-        .file-drop:hover .upload-icon,.file-drop:focus-within .upload-icon { background:var(--sky); color:var(--navy); transform:translateY(-2px); }
-        .upload-title { color:var(--ink); font:700 .82rem/1.35 Roboto,sans-serif; letter-spacing:.04rem; }
-        .upload-help { margin:.35rem 0 0; color:var(--muted); font:400 .72rem/1.45 'Open Sans',sans-serif; }
-        #file-summary { display:inline-block; margin:.85rem 0 0; padding:.35rem .65rem; border-radius:2rem; background:#f3efee; color:var(--muted); font:600 .7rem/1.3 'Open Sans',sans-serif; }
-        .selected-files { display:grid; gap:.55rem; margin-top:.7rem; }
-        .selected-files:empty { display:none; }
-        .selected-file { display:grid; grid-template-columns:3rem minmax(0,1fr) auto; gap:.8rem; align-items:center; padding:.6rem .7rem; border:1px solid var(--line); border-radius:.75rem; background:#fff; }
-        .selected-file-preview { width:3rem; height:3rem; display:block; object-fit:cover; border-radius:.5rem; background:#f3efee; }
-        .selected-file-info { min-width:0; }
-        .selected-file-name { display:block; overflow:hidden; color:var(--ink); font:600 .78rem/1.4 'Open Sans',sans-serif; text-overflow:ellipsis; white-space:nowrap; }
-        .selected-file-size { display:block; margin-top:.12rem; color:var(--muted); font:400 .68rem/1.3 'Open Sans',sans-serif; }
-        .remove-file { width:2rem; height:2rem; display:grid; place-items:center; padding:0; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--muted); cursor:pointer; font:700 1rem/1 Roboto,sans-serif; transition:.2s ease; }
-        .remove-file:hover,.remove-file:focus-visible { border-color:var(--coral); background:#fff0ed; color:#b94040; outline:none; }
-        .submit-wrap { margin-top:2rem; }
-        .submit-btn { width:100%; min-height:3.8rem; border:0; border-radius:.85rem; background:linear-gradient(100deg,var(--coral),#ff9079); color:#fff; cursor:pointer; font:900 .82rem/1 Roboto,sans-serif; letter-spacing:.17rem; text-transform:uppercase; box-shadow:0 .65rem 1.4rem rgba(255,112,112,.25); transition:.2s ease; }
-        .submit-btn:hover { transform:translateY(-2px); box-shadow:0 .85rem 1.7rem rgba(255,112,112,.32); }
-        .submit-btn:disabled { opacity:.55; cursor:wait; transform:none; }
-        .submit-note { margin:.85rem 0 0; text-align:center; color:var(--muted); font:400 .76rem/1.5 'Open Sans',sans-serif; }
-        .status-error { margin-top:1rem; padding:1rem; border-radius:.7rem; background:#fff0f0; color:#a93030; font:600 .85rem/1.5 'Open Sans',sans-serif; }
-        .success-panel { display:none; padding:clamp(2rem,6vw,4rem); border-radius:1.5rem; background:var(--navy); color:#fff; text-align:center; box-shadow:0 1rem 3rem rgba(20,63,128,.2); }
-        .success-panel.is-visible { display:block; animation:rise .45s ease both; }
-        .success-mark { width:4.5rem; height:4.5rem; display:grid; place-items:center; margin:0 auto 1.5rem; border-radius:50%; background:var(--sky); color:var(--navy); font:900 2rem Roboto,sans-serif; }
-        .success-panel h2 { margin:0; font:900 clamp(2.5rem,6vw,4.5rem)/.95 'Big Shoulders',sans-serif; text-transform:uppercase; }
-        .success-panel p { max-width:34rem; margin:1rem auto 0; font:400 .95rem/1.7 'Open Sans',sans-serif; }
-        .success-reference { display:inline-block; margin:1.4rem 0; padding:.65rem 1rem; border:1px solid rgba(255,255,255,.3); border-radius:2rem; font:700 .72rem Roboto,sans-serif; letter-spacing:.08rem; }
-        .success-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:.7rem; margin-top:1.2rem; }
-        .success-actions a,.success-actions button { padding:.8rem 1.1rem; border:1px solid rgba(255,255,255,.5); border-radius:.6rem; background:transparent; color:#fff; cursor:pointer; text-decoration:none; font:700 .72rem Roboto,sans-serif; text-transform:uppercase; letter-spacing:.1rem; }
-        .success-actions a:hover,.success-actions button:hover { background:#fff; color:var(--navy); }
-        .closing-art { position:relative; min-height:clamp(15rem,35vw,25rem); overflow:hidden; border-radius:1.5rem; background:#fff url('gallery/what_gives_me_wings.jpg') center/cover no-repeat; border:1px solid var(--line); }
-        .closing-art figcaption { position:absolute; right:1rem; bottom:1rem; padding:.45rem .7rem; border-radius:2rem; background:rgba(255,255,255,.9); color:var(--ink); font:700 .67rem Roboto,sans-serif; letter-spacing:.08rem; text-transform:uppercase; }
-        @keyframes rise { from{opacity:0;transform:translateY(1rem)} to{opacity:1;transform:none} }
-        @media(max-width:800px){ .form-layout{grid-template-columns:1fr}.progress-card{position:static;order:-1}.progress-list{display:grid;grid-template-columns:repeat(3,1fr)}.progress-list li{flex-direction:column;text-align:center}.field-row{grid-template-columns:1fr} }
-        @media(max-width:520px){ .commission-page{padding:.75rem}.hero-art,.form-card,.success-panel,.closing-art{border-radius:1rem}.options-grid{grid-template-columns:1fr}.option-item.full{grid-column:auto}.progress-card{padding:1rem}.progress-list li{font-size:.6rem;letter-spacing:.04rem}.hero-copy{padding:1.4rem} }
-    </style>
-</head>
-<body class="is-ready">
-<main class="commission-page"><div class="commission-shell">
-    <nav class="top-nav" aria-label="Commission page navigation"><a class="back-link" href="/">← Portfolio</a><a class="brand-link" href="/">Reveriel</a></nav>
-    <header class="hero-art"><div class="hero-copy"><p class="eyebrow">Custom art, made collaboratively</p><h1>Bring your idea to life.</h1><p>Tell me what you’re imagining. This form gives me everything I need to understand the piece, check availability, and prepare a thoughtful quote.</p></div></header>
-    <div class="form-layout"><div>
-        <section class="form-card" id="form-card"><div class="form-intro"><h2>Commission request</h2><p>Share as much or as little as you know right now. Required fields are marked with <span class="required">*</span>.</p></div>
-        <form id="commission-form" method="post">
-            <section class="form-section" data-step="1"><div class="section-heading"><span class="section-number">01</span><div><h3>Personal information</h3><p>Where I can reach you about your request.</p></div></div><div class="field-row">
-                <div class="form-group"><label class="form-label" for="email">Email <span class="required">*</span></label><input type="email" id="email" class="form-input" autocomplete="email" required placeholder="your.email@example.com"></div>
-                <div class="form-group"><label class="form-label" for="phone">Phone <span class="optional">(optional)</span></label><input type="tel" id="phone" class="form-input" autocomplete="tel" placeholder="(123) 456-7890"></div>
-            </div></section>
-            <section class="form-section" data-step="2"><div class="section-heading"><span class="section-number">02</span><div><h3>Dimensions &amp; medium</h3><p>Choose the format that feels closest. We can refine it together.</p></div></div>
-                <div class="form-group"><span class="form-label">Artwork type <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="artwork_type" value="Digital" required>Digital artwork</label><label class="option-item"><input type="radio" name="artwork_type" value="Traditional">Traditional artwork</label></div></div>
-                <div class="form-group"><span class="form-label">Medium <span class="required">*</span></span><p class="form-hint">Select every medium you’re open to.</p><div class="options-grid"><label class="option-item"><input type="checkbox" name="medium" value="Oil paint">Oil paint</label><label class="option-item"><input type="checkbox" name="medium" value="Acrylic paint">Acrylic paint</label><label class="option-item"><input type="checkbox" name="medium" value="Watercolor paint">Watercolor</label><label class="option-item"><input type="checkbox" name="medium" value="Oil pastel">Oil pastel</label><label class="option-item"><input type="checkbox" name="medium" value="Pencil / Graphite">Pencil / graphite</label><label class="option-item"><input type="checkbox" name="medium" value="Pen">Pen</label><label class="option-item"><input type="checkbox" name="medium" value="Mixed Media">Mixed media</label><label class="option-item"><input type="checkbox" name="medium" value="No preference / Up to artist">Artist’s choice</label></div></div>
-                <div class="form-group"><span class="form-label">Size / dimensions <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="size" value="5x7 inches" required>5 × 7 in</label><label class="option-item"><input type="radio" name="size" value="8x10 inches">8 × 10 in</label><label class="option-item"><input type="radio" name="size" value="11x14 inches">11 × 14 in</label><label class="option-item"><input type="radio" name="size" value="16x20 inches">16 × 20 in</label><label class="option-item"><input type="radio" name="size" value="24x36 inches">24 × 36 in</label><label class="option-item"><input type="radio" name="size" value="No preference / Up to artist">Artist’s choice</label><label class="option-item full with-text"><input type="radio" name="size" value="Other" id="size-other-radio">Other: <input type="text" id="size-other-text" class="text-inline-input" aria-label="Custom dimensions" placeholder="Specify dimensions"></label></div></div>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Request a custom artwork from Reveriel."
+    />
+    <meta name="color-scheme" content="light only" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@700;900&family=Open+Sans:wght@400;600&family=Roboto:wght@500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="commission.css" />
+  </head>
+  <body class="is-ready">
+    <main class="commission-page">
+      <div class="commission-shell">
+        <nav class="top-nav" aria-label="Commission page navigation">
+          <a class="back-link" href="/">← Portfolio</a
+          ><a class="brand-link" href="/">Reveriel</a>
+        </nav>
+        <header class="hero-art">
+          <div class="hero-copy">
+            <p class="eyebrow">Custom art, made collaboratively</p>
+            <h1>Bring your idea to life.</h1>
+            <p>
+              Tell me what you’re imagining. This form gives me everything I
+              need to understand the piece, check availability, and prepare a
+              thoughtful quote.
+            </p>
+          </div>
+        </header>
+        <div class="form-layout">
+          <div>
+            <section class="form-card" id="form-card">
+              <div class="form-intro">
+                <h2>Commission request</h2>
+                <p>
+                  Share as much or as little as you know right now. Required
+                  fields are marked with <span class="required">*</span>.
+                </p>
+              </div>
+              <form id="commission-form" method="post">
+                <section class="form-section" data-step="1">
+                  <div class="section-heading">
+                    <span class="section-number">01</span>
+                    <div>
+                      <h3>Personal information</h3>
+                      <p>Where I can reach you about your request.</p>
+                    </div>
+                  </div>
+                  <div class="field-row">
+                    <div class="form-group">
+                      <label class="form-label" for="email"
+                        >Email <span class="required">*</span></label
+                      ><input
+                        type="email"
+                        id="email"
+                        class="form-input"
+                        autocomplete="email"
+                        required
+                        placeholder="your.email@example.com"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="phone"
+                        >Phone <span class="optional">(optional)</span></label
+                      ><input
+                        type="tel"
+                        id="phone"
+                        class="form-input"
+                        autocomplete="tel"
+                        placeholder="(123) 456-7890"
+                      />
+                    </div>
+                  </div>
+                </section>
+                <section class="form-section" data-step="2">
+                  <div class="section-heading">
+                    <span class="section-number">02</span>
+                    <div>
+                      <h3>Dimensions &amp; medium</h3>
+                      <p>
+                        Choose the format that feels closest. We can refine it
+                        together.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label"
+                      >Artwork type <span class="required">*</span></span
+                    >
+                    <div class="options-grid">
+                      <label class="option-item"
+                        ><input
+                          type="radio"
+                          name="artwork_type"
+                          value="Digital"
+                          required
+                        />Digital artwork</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="artwork_type"
+                          value="Traditional"
+                        />Traditional artwork</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label"
+                      >Medium <span class="required">*</span></span
+                    >
+                    <p class="form-hint">Select every medium you’re open to.</p>
+                    <div class="options-grid">
+                      <label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Oil paint"
+                        />Oil paint</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Acrylic paint"
+                        />Acrylic paint</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Watercolor paint"
+                        />Watercolor</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Oil pastel"
+                        />Oil pastel</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Pencil / Graphite"
+                        />Pencil / graphite</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Pen"
+                        />Pen</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="Mixed Media"
+                        />Mixed media</label
+                      ><label class="option-item"
+                        ><input
+                          type="checkbox"
+                          name="medium"
+                          value="No preference / Up to artist"
+                        />Artist’s choice</label
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label"
+                      >Size / dimensions <span class="required">*</span></span
+                    >
+                    <div class="options-grid">
+                      <label class="option-item"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="5x7 inches"
+                          required
+                        />5 × 7 in</label
+                      ><label class="option-item"
+                        ><input type="radio" name="size" value="8x10 inches" />8
+                        × 10 in</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="11x14 inches"
+                        />11 × 14 in</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="16x20 inches"
+                        />16 × 20 in</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="24x36 inches"
+                        />24 × 36 in</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="No preference / Up to artist"
+                        />Artist’s choice</label
+                      ><label class="option-item full with-text"
+                        ><input
+                          type="radio"
+                          name="size"
+                          value="Other"
+                          id="size-other-radio" />Other:
+                        <input
+                          type="text"
+                          id="size-other-text"
+                          class="text-inline-input"
+                          aria-label="Custom dimensions"
+                          placeholder="Specify dimensions"
+                      /></label>
+                    </div>
+                  </div>
+                </section>
+                <section class="form-section" data-step="3">
+                  <div class="section-heading">
+                    <span class="section-number">03</span>
+                    <div>
+                      <h3>Creative details</h3>
+                      <p>The story, mood, references, and practical details.</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="description"
+                      >Your vision <span class="required">*</span></label
+                    ><textarea
+                      id="description"
+                      class="form-textarea"
+                      rows="5"
+                      required
+                      placeholder="Describe the subject, story, colors, mood, or feeling you want the piece to hold..."
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="style_preference"
+                      >Style preference
+                      <span class="optional">(optional)</span></label
+                    ><input
+                      type="text"
+                      id="style_preference"
+                      class="form-input"
+                      placeholder="Expressive, painterly, line art, detailed..."
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="reference_images"
+                      >Reference images
+                      <span class="optional">(optional)</span></label
+                    >
+                    <p class="form-hint">
+                      Upload up to 5 photos, sketches, or inspiration images.
+                      Maximum 5MB each.
+                    </p>
+                    <label class="file-drop" for="reference_images"
+                      ><input
+                        type="file"
+                        id="reference_images"
+                        multiple
+                        accept="image/*"
+                      /><span class="upload-icon" aria-hidden="true">↑</span
+                      ><span class="upload-title">Choose reference images</span
+                      ><span class="upload-help"
+                        >PNG, JPG, WEBP or other image formats</span
+                      ><span id="file-summary">No files selected</span></label
+                    >
+                    <div
+                      id="file-list"
+                      class="selected-files"
+                      aria-live="polite"
+                    ></div>
+                  </div>
+                  <div class="field-row">
+                    <div class="form-group">
+                      <label class="form-label" for="deadline"
+                        >Target deadline
+                        <span class="optional">(optional)</span></label
+                      ><input type="date" id="deadline" class="form-input" />
+                    </div>
+                    <div class="form-group">
+                      <span class="form-label"
+                        >Deadline flexibility
+                        <span class="required">*</span></span
+                      >
+                      <div class="options-grid">
+                        <label class="option-item"
+                          ><input
+                            type="radio"
+                            name="deadline_flexibility"
+                            value="Flexible"
+                            required
+                          />Flexible</label
+                        ><label class="option-item"
+                          ><input
+                            type="radio"
+                            name="deadline_flexibility"
+                            value="Strict / Hard Deadline"
+                          />Hard deadline</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <span class="form-label"
+                      >Payment method <span class="required">*</span></span
+                    >
+                    <div class="options-grid">
+                      <label class="option-item"
+                        ><input
+                          type="radio"
+                          name="payment_method"
+                          value="PayPal"
+                          required
+                        />PayPal</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="payment_method"
+                          value="Venmo"
+                        />Venmo</label
+                      ><label class="option-item"
+                        ><input
+                          type="radio"
+                          name="payment_method"
+                          value="Zelle"
+                        />Zelle</label
+                      ><label class="option-item with-text"
+                        ><input
+                          type="radio"
+                          name="payment_method"
+                          value="Other"
+                          id="payment-other-radio" />Other:
+                        <input
+                          type="text"
+                          id="payment-other-text"
+                          class="text-inline-input"
+                          aria-label="Other payment method"
+                          placeholder="Specify method"
+                      /></label>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="additional_comment"
+                      >Anything else?
+                      <span class="optional">(optional)</span></label
+                    ><textarea
+                      id="additional_comment"
+                      class="form-textarea"
+                      rows="3"
+                      placeholder="Questions, shipping notes, gift details, or anything else I should know..."
+                    ></textarea>
+                  </div>
+                </section>
+                <div id="form-status" role="alert" aria-live="polite"></div>
+                <div class="submit-wrap">
+                  <button type="submit" id="submit-btn" class="submit-btn">
+                    Send commission request →
+                  </button>
+                  <p class="submit-note">
+                    Submitting this form is a request, not a purchase. I’ll
+                    follow up with availability and pricing.
+                  </p>
+                </div>
+              </form>
             </section>
-            <section class="form-section" data-step="3"><div class="section-heading"><span class="section-number">03</span><div><h3>Creative details</h3><p>The story, mood, references, and practical details.</p></div></div>
-                <div class="form-group"><label class="form-label" for="description">Your vision <span class="required">*</span></label><textarea id="description" class="form-textarea" rows="5" required placeholder="Describe the subject, story, colors, mood, or feeling you want the piece to hold..."></textarea></div>
-                <div class="form-group"><label class="form-label" for="style_preference">Style preference <span class="optional">(optional)</span></label><input type="text" id="style_preference" class="form-input" placeholder="Expressive, painterly, line art, detailed..."></div>
-                <div class="form-group"><label class="form-label" for="reference_images">Reference images <span class="optional">(optional)</span></label><p class="form-hint">Upload up to 5 photos, sketches, or inspiration images. Maximum 5MB each.</p><label class="file-drop" for="reference_images"><input type="file" id="reference_images" multiple accept="image/*"><span class="upload-icon" aria-hidden="true">↑</span><span class="upload-title">Choose reference images</span><span class="upload-help">PNG, JPG, WEBP or other image formats</span><span id="file-summary">No files selected</span></label><div id="file-list" class="selected-files" aria-live="polite"></div></div>
-                <div class="field-row"><div class="form-group"><label class="form-label" for="deadline">Target deadline <span class="optional">(optional)</span></label><input type="date" id="deadline" class="form-input"></div><div class="form-group"><span class="form-label">Deadline flexibility <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="deadline_flexibility" value="Flexible" required>Flexible</label><label class="option-item"><input type="radio" name="deadline_flexibility" value="Strict / Hard Deadline">Hard deadline</label></div></div></div>
-                <div class="form-group"><span class="form-label">Payment method <span class="required">*</span></span><div class="options-grid"><label class="option-item"><input type="radio" name="payment_method" value="PayPal" required>PayPal</label><label class="option-item"><input type="radio" name="payment_method" value="Venmo">Venmo</label><label class="option-item"><input type="radio" name="payment_method" value="Zelle">Zelle</label><label class="option-item with-text"><input type="radio" name="payment_method" value="Other" id="payment-other-radio">Other: <input type="text" id="payment-other-text" class="text-inline-input" aria-label="Other payment method" placeholder="Specify method"></label></div></div>
-                <div class="form-group"><label class="form-label" for="additional_comment">Anything else? <span class="optional">(optional)</span></label><textarea id="additional_comment" class="form-textarea" rows="3" placeholder="Questions, shipping notes, gift details, or anything else I should know..."></textarea></div>
+            <section
+              class="success-panel"
+              id="success-panel"
+              role="status"
+              aria-live="polite"
+              tabindex="-1"
+            >
+              <div class="success-mark">✓</div>
+              <p class="eyebrow">Request received</p>
+              <h2>Your idea is on its way!</h2>
+              <p>
+                Thank you for trusting me with your vision. I’ll review the
+                details and reply to <strong id="success-email"></strong> with
+                availability, questions, and a quote.
+              </p>
+              <div class="success-reference" id="success-reference"></div>
+              <div class="success-actions">
+                <a href="/">Return to portfolio</a
+                ><button type="button" id="another-request">
+                  Send another request
+                </button>
+              </div>
             </section>
-            <div id="form-status" role="alert" aria-live="polite"></div><div class="submit-wrap"><button type="submit" id="submit-btn" class="submit-btn">Send commission request →</button><p class="submit-note">Submitting this form is a request, not a purchase. I’ll follow up with availability and pricing.</p></div>
-        </form></section>
-        <section class="success-panel" id="success-panel" role="status" aria-live="polite" tabindex="-1"><div class="success-mark">✓</div><p class="eyebrow">Request received</p><h2>Your idea is on its way!</h2><p>Thank you for trusting me with your vision. I’ll review the details and reply to <strong id="success-email"></strong> with availability, questions, and a quote.</p><div class="success-reference" id="success-reference"></div><div class="success-actions"><a href="/">Return to portfolio</a><button type="button" id="another-request">Send another request</button></div></section>
-    </div><aside class="progress-card" aria-label="Form sections"><h2>Your request</h2><ol class="progress-list"><li class="is-active" data-progress="1"><span>1</span>Personal info</li><li data-progress="2"><span>2</span>Format</li><li data-progress="3"><span>3</span>Details</li></ol></aside></div>
-    <figure class="closing-art"><figcaption>What Gives Me Wings</figcaption></figure>
-</div></main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-    const SUPABASE_URL='https://gvooqilvlqztifzpwaew.supabase.co';
-    const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd2b29xaWx2bHF6dGlmenB3YWV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODgxMjc2NzIsImV4cCI6MjEwMzcwMzY3Mn0.GWoRsQPa1B0sQIGf-6trhf9WwdxvQREgz25puLbA9_o';
-    const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-    const form=document.getElementById('commission-form'),formCard=document.getElementById('form-card'),successPanel=document.getElementById('success-panel'),submitBtn=document.getElementById('submit-btn'),formStatus=document.getElementById('form-status'),fileInput=document.getElementById('reference_images'),fileList=document.getElementById('file-list');
-    let selectedFiles=[],previewURLs=[];
-    document.getElementById('size-other-text').addEventListener('focus',()=>document.getElementById('size-other-radio').checked=true);
-    document.getElementById('payment-other-text').addEventListener('focus',()=>document.getElementById('payment-other-radio').checked=true);
-    function formatFileSize(bytes){return bytes<1024?`${bytes} B`:bytes<1024*1024?`${(bytes/1024).toFixed(1)} KB`:`${(bytes/(1024*1024)).toFixed(1)} MB`;}
-    function syncFileInput(){const transfer=new DataTransfer();selectedFiles.forEach(file=>transfer.items.add(file));fileInput.files=transfer.files;}
-    function renderSelectedFiles(){
-        previewURLs.forEach(url=>URL.revokeObjectURL(url));previewURLs=[];fileList.replaceChildren();
-        const n=selectedFiles.length;document.getElementById('file-summary').textContent=n?`${n} file${n===1?'':'s'} selected`:'No files selected';
-        selectedFiles.forEach((file,index)=>{const row=document.createElement('div');row.className='selected-file';const preview=document.createElement('img'),url=URL.createObjectURL(file);previewURLs.push(url);preview.className='selected-file-preview';preview.src=url;preview.alt='';const info=document.createElement('span');info.className='selected-file-info';const name=document.createElement('span');name.className='selected-file-name';name.textContent=file.name;name.title=file.name;const size=document.createElement('span');size.className='selected-file-size';size.textContent=formatFileSize(file.size);info.append(name,size);const remove=document.createElement('button');remove.type='button';remove.className='remove-file';remove.textContent='×';remove.setAttribute('aria-label',`Remove ${file.name}`);remove.addEventListener('click',()=>{selectedFiles.splice(index,1);syncFileInput();renderSelectedFiles();});row.append(preview,info,remove);fileList.append(row);});
-    }
-    fileInput.addEventListener('change',()=>{selectedFiles=Array.from(fileInput.files);renderSelectedFiles();});
-    const sections=document.querySelectorAll('[data-step]'),progressItems=document.querySelectorAll('[data-progress]');
-    const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)progressItems.forEach(item=>item.classList.toggle('is-active',item.dataset.progress===visible.target.dataset.step));},{rootMargin:'-25% 0px -55%',threshold:[0,.25,.5]});sections.forEach(section=>observer.observe(section));
-    function setError(message){formStatus.className='status-error';formStatus.textContent=message;formStatus.scrollIntoView({behavior:'smooth',block:'center'});}
-    form.addEventListener('submit',async event=>{
-        event.preventDefault();const mediums=Array.from(document.querySelectorAll('input[name="medium"]:checked')),files=Array.from(fileInput.files);
-        if(!mediums.length){setError('Please choose at least one medium, or select “Artist’s choice.”');return;}
-        if(files.length>5||files.some(file=>file.size>5*1024*1024)){setError('Please upload no more than 5 images, each under 5MB.');return;}
-        submitBtn.disabled=true;submitBtn.textContent='Preparing your request…';formStatus.className='';formStatus.textContent='';
-        try{const uploadedImageUrls=[];for(const file of files){submitBtn.textContent=`Uploading ${uploadedImageUrls.length+1} of ${files.length}…`;const ext=(file.name.split('.').pop()||'jpg').replace(/[^a-z0-9]/gi,'').toLowerCase(),name=`${Date.now()}_${crypto.randomUUID().slice(0,8)}.${ext}`;const{error}=await supabaseClient.storage.from('reference-images').upload(name,file);if(error)throw new Error(`File upload failed: ${error.message}`);const{data}=supabaseClient.storage.from('reference-images').getPublicUrl(name);if(data?.publicUrl)uploadedImageUrls.push(data.publicUrl);}
-            let size=document.querySelector('input[name="size"]:checked')?.value;if(size==='Other')size=`Other: ${document.getElementById('size-other-text').value.trim()||'Custom size'}`;let paymentMethod=document.querySelector('input[name="payment_method"]:checked')?.value;if(paymentMethod==='Other')paymentMethod=`Other: ${document.getElementById('payment-other-text').value.trim()||'To discuss'}`;const email=document.getElementById('email').value.trim();submitBtn.textContent='Sending your request…';
-            const{error}=await supabaseClient.from('commissions').insert([{email,phone_number:document.getElementById('phone').value.trim()||null,artwork_type:document.querySelector('input[name="artwork_type"]:checked')?.value,medium:mediums.map(item=>item.value).join(', '),size,description:document.getElementById('description').value.trim(),style_preference:document.getElementById('style_preference').value.trim()||null,reference_images:uploadedImageUrls,deadline:document.getElementById('deadline').value||null,deadline_flexibility:document.querySelector('input[name="deadline_flexibility"]:checked')?.value,payment_method:paymentMethod,additional_comment:document.getElementById('additional_comment').value.trim()||null}]);if(error)throw error;
-            const reference=`REV-${new Date().getFullYear()}-${Math.random().toString(36).slice(2,7).toUpperCase()}`;document.getElementById('success-email').textContent=email;document.getElementById('success-reference').textContent=`Confirmation ${reference}`;form.reset();selectedFiles=[];renderSelectedFiles();formCard.hidden=true;successPanel.classList.add('is-visible');successPanel.focus();successPanel.scrollIntoView({behavior:'smooth',block:'center'});
-        }catch(error){console.error('Submission error:',error);setError(error.message||'Something went wrong. Please try again.');}finally{submitBtn.disabled=false;submitBtn.textContent='Send commission request →';}
-    });
-    document.getElementById('another-request').addEventListener('click',()=>{successPanel.classList.remove('is-visible');formCard.hidden=false;formCard.scrollIntoView({behavior:'smooth',block:'start'});});
-</script>
-</body>
+          </div>
+          <aside class="progress-card" aria-label="Form sections">
+            <h2>Your request</h2>
+            <ol class="progress-list">
+              <li class="is-active" data-progress="1">
+                <span>1</span>Personal info
+              </li>
+              <li data-progress="2"><span>2</span>Format</li>
+              <li data-progress="3"><span>3</span>Details</li>
+            </ol>
+          </aside>
+        </div>
+        <figure class="closing-art">
+          <figcaption>What Gives Me Wings</figcaption>
+        </figure>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="commission.js"></script>
+  </body>
 </html>
