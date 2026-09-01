@@ -39,7 +39,7 @@ select {
 }
 .auth-art {
   position: relative;
-  background: var(--navy) url("gallery/portals.jpg") center/cover no-repeat;
+  background: var(--navy) url("../gallery/portals.jpg") center/cover no-repeat;
 }
 .auth-art::after {
   content: "";
