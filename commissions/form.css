@@ -10,6 +10,7 @@
 body {
   background: #f8f5f1;
   color: var(--ink);
+  overflow-x: clip;
 }
 .commission-page {
   width: 100%;
@@ -39,34 +40,6 @@ body {
 .brand-link:hover {
   color: var(--coral);
 }
-.hero-art {
-  position: relative;
-  min-height: clamp(19rem, 48vw, 32rem);
-  border-radius: 1.5rem;
-  overflow: hidden;
-  display: flex;
-  align-items: flex-end;
-  background: #172c69 url("../gallery/portals.jpg") center 47% / cover no-repeat;
-  box-shadow: 0 1.5rem 4rem rgba(38, 30, 47, 0.17);
-}
-.hero-art::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(8, 16, 40, 0.03) 30%,
-    rgba(13, 18, 47, 0.82)
-  );
-}
-.hero-copy {
-  position: relative;
-  z-index: 1;
-  max-width: 43rem;
-  padding: clamp(1.5rem, 5vw, 4rem);
-  color: white;
-  text-align: left;
-}
 .eyebrow {
   margin: 0 0 0.6rem;
   font:
@@ -75,27 +48,31 @@ body {
   letter-spacing: 0.2rem;
   text-transform: uppercase;
 }
-.hero-copy h1 {
-  margin: 0;
-  font:
-    900 clamp(3.2rem, 9vw, 7rem)/0.84 "Big Shoulders",
-    sans-serif;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
-}
-.hero-copy p {
-  max-width: 34rem;
-  margin: 1rem 0 0;
-  font:
-    400 clamp(0.95rem, 2vw, 1.08rem)/1.7 "Open Sans",
-    sans-serif;
-}
 .form-layout {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 15rem;
   gap: 2rem;
   align-items: start;
-  margin: 2rem 0;
+  margin: 0 0 2rem;
+  padding-top: clamp(8rem, 18vw, 12rem);
+}
+.form-layout::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: clamp(17rem, 34vw, 23rem);
+  background: #172c69 url("../gallery/portals.jpg") center 47% / 115% auto no-repeat;
+  box-shadow: 0 1.5rem 4rem rgba(38, 30, 47, 0.17);
+  transform: translateX(-50%);
+}
+.form-layout > * {
+  position: relative;
+  z-index: 1;
 }
 .form-card {
   background: var(--paper);
@@ -705,7 +682,6 @@ body {
   .commission-page {
     padding: 0.75rem;
   }
-  .hero-art,
   .form-card,
   .success-panel,
   .closing-art {
@@ -724,7 +700,10 @@ body {
     font-size: 0.6rem;
     letter-spacing: 0.04rem;
   }
-  .hero-copy {
-    padding: 1.4rem;
+  .form-layout {
+    padding-top: 6.5rem;
+  }
+  .form-layout::before {
+    height: 17rem;
   }
 }
