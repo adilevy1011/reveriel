@@ -14,6 +14,16 @@ h1 { margin: 0; font: 900 clamp(4rem, 10vw, 8rem)/.8 "Big Shoulders", sans-serif
 .portfolio-grid figure:hover img { transform: scale(1.04); }
 .portfolio-grid figcaption { position: absolute; right: .75rem; bottom: .75rem; left: .75rem; padding: .65rem .75rem; color: #fff; background: rgba(25, 23, 25, .7); font: 700 .68rem/1.2 Roboto, sans-serif; letter-spacing: .1em; text-transform: uppercase; opacity: 0; transition: opacity .25s ease; }
 .portfolio-grid figure:hover figcaption { opacity: 1; }
+.portfolio-page .artwork-preview-controls { display: none; }
+.portfolio-page .artwork-preview-caption {
+  right: 50%;
+  bottom: 1.75rem;
+  left: auto;
+  width: max-content;
+  max-width: calc(100% - 3rem);
+  transform: translateX(50%);
+  text-align: center;
+}
 @media (max-width: 800px) {
   .portfolio-header, .portfolio-grid { width: min(100% - 2rem, 600px); }
   .portfolio-header { grid-template-columns: 1fr 1fr; align-items: center; padding: 2rem 0 3rem; }
