@@ -260,7 +260,6 @@ form.addEventListener("submit", async (event) => {
     ]);
     if (error) throw error;
     const reference = `REV-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
-    document.getElementById("success-email").textContent = email;
     document.getElementById("success-reference").textContent =
       `Confirmation ${reference}`;
     form.reset();
