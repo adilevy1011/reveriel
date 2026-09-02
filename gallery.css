@@ -25,12 +25,11 @@ body:has(.gallery-screen) .site-wrapper {
   top: 50%;
   left: 50%;
   margin: 0;
-  color: #fff;
-  font: 900 clamp(4.5rem, 13vw, 12rem)/.8 "Big Shoulders", sans-serif;
-  letter-spacing: .06em;
+  color: #000;
+  font: 300 clamp(3.8rem, 10vw, 9rem)/1 "Open Sans", sans-serif;
+  letter-spacing: .12em;
   text-align: center;
-  text-shadow: 0 .15rem 1.5rem rgba(0,0,0,.8);
-  text-transform: uppercase;
+  text-transform: none;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -148,5 +147,5 @@ body:has(.gallery-screen) .site-wrapper {
   .gallery-arrow { width: 2.7rem; height: 2.7rem; }
   .gallery-arrow-prev { left: .7rem; }
   .gallery-arrow-next { right: .7rem; }
-  .gallery-wordmark { font-size: clamp(3.6rem, 20vw, 7rem); letter-spacing: .03em; }
+  .gallery-wordmark { font-size: clamp(3rem, 17vw, 5.5rem); letter-spacing: .08em; }
 }

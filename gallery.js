@@ -1,4 +1,5 @@
 const gallerySlides = [
+  ["what_gives_me_wings.jpg", "What Gives Me Wings"],
   ["time_flies.jpg", "Time Flies"],
   ["still_life.jpg", "Still Life"],
   ["florida.jpg", "Florida"],
