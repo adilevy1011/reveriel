@@ -9,22 +9,22 @@
       content="Request a custom artwork from Reveriel."
     />
     <meta name="color-scheme" content="light only" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Big+Shoulders:wght@700;900&family=Open+Sans:wght@400;600&family=Roboto:wght@500;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="commission.css" />
-    <link rel="stylesheet" href="mobile.css" />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="form.css" />
+    <link rel="stylesheet" href="../mobile.css" />
   </head>
   <body class="is-ready">
     <main class="commission-page">
       <div class="commission-shell">
         <nav class="top-nav" aria-label="Commission page navigation">
-          <a class="back-link" href="/">← Portfolio</a
-          ><a class="brand-link" href="/">Reveriel</a>
+          <a class="back-link" href="../index.html">← Portfolio</a
+          ><a class="brand-link" href="../index.html">Reveriel</a>
         </nav>
         <header class="hero-art">
           <div class="hero-copy">
@@ -445,7 +445,7 @@
               </p>
               <div class="success-reference" id="success-reference"></div>
               <div class="success-actions">
-                <a href="/">Return to portfolio</a
+                <a href="../index.html">Return to portfolio</a
                 ><button type="button" id="another-request">
                   Send another request
                 </button>
@@ -464,12 +464,9 @@
             </ol>
           </aside>
         </div>
-        <figure class="closing-art">
-          <figcaption>What Gives Me Wings</figcaption>
-        </figure>
       </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="commission.js"></script>
+    <script src="form.js"></script>
   </body>
 </html>

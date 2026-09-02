@@ -26,6 +26,8 @@
   <link href="https://fonts.googleapis.com/css2?display=swap&amp;family=Big+Shoulders:ital,wght@0,700;0,900;1,700;1,900&amp;family=Roboto:ital,wght@0,100;0,400;0,700;0,900;1,100;1,400;1,700;1,900&amp;family=Open+Sans:ital,wght@0,300;0,400;1,300;1,400" rel="stylesheet" type="text/css"/>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="mobile.css">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="stylesheet" href="image-preview.css">
   <noscript>
    <style>
     body {
@@ -45,6 +47,26 @@
  </head>
 
 <body class="is-ready">
+  <nav class="gallery-topbar" aria-label="Site navigation">
+   <a class="gallery-about" href="portfolio.html">Portfolio</a>
+   <a class="gallery-about gallery-commission" href="commissions/commission.html">Commission</a>
+   <a class="gallery-about" href="about.html">About</a>
+   <a class="gallery-icon" href="https://instagram.com/reveriel_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><use xlink:href="#icon-85976685de3e4af37529a1ce5d57d2a7"></use></svg>
+   </a>
+   <a class="gallery-icon contact-email" href="#" aria-label="Email Sarah">
+    <svg viewBox="0 0 40 40" aria-hidden="true"><use xlink:href="#icon-c0646d28bbeb18e39eb973f96b44bd0f"></use></svg>
+   </a>
+  </nav>
+  <main class="gallery-screen" aria-label="Artwork gallery">
+   <h1 class="gallery-wordmark">Reveriel</h1>
+   <button class="gallery-arrow gallery-arrow-prev" type="button" aria-label="Previous artwork">←</button>
+   <figure class="gallery-slide">
+    <img src="gallery/time_flies.jpg" alt="Time Flies">
+    <figcaption>Time Flies <span>01 / 03</span></figcaption>
+   </figure>
+   <button class="gallery-arrow gallery-arrow-next" type="button" aria-label="Next artwork">→</button>
+  </main>
   <svg display="none" height="0" version="1.1" viewbox="0 0 40 40" width="0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
    <symbol id="icon-9b06e48ad6f3832fe934f09c3a16c637" viewbox="0 0 40 40">
     <path d="M39.3,14.8L25,29.1c-0.6,0.6-3.7,2-3.9,1.9c-0.1-0.1,1.2-3.3,1.8-3.9l14.3-14.3 c0.6-0.6,1.5-0.6,2.1,0C39.9,13.3,39.9,14.3,39.3,14.8z M12.5,28.7h6.3c0.6,0,1.2,0.5,1.2,1.2s-0.5,1.2-1.2,1.2h-6.3 c-0.6,0-1.2-0.5-1.2-1.2S11.9,28.7,12.5,28.7z M21.1,25.8h-8.6c-0.6,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2h10.8l-1.9,1.9 C21.4,25.5,21.2,25.6,21.1,25.8z M12.5,15.3c-0.6,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2h6.4c0.6,0,1.2,0.5,1.2,1.2s-0.5,1.2-1.2,1.2 H12.5z M28.3,18.5l-2.1,2.1H12.5c-0.6,0-1.2-0.5-1.2-1.2s0.5-1.2,1.2-1.2h15C27.9,18.2,28.1,18.3,28.3,18.5z M31.5,15.2H24 c-0.4,0-0.9-0.2-1.2-0.6c-0.3-0.3-0.5-0.8-0.5-1.2V5.9H8.5v28.2l23-0.1v-8.3l2.3-2.3v11.2c0,0.4-0.2,0.9-0.5,1.2 c-0.3,0.3-0.8,0.6-1.2,0.6H8c-0.4,0-0.9-0.2-1.2-0.6c-0.3-0.3-0.5-0.8-0.5-1.2V5.3c0-0.4,0.2-0.9,0.5-1.2C7.1,3.7,7.6,3.5,8,3.5 h16.1c0.4,0,1,0.1,1.6,0.3c0.5,0.2,1.1,0.6,1.4,0.9l5.4,5.8c0.3,0.3,0.6,0.8,0.9,1.4c0.1,0.4,0.2,0.8,0.3,1.1L31.5,15.2L31.5,15.2z M31,12.1l-5.6-5.8C25.2,6.3,25,6.2,24.7,6v6.9h6.7C31.3,12.6,31.2,12.4,31,12.1z">
@@ -81,7 +103,7 @@
         </p>
         <ul class="icons-component instance-1" id="icons01" style="opacity: 1;">
          <li>
-          <a class="n01" href="/commission" target="_blank" rel="noopener noreferrer" role="button">
+          <a class="n01" href="commissions/commission.html" target="_blank" rel="noopener noreferrer" role="button">
            <svg aria-labelledby="icons01-icon-1-title">
             <title id="icons01-icon-1-title">
              Form
@@ -130,6 +152,13 @@
            </svg>
            <span class="label">
             My Work
+           </span>
+          </a>
+         </li>
+         <li>
+          <a class="n02" href="about.html" role="button">
+           <span class="label">
+            About
            </span>
           </a>
          </li>
@@ -248,37 +277,9 @@
              </span>
             </a>
            </li>
-           <li>
-            <a class="thumbnail n16" href="gallery/what_gives_me_wings.jpg" onauxclick="return false;" oncontextmenu="return false;" ondragstart="return false;">
-             <span class="frame">
-              <img alt="What Gives Me Wings" data-caption="What Gives Me Wings" data-src="done" onauxclick="return false;" oncontextmenu="return false;" ondragstart="return false;" src="gallery/what_gives_me_wings.jpg"/>
-             </span>
-            </a>
-           </li>
           </ul>
          </div>
         </div>
-       </div>
-      </div>
-     </div>
-     <div class="container-component instance-1 default" id="container01" style="opacity: 1;">
-      <div class="wrapper">
-       <div class="inner">
-        <h2 class="text-component instance-2" id="text02">
-         Biography
-        </h2>
-        <div class="image-component instance-1" data-position="center" id="image01">
-         <span class="frame">
-          <img alt="" src="assets/images/self.jpg"/>
-         </span>
-        </div>
-        <p class="text-component instance-5" id="text05">
-         <span class="p">
-          Hi! I'm Sarah Ducheneaut, and I go by Reveriel online. I'm a visual artist from Sunnyvale, California, currently studying Studio Art and Psychology at UC Davis. My work grows out of a deep curiosity about how people experience the world—especially the quieter, often overlooked emotional moments that shape us. Through illustration and mixed media, I explore sensitivity, perception, and the space between feeling and form, with particular care for highly sensitive and neurodivergent experiences. I'm drawn to giving shape to feelings that don't always have names.
-          <br/>
-          Outside the studio, I'm usually in motion—running cross country, hiking, or sailing around the Bay Area on the family Nonsuch 30. I love electronic music and will unapologetically nerd out as a certified house head. I'm also French, which explains my unpronounceable last name. Oh la la!
-         </span>
-        </p>
        </div>
       </div>
      </div>
@@ -301,7 +302,7 @@
         </p>
         <ul class="buttons-component instance-1" id="buttons01" style="opacity: 1;">
          <li>
-          <a class="n01" href="/commission" role="button">
+          <a class="n01" href="commissions/commission.html" role="button">
            <svg aria-labelledby="buttons01-icon-1-title">
             <title id="buttons01-icon-1-title">
              Form
@@ -319,48 +320,9 @@
       </div>
      </div>
      <hr class="divider-component instance-3" id="divider03"/>
-     <div class="container-component instance-6 default" id="container06" style="opacity: 1;">
-      <div class="wrapper">
-       <div class="inner">
-        <h2 class="text-component instance-1" id="text01">
-         <strong>
-          Awards
-         </strong>
-        </h2>
-        <p class="text-component instance-8" id="text08">
-         <span class="p">
-          Exhibited artwork at the UC Davis Basement Gallery's fall showcase,
-          <br/>
-          "ODDITY"
-          <strong>
-           (2025)
-          </strong>
-         </span>
-         <span class="p">
-          Cupertino Art Department Lead Award
-          <strong>
-           (2024)
-          </strong>
-         </span>
-         <span class="p">
-          Artwork featured in Homestead High School's Frontier Magazine Volume 13, Issue 2
-          <strong>
-           (2024)
-          </strong>
-         </span>
-         <span class="p">
-          Exhibited artwork at the FUHSD District Art Show
-          <strong>
-           (2022, 2023, 2024)
-          </strong>
-         </span>
-        </p>
-       </div>
-      </div>
-     </div>
      <ul class="icons-component instance-2" id="icons02" style="opacity: 1;">
       <li>
-       <a class="n01" href="/commission" target="_blank" rel="noopener noreferrer"role="button">
+       <a class="n01" href="commissions/commission.html" target="_blank" rel="noopener noreferrer"role="button">
         <svg aria-labelledby="icons02-icon-1-title">
          <title id="icons02-icon-1-title">
           Form
@@ -401,6 +363,8 @@
    </div>
   </div>
   <script src="app.js"></script>
+  <script src="gallery.js"></script>
+  <script src="image-preview.js"></script>
   <div class="gallery-component-modal" id="gallery-component-modal" tabindex="-1">
    <div class="inner">
     <img src=""/>

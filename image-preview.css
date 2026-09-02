@@ -1,0 +1,116 @@
+body.preview-is-open { overflow: hidden; }
+
+.artwork-preview {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: none;
+  color: #fff;
+  background: rgba(7, 7, 10, .86);
+  backdrop-filter: blur(10px);
+}
+
+.artwork-preview.is-open { display: block; }
+
+.artwork-preview-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 5.5rem 4rem 4.5rem;
+}
+
+.artwork-preview-image {
+  display: block;
+  width: auto;
+  max-width: 90vw;
+  height: auto;
+  max-height: calc(100vh - 10rem);
+  max-height: calc(100dvh - 10rem);
+  object-fit: contain;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform .18s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.artwork-preview-close,
+.artwork-preview-control {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.45);
+  color: #fff;
+  background: rgba(15,15,18,.72);
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  backdrop-filter: blur(8px);
+}
+
+.artwork-preview-close:hover,
+.artwork-preview-control:hover,
+.artwork-preview-close:focus-visible,
+.artwork-preview-control:focus-visible {
+  border-color: #fff;
+  background: #e87572;
+  outline: none;
+}
+
+.artwork-preview-close {
+  position: absolute;
+  z-index: 2;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  font-size: 1.5rem;
+}
+
+.artwork-preview-controls {
+  position: absolute;
+  z-index: 2;
+  right: 50%;
+  bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 2rem;
+  transform: translateX(50%);
+}
+
+.artwork-preview-control {
+  width: 3rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 0;
+  font-size: 1.2rem;
+}
+
+.artwork-preview-zoom {
+  min-width: 4.5rem;
+  color: #fff;
+  font: 700 .68rem/1 Roboto, sans-serif;
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+.artwork-preview-caption {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.6rem;
+  left: 1.5rem;
+  max-width: calc(50% - 6rem);
+  margin: 0;
+  font: 700 .7rem/1.3 Roboto, sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  .artwork-preview-stage { padding: 4.75rem .75rem 5rem; }
+  .artwork-preview-image { max-width: calc(100vw - 1.5rem); max-height: calc(100dvh - 10rem); }
+  .artwork-preview-caption { bottom: 5rem; left: 1rem; max-width: calc(100% - 2rem); }
+}
