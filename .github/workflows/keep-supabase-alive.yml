@@ -1,0 +1,18 @@
+# .github/workflows/keep-supabase-alive.yml
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Runs at 00:00 every Monday and Thursday (twice a week)
+    - cron: '0 0 * * 1,4'
+  workflow_dispatch: # Allows you to trigger it manually from GitHub
+
+jobs:
+  ping-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send API Request to Supabase
+        run: |
+          curl -X GET "${{ secrets.SUPABASE_URL }}/rest/v1/healthcheck?select=*" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
