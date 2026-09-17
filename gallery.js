@@ -14,7 +14,6 @@ function showSlide(index) {
   const [file, title] = gallerySlides[slideIndex];
   slideImage.src = `gallery/${file}`;
   slideImage.alt = title;
-  slideCaption.innerHTML = `${title} <span>${String(slideIndex + 1).padStart(2, "0")} / ${gallerySlides.length}</span>`;
 }
 
 document.querySelector(".gallery-arrow-prev").addEventListener("click", () => showSlide(slideIndex - 1));
