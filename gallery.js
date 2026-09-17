@@ -4,9 +4,9 @@ const gallerySlides = [
   ["still_life.jpg", "Still Life"],
   ["florida.jpg", "Florida"],
   ["studio.jpeg", "Studio"],
-  ["paint.jpeg", "Paint", "cover"],
+  ["paint.jpeg", "Paint"],
   ["collage.jpeg", "Collage"],
-  ["ronit_commission_draft.jpeg", "Ronit Commission Draft", "cover"],
+  ["ronit_commission_draft.jpeg", "Ronit Commission Draft"],
 ];
 
 const slideImage = document.querySelector(".gallery-slide img");
@@ -57,7 +57,7 @@ async function showSlide(index) {
   if (isTransitioning) return;
   isTransitioning = true;
   slideIndex = (index + gallerySlides.length) % gallerySlides.length;
-  const [file, title, fit = "contain"] = gallerySlides[slideIndex];
+  const [file, title] = gallerySlides[slideIndex];
 
   slideImage.classList.add("is-transitioning");
   galleryScreen.classList.add("gallery-screen--transitioning");
@@ -67,7 +67,6 @@ async function showSlide(index) {
     await preloadImage(`gallery/${file}`);
     slideImage.src = `gallery/${file}`;
     slideImage.alt = title;
-    slideImage.closest(".gallery-slide").classList.toggle("gallery-slide--cover", fit === "cover");
     updateSlideState();
   } catch (error) {
     console.error(error);
