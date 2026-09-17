@@ -17,7 +17,7 @@ body:has(.gallery-screen) .site-wrapper {
   height: 100dvh;
   min-height: 480px;
   background: #171719;
-  transition: background-color .18s ease;
+  transition: background-color .1s ease;
 }
 
 .gallery-screen--transitioning { background: #fff; }
@@ -88,7 +88,7 @@ body:has(.gallery-screen) .site-wrapper {
   height: 100%;
   object-fit: contain;
   cursor: zoom-in;
-  transition: opacity .18s ease, transform .18s ease, filter .18s ease;
+  transition: opacity .1s ease, transform .1s ease, filter .1s ease;
 }
 
 .gallery-slide img.is-transitioning {

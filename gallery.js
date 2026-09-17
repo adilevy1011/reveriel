@@ -12,7 +12,7 @@ const galleryWordmark = document.querySelector(".gallery-wordmark");
 const galleryScreen = document.querySelector(".gallery-screen");
 let slideIndex = 0;
 let isTransitioning = false;
-const transitionDuration = 220;
+const transitionDuration = 140;
 
 function waitForImageTransition() {
   return new Promise((resolve) => {
