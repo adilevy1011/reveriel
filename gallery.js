@@ -1,3 +1,10 @@
+const gallerySlides = [
+  ["what_gives_me_wings.jpg", "What Gives Me Wings"],
+  ["time_flies.jpg", "Time Flies"],
+  ["still_life.jpg", "Still Life"],
+  ["florida.jpg", "Florida"],
+];
+
 const slideImage = document.querySelector(".gallery-slide img");
 const slideCaption = document.querySelector(".gallery-slide figcaption");
 let slideIndex = 0;
