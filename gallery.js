@@ -12,6 +12,7 @@ const galleryWordmark = document.querySelector(".gallery-wordmark");
 const galleryScreen = document.querySelector(".gallery-screen");
 let slideIndex = 0;
 let isTransitioning = false;
+const transitionDuration = 220;
 
 function waitForImageTransition() {
   return new Promise((resolve) => {
@@ -24,7 +25,7 @@ function waitForImageTransition() {
     };
 
     slideImage.addEventListener("transitionend", finish);
-    window.setTimeout(finish, 350);
+    window.setTimeout(finish, transitionDuration);
   });
 }
 
@@ -44,6 +45,10 @@ function updateSlideState() {
   galleryScreen.classList.toggle("gallery-screen--light", lightText);
 }
 
+gallerySlides.forEach(([file]) => {
+  preloadImage(`gallery/${file}`).catch((error) => console.error(error));
+});
+
 async function showSlide(index) {
   if (isTransitioning) return;
   isTransitioning = true;
@@ -51,6 +56,7 @@ async function showSlide(index) {
   const [file, title] = gallerySlides[slideIndex];
 
   slideImage.classList.add("is-transitioning");
+  galleryScreen.classList.add("gallery-screen--transitioning");
   await waitForImageTransition();
 
   try {
@@ -63,6 +69,7 @@ async function showSlide(index) {
   } finally {
     slideImage.classList.remove("is-transitioning");
     await waitForImageTransition();
+    galleryScreen.classList.remove("gallery-screen--transitioning");
     isTransitioning = false;
   }
 }
