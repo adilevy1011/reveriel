@@ -88,13 +88,12 @@ body:has(.gallery-screen) .site-wrapper {
   height: 100%;
   object-fit: contain;
   cursor: zoom-in;
-  transition: opacity .1s ease, transform .1s ease, filter .1s ease;
+  transition: opacity .1s ease, filter .1s ease;
 }
 
 .gallery-slide img.is-transitioning {
   opacity: 0;
   filter: blur(8px);
-  transform: scale(1.04);
 }
 
 .gallery-slide figcaption {
