@@ -7,6 +7,7 @@ const gallerySlides = [
 
 const slideImage = document.querySelector(".gallery-slide img");
 const slideCaption = document.querySelector(".gallery-slide figcaption");
+const galleryTopbar = document.querySelector(".gallery-topbar");
 let slideIndex = 0;
 
 function showSlide(index) {
@@ -14,7 +15,10 @@ function showSlide(index) {
   const [file, title] = gallerySlides[slideIndex];
   slideImage.src = `gallery/${file}`;
   slideImage.alt = title;
+  galleryTopbar.classList.toggle("gallery-topbar--dark-text", slideIndex === 0);
 }
+
+showSlide(0);
 
 document.querySelector(".gallery-arrow-prev").addEventListener("click", () => showSlide(slideIndex - 1));
 document.querySelector(".gallery-arrow-next").addEventListener("click", () => showSlide(slideIndex + 1));
