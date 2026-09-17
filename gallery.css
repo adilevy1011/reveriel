@@ -34,6 +34,8 @@ body:has(.gallery-screen) .site-wrapper {
   pointer-events: none;
 }
 
+.gallery-wordmark--light { color: #fff; }
+
 .gallery-topbar {
   position: fixed;
   z-index: 10;
