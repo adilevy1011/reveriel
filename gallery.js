@@ -3,6 +3,10 @@ const gallerySlides = [
   ["time_flies.jpg", "Time Flies"],
   ["still_life.jpg", "Still Life"],
   ["florida.jpg", "Florida"],
+  ["studio.jpeg", "Studio"],
+  ["paint.jpeg", "Paint"],
+  ["collage.jpeg", "Collage"],
+  ["ronit_commission_draft.jpeg", "Ronit Commission Draft"],
 ];
 
 const slideImage = document.querySelector(".gallery-slide img");
