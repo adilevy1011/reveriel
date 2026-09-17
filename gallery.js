@@ -2,12 +2,10 @@ const gallerySlides = [
   ["what_gives_me_wings.jpg", "What Gives Me Wings"],
   ["time_flies.jpg", "Time Flies"],
   ["still_life.jpg", "Still Life"],
-  ["portals.jpg", "Portals"],
   ["florida.jpg", "Florida"],
 ];
 
 const slideImage = document.querySelector(".gallery-slide img");
-const gallerySlide = document.querySelector(".gallery-slide");
 const slideCaption = document.querySelector(".gallery-slide figcaption");
 const galleryTopbar = document.querySelector(".gallery-topbar");
 const galleryWordmark = document.querySelector(".gallery-wordmark");
@@ -65,7 +63,6 @@ async function showSlide(index) {
     await preloadImage(`gallery/${file}`);
     slideImage.src = `gallery/${file}`;
     slideImage.alt = title;
-    gallerySlide.classList.toggle("gallery-slide--cover", file === "portals.jpg");
     updateSlideState();
   } catch (error) {
     console.error(error);
