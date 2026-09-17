@@ -91,6 +91,8 @@ body:has(.gallery-screen) .site-wrapper {
   transition: opacity .1s ease, filter .1s ease;
 }
 
+.gallery-slide--cover img { object-fit: cover; }
+
 .gallery-slide img.is-transitioning {
   opacity: 0;
   filter: blur(8px);
