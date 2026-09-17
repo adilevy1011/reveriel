@@ -9,6 +9,7 @@ const slideImage = document.querySelector(".gallery-slide img");
 const slideCaption = document.querySelector(".gallery-slide figcaption");
 const galleryTopbar = document.querySelector(".gallery-topbar");
 const galleryWordmark = document.querySelector(".gallery-wordmark");
+const galleryScreen = document.querySelector(".gallery-screen");
 let slideIndex = 0;
 
 function showSlide(index) {
@@ -17,7 +18,9 @@ function showSlide(index) {
   slideImage.src = `gallery/${file}`;
   slideImage.alt = title;
   galleryTopbar.classList.toggle("gallery-topbar--dark-text", slideIndex === 0);
-  galleryWordmark.classList.toggle("gallery-wordmark--light", slideIndex === 1 || slideIndex === 2);
+  const lightText = slideIndex === 1 || slideIndex === 2;
+  galleryWordmark.classList.toggle("gallery-wordmark--light", lightText);
+  galleryScreen.classList.toggle("gallery-screen--light", lightText);
 }
 
 showSlide(0);

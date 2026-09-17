@@ -124,17 +124,18 @@ body:has(.gallery-screen) .site-wrapper {
   place-items: center;
   width: 3.5rem;
   height: 3.5rem;
-  border: 1px solid rgba(255,255,255,.4);
-  color: #fff;
-  background: rgba(23,23,25,.35);
+  border: 0;
+  color: #000;
+  background: transparent;
   cursor: pointer;
   font-size: 1.5rem;
   transform: translateY(-50%);
-  transition: background-color .2s ease, transform .2s ease;
-  backdrop-filter: blur(8px);
 }
 
-.gallery-arrow:hover { background: #e87572; transform: translateY(-50%) scale(1.08); }
+.gallery-screen--light .gallery-arrow {
+  color: #fff;
+}
+
 .gallery-arrow-prev { left: 2rem; }
 .gallery-arrow-next { right: 2rem; }
 
