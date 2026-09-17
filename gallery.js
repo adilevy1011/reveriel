@@ -17,7 +17,7 @@ function showSlide(index) {
   slideImage.src = `gallery/${file}`;
   slideImage.alt = title;
   galleryTopbar.classList.toggle("gallery-topbar--dark-text", slideIndex === 0);
-  galleryWordmark.classList.toggle("gallery-wordmark--light", slideIndex === 2);
+  galleryWordmark.classList.toggle("gallery-wordmark--light", slideIndex === 1 || slideIndex === 2);
 }
 
 showSlide(0);
