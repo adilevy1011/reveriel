@@ -120,17 +120,31 @@ body:has(.gallery-screen) .site-wrapper {
   position: fixed;
   z-index: 5;
   top: 50%;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 3.5rem;
   height: 3.5rem;
   border: 0;
   color: #000;
   background: transparent;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 0;
+  line-height: 0;
   transform: translateY(-50%);
 }
+
+.gallery-arrow::before {
+  display: block;
+  width: 0;
+  height: 0;
+  content: "";
+  border-top: .7rem solid transparent;
+  border-bottom: .7rem solid transparent;
+}
+
+.gallery-arrow-prev::before { border-right: .75rem solid currentColor; }
+.gallery-arrow-next::before { border-left: .75rem solid currentColor; }
 
 .gallery-screen--light .gallery-arrow {
   color: #fff;
