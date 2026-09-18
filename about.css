@@ -8,7 +8,7 @@
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: var(--ink); background: var(--paper); font-family: "Open Sans", sans-serif; font-size: 16px; line-height: 1.7; }
+body { margin: 0; color: var(--ink); background: #fff; font-family: "Open Sans", sans-serif; font-size: 16px; line-height: 1.7; }
 a { color: inherit; }
 .about-shell { width: min(1120px, calc(100% - 8rem)); margin: 0 auto; padding: 3rem 0 2rem; }
 .about-header { min-height: 43vh; position: relative; padding: 2rem 0 4rem; border-bottom: 1px solid var(--line); }
