@@ -1,12 +1,12 @@
 const gallerySlides = [
-  ["what_gives_me_wings.jpg", "What Gives Me Wings"],
-  ["time_flies.jpg", "Time Flies"],
-  ["still_life.jpg", "Still Life"],
-  ["florida.jpg", "Florida"],
-  ["studio.jpeg", "Studio"],
-  ["paint.jpeg", "Paint"],
-  ["collage.jpeg", "Collage"],
-  ["ronit_commission_draft.jpeg", "Ronit Commission Draft"],
+  ["what_gives_me_wings.png", "What Gives Me Wings"],
+  ["time_flies.png", "Time Flies"],
+  ["still_life.png", "Still Life"],
+  ["florida.png", "Florida"],
+  ["jam.png", "Jam"],
+  ["paint.png", "Paint"],
+  ["collage.png", "Collage"],
+  ["ronit_commission_draft.png", "Ronit Commission Draft"],
 ];
 
 const slideImage = document.querySelector(".gallery-slide img");

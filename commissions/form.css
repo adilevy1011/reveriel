@@ -66,7 +66,7 @@ body {
   left: 50%;
   width: 100vw;
   height: clamp(17rem, 34vw, 23rem);
-  background: #172c69 url("../gallery/portals.jpg") center 47% / 115% auto no-repeat;
+  background: #172c69 url("../gallery/portals.png") center 47% / 115% auto no-repeat;
   box-shadow: 0 1.5rem 4rem rgba(38, 30, 47, 0.17);
   transform: translateX(-50%);
 }
@@ -631,7 +631,7 @@ body {
   min-height: clamp(15rem, 35vw, 25rem);
   overflow: hidden;
   border-radius: 1.5rem;
-  background: #fff url("../gallery/what_gives_me_wings.jpg") center/cover no-repeat;
+  background: #fff url("../gallery/what_gives_me_wings.png") center/cover no-repeat;
   border: 1px solid var(--line);
 }
 .closing-art figcaption {

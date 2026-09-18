@@ -54,9 +54,9 @@ const formatDate = (value) =>
 const fileNameFromURL = (value, index) => {
   try {
     const name = decodeURIComponent(new URL(value).pathname.split("/").pop());
-    return name || `reference-${index + 1}.jpg`;
+    return name || `reference-${index + 1}.png`;
   } catch {
-    return `reference-${index + 1}.jpg`;
+    return `reference-${index + 1}.png`;
   }
 };
 function showToast(message, isError = false) {
