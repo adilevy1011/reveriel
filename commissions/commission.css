@@ -112,7 +112,6 @@ body {
 .art-placeholder {
   position: absolute;
   display: block;
-  border: 1px solid var(--ink);
   aspect-ratio: 1;
   object-fit: cover;
 }
@@ -129,7 +128,6 @@ body {
   left: 0;
   z-index: 1;
   width: 78%;
-  border: 0;
 }
 
 @media (max-width: 736px) {
