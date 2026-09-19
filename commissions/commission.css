@@ -56,8 +56,11 @@ body {
 }
 
 .gallery-topbar .gallery-about {
+  min-width: 3.888889em;
+  height: 3.888889em;
   margin-right: auto;
-  padding: 0 1.323529em;
+  padding: 0 1.25em;
+  font-size: .72em;
 }
 
 .gallery-topbar .gallery-icon {
