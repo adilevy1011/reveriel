@@ -44,7 +44,7 @@ function preloadImage(src) {
 
 function updateSlideState() {
   galleryTopbar.classList.toggle("gallery-topbar--dark-text", slideIndex === 0 || slideIndex === 3);
-  const lightText = slideIndex === 1 || slideIndex === 2;
+  const lightText = slideIndex === 1 || slideIndex === 2 || slideIndex === 4;
   galleryWordmark.classList.toggle("gallery-wordmark--light", lightText);
   galleryScreen.classList.toggle("gallery-screen--light", lightText);
 }

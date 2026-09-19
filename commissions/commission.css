@@ -113,6 +113,7 @@ body {
   position: absolute;
   display: block;
   border: 1px solid var(--ink);
+  aspect-ratio: 1;
   object-fit: cover;
 }
 
@@ -120,7 +121,6 @@ body {
   top: 0;
   right: 0;
   width: 75%;
-  height: 68%;
   background: var(--coral);
 }
 
@@ -129,7 +129,6 @@ body {
   left: 0;
   z-index: 1;
   width: 78%;
-  height: 66%;
   background: var(--paper);
   box-shadow: 1rem 1rem 0 rgba(22, 21, 25, .1);
 }
