@@ -125,7 +125,7 @@ body {
 }
 
 .art-placeholder-front {
-  bottom: 0;
+  top: 25%;
   left: 0;
   z-index: 1;
   width: 78%;
