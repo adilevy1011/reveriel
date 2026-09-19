@@ -106,7 +106,7 @@ body {
 }
 
 .commission-description {
-  max-width: 100%;
+  max-width: 620px;
   margin: 0 0 2.5rem;
   color: rgba(22, 21, 25, .68);
   font-size: 1.05rem;
@@ -133,6 +133,7 @@ body {
 .commission-art {
   position: relative;
   min-height: 460px;
+  transform: translateX(-2rem);
 }
 
 .art-placeholder {
