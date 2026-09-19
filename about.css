@@ -10,6 +10,15 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: #fff; font-family: "Open Sans", sans-serif; font-size: 16px; line-height: 1.7; }
 a { color: inherit; }
+.gallery-topbar .gallery-about,
+.gallery-topbar .gallery-icon { color: #000; mix-blend-mode: normal; }
+.gallery-topbar { position: absolute; z-index: 10; top: 1.5em; left: 2em; right: 2em; gap: .65em; font-size: 24px; }
+.gallery-topbar::after { position: absolute; right: 0; bottom: -.45em; left: 0; border-top: 1px solid rgba(22, 21, 25, .16); content: ""; }
+.gallery-topbar .gallery-about,
+.gallery-topbar .gallery-icon { min-width: 4.117647em; height: 4.117647em; font: 700 .68em/1 Roboto, sans-serif; letter-spacing: .12em; }
+.gallery-topbar .gallery-about { min-width: 3.888889em; height: 3.888889em; margin-right: auto; padding: 0 1.25em; font-size: .72em; }
+.gallery-topbar .gallery-icon { padding: 1.102941em; }
+.gallery-topbar .gallery-icon svg { width: 1.617647em; height: 1.617647em; }
 .about-shell { width: min(1120px, calc(100% - 8rem)); margin: 0 auto; padding: 3rem 0 2rem; }
 .about-header { min-height: 43vh; position: relative; padding: 2rem 0 4rem; border-bottom: 1px solid var(--line); }
 .back-link, .eyebrow, .section-kicker { font-family: "Roboto", sans-serif; text-transform: uppercase; letter-spacing: .2em; font-size: .72rem; text-decoration: none; }
@@ -44,6 +53,10 @@ h1 em { color: #e87572; font-style: normal; }
 .about-footer { display: flex; justify-content: space-between; padding: 2rem 0; border-top: 1px solid var(--line); font-family: "Roboto", sans-serif; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; }
 .about-footer a { text-decoration: none; }
 @media (max-width: 736px) {
+  .gallery-topbar { top: 1em; right: 1em; left: 1em; gap: .35em; font-size: 14.667px; }
+  .gallery-topbar .gallery-about, .gallery-topbar .gallery-icon { height: 3.676471em; }
+  .gallery-topbar .gallery-about { min-width: 4.166667em; height: 4.166667em; padding: 0 .833333em; font-size: .6em; }
+  .gallery-topbar .gallery-icon { min-width: 3.676471em; padding: 1.102941em; }
   .about-shell { width: min(100% - 2.5rem, 600px); padding-top: 1.5rem; }
   .about-header { min-height: 48vh; padding-top: 1.5rem; }
   .eyebrow { margin-top: 4rem; }
@@ -52,3 +65,5 @@ h1 em { color: #e87572; font-style: normal; }
   .education-card { max-width: 92%; }
   .about-footer { gap: 1rem; flex-wrap: wrap; }
 }
+@media (max-width: 1680px) { .gallery-topbar { font-size: 17.333px; } }
+@media (max-width: 980px) { .gallery-topbar { font-size: 14.667px; } }
