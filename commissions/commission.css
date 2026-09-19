@@ -33,6 +33,7 @@ body {
   left: 2rem;
   right: 2rem;
   justify-content: flex-end;
+  gap: .35rem;
   padding: 0;
   border-bottom: 1px solid var(--line);
 }
@@ -45,8 +46,8 @@ body {
 }
 
 .gallery-topbar .gallery-icon svg {
-  width: 1.1rem;
-  height: 1.1rem;
+  width: 1.25rem;
+  height: 1.25rem;
 }
 
 .gallery-topbar .gallery-about:first-child {
