@@ -525,59 +525,6 @@ body.is-instant::after {
     margin-top: 1rem;
 }
 
-.image-component {
-    display: block;
-    line-height: 0;
-    max-width: 100%;
-    position: relative;
-}
-
-.image-component > .frame {
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
-    display: inline-block;
-    max-width: 100%;
-    overflow: hidden;
-    vertical-align: top;
-    width: 100%;
-}
-
-.image-component > .frame > img {
-    border-radius: 0 !important;
-    max-width: 100%;
-    vertical-align: top;
-    width: inherit;
-}
-
-.image-component.full > .frame {
-    display: block;
-}
-
-.image-component.full:first-child > .frame {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-}
-
-.image-component.full:last-child > .frame {
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-}
-
-.image-component.instance-1 > .frame {
-    width: 15rem;
-    height: 15rem;
-    border-radius: 100%;
-    transition: none;
-}
-
-.image-component.instance-1 > .frame > img {
-    height: 100% !important;
-    object-fit: cover;
-    object-position: center;
-    width: 100% !important;
-    transition: none;
-}
-
 .icons-component {
     display: flex;
     flex-wrap: wrap;
@@ -2412,18 +2359,6 @@ body.is-instant::after {
         line-height: 2;
     }
 
-    .image-component.instance-1 > .frame {
-        width: 15rem;
-        height: 18.75rem !important;
-    }
-
-    .image-component.instance-1 > .frame > img {
-        height: 100% !important;
-        object-fit: cover;
-        object-position: center;
-        width: 100% !important;
-    }
-
     .icons-component.instance-1 {
         font-size: 1.25em;
         gap: 1rem;
@@ -3086,10 +3021,6 @@ body.is-instant::after {
         --spacing: 0rem;
     }
 
-    .image-component.instance-1 > .frame {
-        height: 15rem !important;
-    }
-
     .buttons-component.instance-2 > li > a {
         width: 12rem;
     }
@@ -3168,10 +3099,6 @@ body.is-instant::after {
 
     .text-component.instance-6 {
         font-size: 0.875em;
-    }
-
-    .image-component.instance-1 > .frame {
-        height: 13.125rem !important;
     }
 
     .icons-component.instance-1 {

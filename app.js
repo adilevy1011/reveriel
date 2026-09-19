@@ -1,7 +1,3 @@
-// ==========================================
-    // 1. HELPER & UTILITY FUNCTIONS
-    // ==========================================
-
     const $ = (q) => document.querySelector(q);
     const $$ = (q) => document.querySelectorAll(q);
     const $body = document.body;
@@ -209,10 +205,6 @@
     };
 
 
-    // ==========================================
-    // 2. SCROLL EVENTS MANAGER
-    // ==========================================
-
     const scrollEvents = {
     items: [],
     add: function (o) {
@@ -320,10 +312,6 @@
     };
 
 
-    // ==========================================
-    // 3. ON-VISIBLE ANIMATION CONTROLLER
-    // ==========================================
-
     const onvisible = {
     effects: {
         'fade-in': {
@@ -379,10 +367,6 @@
     },
     };
 
-
-    // ==========================================
-    // 4. LIGHTBOX GALLERY
-    // ==========================================
 
     function lightboxGallery() {
     this.id = 'gallery';
@@ -630,11 +614,6 @@
     };
 
 
-    // ==========================================
-    // 5. EVENT LISTENERS & INITIALIZATION
-    // ==========================================
-
-    // Email Contact Button Listener
     document.querySelectorAll('.contact-email').forEach((button) => {
     button.addEventListener('click', (event) => {
         event.preventDefault();
@@ -645,7 +624,6 @@
     });
     });
 
-    // Page Load Handler
     addEventListener('load', () => {
     setTimeout(() => {
         $body.classList.remove('is-loading');
@@ -661,7 +639,6 @@
     if (initialScrollPoint) scrollToElement(initialScrollPoint, 'instant');
     });
 
-    // Smooth Scroll Links Setup
     addEventListener('click', (event) => {
     let t = event.target;
     while (t && t.tagName !== 'A') t = t.parentElement;
@@ -674,7 +651,6 @@
     }
     });
 
-    // Execute Gallery and Component Animations
     loadElements(document.body);
     scrollEvents.init();
 
@@ -689,7 +665,6 @@
     protect: true,
     });
 
-    // Attach On-Visible Animations
     [
     '.text-component.instance-3',
     '.text-component.instance-4',
@@ -697,11 +672,7 @@
     '.buttons-component.instance-2',
     '.container-component.instance-3',
     '.container-component.instance-2',
-    '.container-component.instance-1',
     '.container-component.instance-4',
-    '.container-component.instance-6',
-    '.container-component.instance-5',
-    '.icons-component.instance-2',
     '.buttons-component.instance-1',
     ].forEach((selector) => {
     onvisible.add(selector, { style: 'fade-in', speed: 1000, intensity: 5, threshold: 3, delay: 0, replay: false });

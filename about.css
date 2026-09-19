@@ -12,18 +12,16 @@ body { margin: 0; color: var(--ink); background: #fff; font-family: "Open Sans",
 a { color: inherit; }
 .about-shell { width: min(1120px, calc(100% - 8rem)); margin: 0 auto; padding: 3rem 0 2rem; }
 .about-header { min-height: 43vh; position: relative; padding: 2rem 0 4rem; border-bottom: 1px solid var(--line); }
-.back-link, .eyebrow, .section-kicker, .portrait-label { font-family: "Roboto", sans-serif; text-transform: uppercase; letter-spacing: .2em; font-size: .72rem; text-decoration: none; }
+.back-link, .eyebrow, .section-kicker { font-family: "Roboto", sans-serif; text-transform: uppercase; letter-spacing: .2em; font-size: .72rem; text-decoration: none; }
 .back-link { color: var(--muted); }
 .back-link:hover, .about-footer a:hover { color: #e87572; }
 .eyebrow { margin: 6rem 0 1rem; color: #e87572; }
 h1, h2, p { margin-top: 0; }
 h1 { max-width: 700px; margin-bottom: 1.25rem; font-family: "Big Shoulders", sans-serif; font-size: clamp(4.5rem, 12vw, 9.5rem); line-height: .82; letter-spacing: .03em; text-transform: uppercase; }
 h1 em { color: #e87572; font-style: normal; }
-.header-note { color: var(--muted); font-size: 1.05rem; }
 .bio-section { display: grid; grid-template-columns: minmax(230px, .8fr) 1.2fr; gap: clamp(3rem, 9vw, 9rem); align-items: center; padding: 7rem 0; }
 .portrait-wrap { position: relative; z-index: 0; }
 .portrait-wrap img { display: block; width: min(100%, 310px); aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; filter: grayscale(15%); }
-.portrait-label { display: block; margin-bottom: 1.2rem; color: var(--muted); }
 .section-kicker { color: #e87572; margin-bottom: 1.3rem; }
 .bio-copy h2 { font-family: "Big Shoulders", sans-serif; font-size: clamp(2.8rem, 5vw, 5rem); line-height: .9; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 2rem; }
 .bio-copy p:not(.section-kicker) { max-width: 620px; color: var(--muted); }

@@ -29,7 +29,6 @@ body {
   mix-blend-mode: normal;
 }
 
-/* Match index.html's 18pt root sizing without scaling the commission layout. */
 .gallery-topbar {
   top: 1.5em;
   left: 2em;
@@ -91,14 +90,6 @@ body {
   width: min(680px, 100%);
   max-width: none;
   transform: translate(1.5rem, 1.5rem);
-}
-
-.commission-eyebrow {
-  margin: 0 0 1.5rem;
-  color: var(--coral);
-  font: 700 .72rem/1 Roboto, sans-serif;
-  letter-spacing: .18em;
-  text-transform: uppercase;
 }
 
 .commission-copy h1 {

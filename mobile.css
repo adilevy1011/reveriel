@@ -1,4 +1,3 @@
-/* Shared mobile safeguards for the portfolio, commission form, and dashboard. */
 @media (max-width: 736px) {
   html {
     -webkit-text-size-adjust: 100%;

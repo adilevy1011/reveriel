@@ -626,28 +626,6 @@ body {
   background: #fff;
   color: var(--navy);
 }
-.closing-art {
-  position: relative;
-  min-height: clamp(15rem, 35vw, 25rem);
-  overflow: hidden;
-  border-radius: 1.5rem;
-  background: #fff url("../gallery/what_gives_me_wings.png") center/cover no-repeat;
-  border: 1px solid var(--line);
-}
-.closing-art figcaption {
-  position: absolute;
-  right: 1rem;
-  bottom: 1rem;
-  padding: 0.45rem 0.7rem;
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--ink);
-  font:
-    700 0.67rem Roboto,
-    sans-serif;
-  letter-spacing: 0.08rem;
-  text-transform: uppercase;
-}
 @keyframes rise {
   from {
     opacity: 0;
@@ -683,8 +661,7 @@ body {
     padding: 0.75rem;
   }
   .form-card,
-  .success-panel,
-  .closing-art {
+  .success-panel {
     border-radius: 1rem;
   }
   .options-grid {
