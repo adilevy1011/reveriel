@@ -40,7 +40,7 @@ body { margin: 0; color: var(--ink); background: #fff; font-family: "Open Sans",
 }
 .gallery-topbar .gallery-icon { padding: 1.102941em; }
 .gallery-topbar .gallery-icon svg { width: 1.617647em; height: 1.617647em; }
-.portfolio-header { display: block; width: min(1200px, calc(100% - 5rem)); margin: 0 auto; padding: 7rem 0 1rem; border-bottom: 1px solid var(--line); text-align: center; }
+.portfolio-header { display: block; width: min(1200px, calc(100% - 5rem)); margin: 0 auto; padding: 5.7rem 0 1rem; border-bottom: 1px solid var(--line); text-align: center; }
 h1 { margin: 0; font: 900 clamp(4rem, 10vw, 8rem)/.8 "Big Shoulders", sans-serif; letter-spacing: .04em; text-align: center; text-transform: uppercase; }
 .portfolio-page h1 {
   color: #000;
@@ -80,7 +80,7 @@ h1 { margin: 0; font: 900 clamp(4rem, 10vw, 8rem)/.8 "Big Shoulders", sans-serif
 .gallery-component-modal.switching.done > .inner { transition: opacity .375s ease; transform: translateY(0) translateX(0); }
 @media (max-width: 800px) {
   .portfolio-header, .portfolio-gallery { width: min(100% - 2rem, 600px); }
-  .portfolio-header { padding: 7rem 0 1rem; }
+  .portfolio-header { padding: 5.7rem 0 1rem; }
   .portfolio-gallery { padding-top: 2rem; }
   .portfolio-gallery ul { gap: .75rem; }
   .portfolio-gallery .thumbnail img { height: 9.5rem; }
