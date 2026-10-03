@@ -78,28 +78,6 @@
     return o;
     })();
 
-    const ready = {
-    list: [],
-    add: function (f) {
-        this.list.push(f);
-    },
-    run: function () {
-        this.list.forEach((f) => f());
-    },
-    };
-
-    const escapeHtml = function (s) {
-    if (s === '' || s === null || s === undefined) return '';
-    const a = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#39;',
-    };
-    return s.replace(/[&<>"']/g, (x) => a[x]);
-    };
-
     const thisHash = function () {
     let h = location.hash ? location.hash.substring(1) : null;
     if (!h) return null;
@@ -760,4 +738,3 @@
     onvisible.add(selector, { style: 'fade-in', speed: 1000, intensity: 5, threshold: 3, delay: 0, replay: false });
     });
 
-    ready.run();
