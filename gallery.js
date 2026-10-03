@@ -10,28 +10,14 @@ const gallerySlides = [
 ];
 
 const slideImage = document.querySelector(".gallery-slide img");
-const slideCaption = document.querySelector(".gallery-slide figcaption");
 const galleryTopbar = document.querySelector(".gallery-topbar");
 const galleryWordmark = document.querySelector(".gallery-wordmark");
 const galleryScreen = document.querySelector(".gallery-screen");
+const previousButton = document.querySelector(".gallery-arrow-prev");
+const nextButton = document.querySelector(".gallery-arrow-next");
 let slideIndex = 0;
 let isTransitioning = false;
 const transitionDuration = 140;
-
-function waitForImageTransition() {
-  return new Promise((resolve) => {
-    let resolved = false;
-    const finish = () => {
-      if (resolved) return;
-      resolved = true;
-      slideImage.removeEventListener("transitionend", finish);
-      resolve();
-    };
-
-    slideImage.addEventListener("transitionend", finish);
-    window.setTimeout(finish, transitionDuration);
-  });
-}
 
 function preloadImage(src) {
   return new Promise((resolve, reject) => {
@@ -61,18 +47,17 @@ async function showSlide(index) {
 
   slideImage.classList.add("is-transitioning");
   galleryScreen.classList.add("gallery-screen--transitioning");
-  await waitForImageTransition();
 
   try {
     await preloadImage(`gallery/${file}`);
     slideImage.src = `gallery/${file}`;
     slideImage.alt = title;
     updateSlideState();
+    await new Promise((resolve) => window.setTimeout(resolve, transitionDuration));
   } catch (error) {
     console.error(error);
   } finally {
     slideImage.classList.remove("is-transitioning");
-    await waitForImageTransition();
     galleryScreen.classList.remove("gallery-screen--transitioning");
     isTransitioning = false;
   }
@@ -80,14 +65,31 @@ async function showSlide(index) {
 
 updateSlideState();
 
-document.querySelector(".gallery-arrow-prev").addEventListener("click", (event) => {
+previousButton.addEventListener("click", (event) => {
   event.preventDefault();
   showSlide(slideIndex - 1);
 });
-document.querySelector(".gallery-arrow-next").addEventListener("click", (event) => {
+nextButton.addEventListener("click", (event) => {
   event.preventDefault();
   showSlide(slideIndex + 1);
 });
+
+let touchStart = null;
+galleryScreen.addEventListener("touchstart", (event) => {
+  if (event.touches.length !== 1) return;
+  touchStart = event.touches[0];
+}, { passive: true });
+galleryScreen.addEventListener("touchend", (event) => {
+  if (!touchStart || event.changedTouches.length !== 1) return;
+  const touchEnd = event.changedTouches[0];
+  const deltaX = touchEnd.clientX - touchStart.clientX;
+  const deltaY = touchEnd.clientY - touchStart.clientY;
+  touchStart = null;
+
+  if (Math.abs(deltaX) < 50 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+  showSlide(slideIndex + (deltaX < 0 ? 1 : -1));
+}, { passive: true });
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") {
     event.preventDefault();

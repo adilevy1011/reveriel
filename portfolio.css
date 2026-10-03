@@ -46,7 +46,7 @@ h1 { margin: 0; font: 900 clamp(4rem, 10vw, 8rem)/.8 "Big Shoulders", sans-serif
 .portfolio-grid figure { display: grid; gap: 1rem; margin: 0; }
 .portfolio-grid img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: contain; cursor: zoom-in; filter: drop-shadow(0 10px 16px rgba(25, 23, 25, .16)); transition: transform .45s ease, filter .45s ease; }
 .portfolio-grid figure:hover img { filter: drop-shadow(0 14px 20px rgba(25, 23, 25, .2)); transform: scale(1.04); }
-.portfolio-grid figcaption { display: grid; gap: .35rem; color: var(--ink); }
+.portfolio-grid figcaption { display: none; }
 .portfolio-grid figcaption strong { font: 700 .78rem/1.2 Roboto, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
 .portfolio-page .artwork-preview-controls { display: none; }
 .portfolio-page .artwork-preview-caption {

@@ -32,11 +32,17 @@ body.preview-is-open { overflow: hidden; }
   transform: scale(1);
   transform-origin: center;
   transition: transform .18s ease;
+  cursor: default;
+  touch-action: none;
   user-select: none;
   -webkit-user-drag: none;
 }
 
+.artwork-preview-image.is-zoomed { cursor: grab; }
+.artwork-preview-image.is-dragging { cursor: grabbing; transition: none; }
+
 .artwork-preview-close,
+.artwork-preview-nav,
 .artwork-preview-control {
   display: grid;
   place-items: center;
@@ -49,8 +55,10 @@ body.preview-is-open { overflow: hidden; }
 }
 
 .artwork-preview-close:hover,
+.artwork-preview-nav:hover,
 .artwork-preview-control:hover,
 .artwork-preview-close:focus-visible,
+.artwork-preview-nav:focus-visible,
 .artwork-preview-control:focus-visible {
   border-color: #fff;
   background: #e87572;
@@ -64,8 +72,54 @@ body.preview-is-open { overflow: hidden; }
   right: 1.25rem;
   width: 3rem;
   height: 3rem;
-  border-radius: 50%;
   font-size: 1.5rem;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.artwork-preview-close:hover,
+.artwork-preview-close:focus-visible {
+  border: 0;
+  background: transparent;
+}
+
+.artwork-preview-nav {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 4rem;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: .35rem;
+  font-size: 0;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+
+.artwork-preview-previous { left: 1.25rem; }
+.artwork-preview-next { right: 1.25rem; }
+
+.artwork-preview-nav::before {
+  display: block;
+  width: 0;
+  height: 0;
+  content: "";
+  border-top: .7rem solid transparent;
+  border-bottom: .7rem solid transparent;
+}
+
+.artwork-preview-previous::before { border-right: .75rem solid currentColor; }
+.artwork-preview-next::before { border-left: .75rem solid currentColor; }
+
+.artwork-preview-nav:hover,
+.artwork-preview-nav:focus-visible {
+  border: 0;
+  background: transparent;
 }
 
 .artwork-preview-controls {
@@ -113,4 +167,7 @@ body.preview-is-open { overflow: hidden; }
   .artwork-preview-stage { padding: 4.75rem .75rem 5rem; }
   .artwork-preview-image { max-width: calc(100vw - 1.5rem); max-height: calc(100dvh - 10rem); }
   .artwork-preview-caption { bottom: 5rem; left: 1rem; max-width: calc(100% - 2rem); }
+  .artwork-preview-nav { width: 2.5rem; height: 3.25rem; }
+  .artwork-preview-previous { left: .5rem; }
+  .artwork-preview-next { right: .5rem; }
 }
