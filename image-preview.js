@@ -29,6 +29,7 @@
   const closeButton = preview.querySelector(".artwork-preview-close");
   const previousButton = preview.querySelector(".artwork-preview-previous");
   const nextButton = preview.querySelector(".artwork-preview-next");
+  const zoomOutButton = preview.querySelector(".artwork-preview-minus");
   const images = Array.from(previewableImages);
   let zoom = 1;
   let returnFocus = null;
@@ -43,12 +44,13 @@
   }
 
   function setZoom(nextZoom) {
-    zoom = Math.min(3, Math.max(.5, nextZoom));
+    zoom = Math.min(3, Math.max(1, nextZoom));
     if (zoom <= 1) {
       panX = 0;
       panY = 0;
     }
     image.classList.toggle("is-zoomed", zoom > 1);
+    zoomOutButton.disabled = zoom <= 1;
     updateImageTransform();
     zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
   }

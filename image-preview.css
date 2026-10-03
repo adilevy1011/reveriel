@@ -65,6 +65,12 @@ body.preview-is-open { overflow: hidden; }
   outline: none;
 }
 
+.artwork-preview-control:disabled {
+  color: rgba(255,255,255,.35);
+  cursor: default;
+  opacity: .65;
+}
+
 .artwork-preview-close {
   position: absolute;
   z-index: 2;

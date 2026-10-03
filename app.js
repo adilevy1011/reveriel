@@ -438,6 +438,28 @@
     const $modalCaption = $modal.querySelector('.caption');
     const $modalNext = $modal.querySelector('.next');
     const $modalPrevious = $modal.querySelector('.previous');
+    const portfolioZoomEnabled = document.body.classList.contains('portfolio-page');
+    let zoom = 1;
+    let panX = 0;
+    let panY = 0;
+    let grabStart = null;
+    let suppressCloseClick = false;
+
+    const updatePortfolioImageTransform = () => {
+        if (!portfolioZoomEnabled) return;
+        $modalImage.style.transform = `translate(${panX}px, ${panY}px) scale(${zoom})`;
+        $modalImage.classList.toggle('is-zoomed', zoom > 1);
+    };
+
+    const setPortfolioZoom = (nextZoom) => {
+        if (!portfolioZoomEnabled) return;
+        zoom = Math.min(3, Math.max(1, nextZoom));
+        if (zoom === 1) {
+        panX = 0;
+        panY = 0;
+        }
+        updatePortfolioImageTransform();
+    };
 
     $modalImage.addEventListener('load', function () {
         $modalImage.style.setProperty('--natural-width', $modalImage.naturalWidth + 'px');
@@ -454,6 +476,48 @@
 
     $modalImage.addEventListener('contextmenu', (e) => { if (_this.protect) e.preventDefault(); }, true);
     $modalImage.addEventListener('dragstart', (e) => { if (_this.protect) e.preventDefault(); }, true);
+
+    if (portfolioZoomEnabled) {
+        $modalInner.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        setPortfolioZoom(zoom + (event.deltaY < 0 ? .25 : -.25));
+        }, { passive: false });
+
+        $modalInner.addEventListener('pointerdown', (event) => {
+        if (zoom <= 1 || event.target !== $modalImage) return;
+        grabStart = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, originX: panX, originY: panY, moved: false };
+        event.preventDefault();
+        $modalImage.classList.add('is-dragging');
+        $modalInner.setPointerCapture(event.pointerId);
+        });
+
+        $modalInner.addEventListener('pointermove', (event) => {
+        if (!grabStart || grabStart.pointerId !== event.pointerId) return;
+        const deltaX = event.clientX - grabStart.startX;
+        const deltaY = event.clientY - grabStart.startY;
+        if (Math.hypot(deltaX, deltaY) > 5) grabStart.moved = true;
+        panX = grabStart.originX + deltaX;
+        panY = grabStart.originY + deltaY;
+        updatePortfolioImageTransform();
+        });
+
+        $modalInner.addEventListener('pointerup', (event) => {
+        if (!grabStart || grabStart.pointerId !== event.pointerId) return;
+        const moved = grabStart.moved;
+        grabStart = null;
+        $modalImage.classList.remove('is-dragging');
+        if ($modalInner.hasPointerCapture(event.pointerId)) $modalInner.releasePointerCapture(event.pointerId);
+        if (moved) {
+            suppressCloseClick = true;
+            window.setTimeout(() => { suppressCloseClick = false; }, 250);
+        }
+        });
+
+        $modalInner.addEventListener('pointercancel', () => {
+        grabStart = null;
+        $modalImage.classList.remove('is-dragging');
+        });
+    }
 
     $modal.show = function (index, offset, direction) {
         if (_this.locked) return;
@@ -482,6 +546,8 @@
 
         let item = _this.$links.item(index);
         if (!item || item.dataset.lightboxIgnore === '1') return;
+
+        setPortfolioZoom(1);
 
         if (client.mobile) {
         _this.zoomIntervalId = setInterval(() => _this.zoomHandler(), 250);
@@ -518,6 +584,7 @@
     $modal.hide = function () {
         if (_this.locked || !$modal.classList.contains('visible')) return;
         _this.locked = true;
+        setPortfolioZoom(1);
         $modal.classList.remove('visible', 'loaded', 'switching', 'from-left', 'from-right', 'done');
         clearInterval(_this.zoomIntervalId);
         setTimeout(() => {
@@ -552,6 +619,10 @@
     });
 
     $modal.addEventListener('click', (e) => {
+        if (suppressCloseClick) {
+        suppressCloseClick = false;
+        return;
+        }
         if (e.target && (e.target.tagName === 'A' || e.target.tagName === 'SPOILER-TEXT')) return;
         $modal.hide();
     });
@@ -569,6 +640,17 @@
         case 27:
             e.preventDefault();
             $modal.hide();
+            break;
+        case 187:
+        case 107:
+            if (portfolioZoomEnabled) { e.preventDefault(); setPortfolioZoom(zoom + .25); }
+            break;
+        case 189:
+        case 109:
+            if (portfolioZoomEnabled) { e.preventDefault(); setPortfolioZoom(zoom - .25); }
+            break;
+        case 48:
+            if (portfolioZoomEnabled) { e.preventDefault(); setPortfolioZoom(1); }
             break;
         }
     });
