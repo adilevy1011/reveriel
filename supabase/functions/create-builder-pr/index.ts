@@ -61,10 +61,34 @@ Deno.serve(async (request) => {
     const files = new Map<string, any[]>();
     for (const op of operations || []) files.set(op.file_path, [...(files.get(op.file_path) || []), op]);
     for (const [path, ops] of files) {
-      const current = await github(`/repos/${repo}/contents/${path}?ref=${base}`);
-      let content = decode(current.content);
-      for (const op of ops) content = applyOperation(content, op);
-      await github(`/repos/${repo}/contents/${path}`, { method: "PUT", body: JSON.stringify({ message: `${body.summary || draft.name}: ${path}`, content: encode(content), branch, sha: current.sha }) });
+      const deleted = ops.find((op) => op.operation_type === "delete-asset");
+      if (deleted) {
+        const current = await github(`/repos/${repo}/contents/${path}?ref=${base}`);
+        await github(`/repos/${repo}/contents/${path}`, { method: "DELETE", body: JSON.stringify({ message: `${body.summary || draft.name}: remove ${path}`, branch, sha: current.sha }) });
+        continue;
+      }
+      const uploaded = ops.find((op) => op.operation_type === "upload-asset");
+      if (uploaded) {
+        let current: any = null;
+        try { current = await github(`/repos/${repo}/contents/${path}?ref=${base}`); } catch { /* new asset */ }
+        const dataUrl = String(uploaded.value);
+        const binaryContent = dataUrl.includes(",") ? dataUrl.split(",", 2)[1] : dataUrl;
+        const payload: Record<string, unknown> = { message: `${body.summary || draft.name}: ${path}`, content: binaryContent, branch };
+        if (current?.sha) payload.sha = current.sha;
+        await github(`/repos/${repo}/contents/${path}`, { method: "PUT", body: JSON.stringify(payload) });
+        continue;
+      }
+      const created = ops.find((op) => op.operation_type === "create-file");
+      let current: any = null;
+      let content = created ? String(created.value) : "";
+      if (!created) {
+        current = await github(`/repos/${repo}/contents/${path}?ref=${base}`);
+        content = decode(current.content);
+        for (const op of ops) content = applyOperation(content, op);
+      }
+      const payload: Record<string, unknown> = { message: `${body.summary || draft.name}: ${path}`, content: encode(content), branch };
+      if (current?.sha) payload.sha = current.sha;
+      await github(`/repos/${repo}/contents/${path}`, { method: "PUT", body: JSON.stringify(payload) });
     }
     const pr = await github(`/repos/${repo}/pulls`, { method: "POST", body: JSON.stringify({ title: body.summary || draft.name, head: branch, base, body: `## Design request\n\n${body.notes || "Created in Reveriel Studio Builder."}\n\nMaterialized from ${draft.name || `draft_${draft.draft_number}`}.` }) });
     await admin.from("builder_drafts").update({ status: "requested", name: draft.name }).eq("id", draftId);

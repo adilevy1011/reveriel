@@ -20,12 +20,9 @@
     </header>
     <main class="workspace">
       <aside class="sidebar left-panel">
-        <div class="panel-heading"><div><span class="eyebrow">SITE MAP</span><h2>Home</h2></div><button class="small-icon" id="add-section" title="Add section">+</button></div>
-        <div class="structure-tree">
-          <button class="tree-item selected" data-select="hero"><span class="drag">&#10479;</span><span class="tree-icon">&#9680;</span><span>Hero</span><span class="dots">...</span></button>
-          <button class="tree-item" data-select="gallery"><span class="drag">&#10479;</span><span class="tree-icon">&#9638;</span><span>Artwork gallery</span><span class="dots">...</span></button>
-          <button class="tree-item" data-select="commissions"><span class="drag">&#10479;</span><span class="tree-icon">T</span><span>Commissions</span><span class="dots">...</span></button>
-        </div>
+        <div class="panel-heading"><div><span class="eyebrow">BUILDER</span><h2>Library</h2></div><button id="add-section" hidden aria-hidden="true"></button></div>
+        <div class="library-tabs"><button class="library-tab active" data-library="sitemap"><span class="library-symbol">⌘</span><span>Sitemap</span><span>⌄</span></button><button class="library-tab" data-library="assets"><span class="library-symbol">▧</span><span>Assets</span><span>⌄</span></button><button class="library-tab" data-library="gallery"><span class="library-symbol">▦</span><span>Gallery</span><span>⌄</span></button></div>
+        <div id="library-panel" class="library-panel"></div>
         <div class="left-footer"><div class="mini-note"><div><strong>Safe draft mode</strong><p>The live website is rendered directly. Edits are stored as reversible operations.</p></div></div><div class="draft-picker"><label for="draft-select">ACTIVE DRAFT</label><div><select id="draft-select" aria-label="Active draft"></select><button id="new-draft" title="Start a new draft">+</button></div></div><div class="build-info"><span id="draft-label">DRAFT_01</span><span id="draft-time">Not started</span></div></div>
       </aside>
       <section class="canvas-area">
@@ -36,6 +33,8 @@
       <aside class="sidebar right-panel"><div class="inspector-tabs"><button class="active" data-tab="design">Design</button><button data-tab="content">Content</button><button data-tab="settings">Settings</button></div><div class="inspector-scroll" id="inspector"></div><div class="inspector-bottom"><button class="button save" id="save-button">Save draft locally <span>Ctrl S</span></button></div></aside>
     </main>
   </div>
+  <div class="modal-backdrop" id="asset-modal"><div class="modal asset-upload-modal"><button class="modal-close" data-close-asset>&times;</button><span class="eyebrow">DRAFT ASSET</span><h2>Upload an image</h2><p>Files are added to the active draft. The live website is not changed.</p><label class="dropzone" id="asset-dropzone"><input id="asset-file" type="file" accept="image/*"><span class="drop-icon">↑</span><strong>Choose a file or drag it here</strong><small>PNG, JPG, WEBP up to 10 MB</small></label><div class="request-result" id="asset-result"></div></div></div>
+  <div class="modal-backdrop" id="image-modal"><div class="modal image-modal"><button class="modal-close" data-close-image>&times;</button><img id="image-modal-preview" alt="Selected asset"><div class="image-modal-caption" id="image-modal-caption"></div></div></div>
   <div class="modal-backdrop" id="request-modal"><div class="modal"><button class="modal-close" data-close>&times;</button><span class="eyebrow">HANDOFF TO CODE</span><h2>Request this change</h2><p>The authenticated draft will be materialized into real website files by a Supabase Edge Function, then opened as a PR. GitHub credentials never reach the browser.</p><label>Change summary<input id="change-summary" value="Refine homepage design"></label><label>Notes for Sarah / developer<textarea id="change-notes" rows="4" placeholder="What should they know about this edit?"></textarea></label><div class="field"><label>Branch name</label><input id="github-branch" value="builder/draft-01" aria-label="Branch name"></div><div class="modal-actions"><button class="button ghost" data-close>Cancel</button><button class="button request" id="send-request">Create PR <span>&#8599;</span></button></div><div class="request-result" id="request-result"></div></div></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="builder.js"></script>
