@@ -31,7 +31,7 @@ function applyOperation(content: string, op: any) {
 async function github(path: string, options: RequestInit = {}) {
   const response = await fetch(`https://api.github.com${path}`, { ...options, headers: { Authorization: `Bearer ${githubToken}`, Accept: "application/vnd.github+json", "Content-Type": "application/json", ...(options.headers || {}) } });
   const body = await response.json();
-  if (!response.ok) throw new Error(body.message || `GitHub request failed (${response.status})`);
+  if (!response.ok) { const error = new Error(body.message || `GitHub request failed (${response.status})`); (error as any).status = response.status; throw error; }
   return body;
 }
 
@@ -56,8 +56,14 @@ Deno.serve(async (request) => {
     const repoInfo = await github(`/repos/${repo}`);
     const base = repoInfo.default_branch || "main";
     const baseRef = await github(`/repos/${repo}/git/ref/heads/${base}`);
-    const branch = String(body.branch || `builder/${draft.name || `draft-${draft.draft_number}`}`).replace(/[^a-zA-Z0-9/_-]/g, "-");
-    await github(`/repos/${repo}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseRef.object.sha }) });
+    let branch = String(body.branch || `builder/${draft.name || `draft-${draft.draft_number}`}`).replace(/[^a-zA-Z0-9/_-]/g, "-");
+    try {
+      await github(`/repos/${repo}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseRef.object.sha }) });
+    } catch (error) {
+      if ((error as any).status !== 422) throw error;
+      branch = `${branch}-${Date.now()}`;
+      await github(`/repos/${repo}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseRef.object.sha }) });
+    }
     const files = new Map<string, any[]>();
     for (const op of operations || []) files.set(op.file_path, [...(files.get(op.file_path) || []), op]);
     for (const [path, ops] of files) {
