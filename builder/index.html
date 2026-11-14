@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reveriel / Studio Builder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="builder.css">
+  <link rel="stylesheet" href="builder-overrides.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">r</span><div><strong>reveriel</strong><span class="eyebrow">STUDIO BUILDER</span></div></div>
+      <div class="topbar-center"><span class="status-dot"></span><span id="save-status">Live source / no draft changes</span><span class="slash">/</span><span class="page-chip">Home page</span></div>
+      <div class="top-actions"><button class="icon-button" id="undo" title="Undo">&#8630;</button><button class="icon-button" id="redo" title="Redo">&#8631;</button><button class="button ghost" id="preview-button">Preview source</button><button class="button request" id="request-button">Request change <span>&#8599;</span></button></div>
+    </header>
+    <main class="workspace">
+      <aside class="sidebar left-panel">
+        <div class="panel-heading"><div><span class="eyebrow">SITE MAP</span><h2>Home</h2></div><button class="small-icon" id="add-section" title="Add section">+</button></div>
+        <div class="structure-tree">
+          <button class="tree-item selected" data-select="hero"><span class="drag">&#10479;</span><span class="tree-icon">&#9680;</span><span>Hero</span><span class="dots">...</span></button>
+          <button class="tree-item" data-select="gallery"><span class="drag">&#10479;</span><span class="tree-icon">&#9638;</span><span>Artwork gallery</span><span class="dots">...</span></button>
+          <button class="tree-item" data-select="commissions"><span class="drag">&#10479;</span><span class="tree-icon">T</span><span>Commissions</span><span class="dots">...</span></button>
+        </div>
+        <div class="left-footer"><div class="mini-note"><span class="spark">&#10022;</span><div><strong>Safe draft mode</strong><p>The live website is rendered directly. Edits are stored as reversible operations.</p></div></div><div class="build-info"><span id="draft-label">DRAFT_01</span><span id="draft-time">Not started</span></div></div>
+      </aside>
+      <section class="canvas-area">
+        <div class="canvas-toolbar"><div class="device-switcher"><button class="device active" data-device="desktop">&#9632; <span>Desktop</span></button><button class="device" data-device="mobile">&#9643; <span>Mobile</span></button></div><div class="canvas-tools"><button id="zoom-out">-</button><span id="zoom-label">100%</span><button id="zoom-in">+</button><span class="divider"></span><button id="fit-canvas">Fit</button></div></div>
+        <div class="canvas-stage"><div class="browser-frame" id="browser-frame"><div class="browser-chrome"><span class="browser-dot red"></span><span class="browser-dot yellow"></span><span class="browser-dot green"></span><div class="url-bar"><span class="url-origin">reveriel.me</span><span class="url-slash">/</span><input id="url-path" aria-label="Current page path" value="" placeholder="home"></div><button class="browser-go" id="url-go" title="Go to page">&#8618;</button></div><div class="site-preview" id="site-preview"><iframe id="site-frame" title="Live Reveriel website preview" src="../index.html"></iframe></div></div></div>
+        <div class="canvas-footer"><span>Live source preview</span><span>Edits are isolated in <kbd>draft_01</kbd> until requested</span></div>
+      </section>
+      <aside class="sidebar right-panel"><div class="inspector-tabs"><button class="active" data-tab="design">Design</button><button data-tab="content">Content</button><button data-tab="settings">Settings</button></div><div class="inspector-scroll" id="inspector"></div><div class="inspector-bottom"><button class="button save" id="save-button">Save draft locally <span>Ctrl S</span></button></div></aside>
+    </main>
+  </div>
+  <div class="modal-backdrop" id="request-modal"><div class="modal"><button class="modal-close" data-close>&times;</button><span class="eyebrow">HANDOFF TO CODE</span><h2>Request this change</h2><p>The draft will be converted into real website file changes, committed to a branch, and opened as a PR. The builder itself is not changed.</p><label>Change summary<input id="change-summary" value="Refine homepage design"></label><label>Notes for Sarah / developer<textarea id="change-notes" rows="4" placeholder="What should they know about this edit?"></textarea></label><details><summary>GitHub connection <span class="optional">optional</span></summary><div class="github-fields"><input id="github-token" type="password" placeholder="Fine-grained GitHub token"><input id="github-branch" value="builder/draft-01" aria-label="Branch name"></div><small>With a token that can write to this repository, Builder will commit the actual website files and open the PR automatically. Without one, download the draft manifest.</small></details><div class="modal-actions"><button class="button ghost" data-close>Cancel</button><button class="button request" id="send-request">Create PR <span>&#8599;</span></button></div><div class="request-result" id="request-result"></div></div></div>
+  <script src="builder.js"></script>
+</body>
+</html>
