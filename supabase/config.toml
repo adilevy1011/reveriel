@@ -1,0 +1,4 @@
+project_id = "gvooqilvlqztifzpwaew"
+
+[functions.create-builder-pr]
+verify_jwt = true
